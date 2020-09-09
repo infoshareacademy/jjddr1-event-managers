@@ -1,4 +1,6 @@
-package main.java.com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers;
+
+import com.infoshare.eventmanagers.LoadJson.LoadJson;
 
 import java.util.Scanner;
 
@@ -31,6 +33,8 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("Wybrano opcję: " + menuList[1]);
+                    LoadJson loadJson = new LoadJson();
+                    loadJson.run();
                     break;
                 case 3:
                     System.out.println("Wybrano opcję: " + menuList[2]);

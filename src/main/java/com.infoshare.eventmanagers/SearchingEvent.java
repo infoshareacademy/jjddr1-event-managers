@@ -14,7 +14,7 @@ public class SearchingEvent {
 
         //przykładowa lista
 
-        List<String> listOfEvents = new ArrayList(Arrays.asList("Koncert1", "Koncert2","coś tam coś"));
+        List<String> listOfEvents = new ArrayList(Arrays.asList("Koncert1", "Koncert2", "coś tam coś"));
         Scanner scanner = new Scanner(System.in);
 
         //pobierz dane od użytkownika
@@ -22,13 +22,16 @@ public class SearchingEvent {
         System.out.println("Podaj nazwę wydarzenia, które szukasz");
         String givenEvent = scanner.nextLine();
 
+        boolean isFound = false;
         for (String s : listOfEvents) {
-            if (s.equals(givenEvent)){
-                System.out.println("Wydarzenie o które pytasz to : "+s);
+            if (s.equals(givenEvent)) {
+                isFound = true;
+                System.out.println("Wydarzenie o które pytasz to : " + s);
                 break;
-            } else{
-                System.out.println("Przykro nam, nie ma takiego wydarzenia.");
             }
+        }
+        if (!isFound) {
+            System.out.println("Przykro nam, nie ma takiego wydarzenia.");
         }
     }
 }

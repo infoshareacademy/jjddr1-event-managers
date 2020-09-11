@@ -1,4 +1,4 @@
-package main.java.com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers;
 
 import java.util.Scanner;
 

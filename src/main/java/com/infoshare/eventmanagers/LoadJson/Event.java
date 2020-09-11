@@ -9,6 +9,11 @@ public class Event {
     private String placeName;
     private String organizer;
     private String startDate;
+    private String descShort;
+
+    //pusty kontruktor, czemu działa?
+    public Event() {
+    }
 
     @Override
     public String toString() {
@@ -20,12 +25,6 @@ public class Event {
                 ", startDate='" + startDate + '\'' +
                 ", descShort='" + descShort + '\'' +
                 '}';
-    }
-
-    private String descShort;
-
-    //pusty kontruktor, czemu działa?
-    public Event() {
     }
 
     @JsonProperty("place")
@@ -52,7 +51,7 @@ public class Event {
     }
 
     class Place {
-        @JsonProperty("name")
+        @JsonProperty("name")//bez tego ne działało, czemu?
         String name;
 
         public Place() {

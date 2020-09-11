@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers;
 
-import com.infoshare.eventmanagers.LoadJson.LoadJson;
+import com.infoshare.eventmanagers.LoadJson.Repository;
+import com.infoshare.eventmanagers.LoadJson.SaveJson;
 
 import java.util.Scanner;
 
@@ -14,8 +15,8 @@ public class Menu {
     public void run() {
         System.out.println("Witaj w Event Manager");
         System.out.println("Have fun! :)");
-        LoadJson loadJson = new LoadJson();
-        loadJson.run();
+        SaveJson saveJson = new SaveJson();
+        Repository.eventList = saveJson.saveJsonAsArray();
         showMenu();
 
     }
@@ -26,7 +27,6 @@ public class Menu {
             System.out.print("Dokonaj wyboru(0 by wyjść) :");
             int choice = scanner.nextInt();
             if (choice == 0) {
-                //System.exit(0);
                 return;
             }
             switch (choice) {

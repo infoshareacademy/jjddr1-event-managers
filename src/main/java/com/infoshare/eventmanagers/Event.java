@@ -4,27 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Event {
     private int id;
-    @JsonProperty("name")//bez tego nie działało,
+    @JsonProperty("name")
     private String name;
     private String placeName;
     private String organizer;
     private String startDate;
     private String descShort;
 
-    //pusty kontruktor, czemu działa?
     public Event() {
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", placeName='" + placeName + '\'' +
-                ", organizer='" + organizer + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", descShort='" + descShort + '\'' +
-                '}';
     }
 
     @JsonProperty("place")
@@ -50,8 +37,36 @@ public class Event {
         return descShort;
     }
 
+
+    public void printMe() {
+        for (int i = 0; i < 160; i++) {
+            System.out.print("─");
+        }
+        System.out.println();
+        System.out.println("| Nazwa: " + name);
+        System.out.println("| Miejsce: " + placeName);
+        System.out.println("| Organizator: " + organizer);
+        System.out.println("| Data rozpoczęcia: " + startDate);
+        System.out.println("| Krótki opis: " + descShort);
+
+
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", placeName='" + placeName + '\'' +
+                ", organizer='" + organizer + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", descShort='" + descShort + '\'' +
+                '}';
+    }
+
     class Place {
-        @JsonProperty("name")//bez tego ne działało, czemu?
+
+        @JsonProperty("name")
         String name;
 
         public Place() {

@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.LoadJson;
+package com.infoshare.eventmanagers;
 
 
 import com.infoshare.eventmanagers.Event;

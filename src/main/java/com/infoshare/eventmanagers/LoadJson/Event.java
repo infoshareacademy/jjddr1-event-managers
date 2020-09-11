@@ -1,72 +1,78 @@
 package com.infoshare.eventmanagers.LoadJson;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
-
-@JsonIgnoreProperties
 public class Event {
-    private final int id;
-//    private final String name;
-//    private final String place;
-//    private final URL wwwAdres;
-//    private final String organizer;
-//    private final String startDate;
-//    private final String descShort;
+    private int id;
+    @JsonProperty("name")//bez tego nie działało,
+    private String name;
+    private String placeName;
+    private String organizer;
+    private String startDate;
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", placeName='" + placeName + '\'' +
+                ", organizer='" + organizer + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", descShort='" + descShort + '\'' +
+                '}';
+    }
 
-    public Event(@JsonProperty int id
-//                 @JsonProperty String name,
-//                 @JsonProperty String place,
-//                 @JsonProperty URL wwwAdres,
-//                 @JsonProperty String organizer,
-//                 @JsonProperty String startDate,
-//                 @JsonProperty String descShort
-                ) {
-        this.id = id;
-//        this.name = name;
-//        this.place = place;
-//        this.wwwAdres = wwwAdres;
-//        this.organizer = organizer;
-//        this.startDate = startDate;
-//        this.descShort = descShort;
+    private String descShort;
+
+    //pusty kontruktor, czemu działa?
+    public Event() {
+    }
+
+    @JsonProperty("place")
+    public void setPlaceName(Place place) {
+        this.placeName = place.getName();
+    }
+
+    @JsonProperty("organizer")
+    public void setOrganizer(Organizer organizer) {
+        this.organizer = organizer.getDesignation();
     }
 
     public int getId() {
         return id;
     }
-//
-//    public String getPlace() {
-//        return place;
-//    }
-//
-//    public URL getWwwAdres() {
-//        return wwwAdres;
-//    }
-//
-//    public String getOrganizer() {
-//        return organizer;
-//    }
-//
-//    public String getStartDate() {
-//        return startDate;
-//    }
-//
-//    public String getDescShort() {
-//        return descShort;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Event{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", place='" + place + '\'' +
-//                ", wwwAdres=" + wwwAdres +
-//                ", organizer='" + organizer + '\'' +
-//                ", startDate=" + startDate +
-//                ", descShort='" + descShort + '\'' +
-//                '}';
-//    }
+
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getDescShort() {
+        return descShort;
+    }
+
+    class Place {
+        @JsonProperty("name")
+        String name;
+
+        public Place() {
+
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    class Organizer {
+        String designation;
+
+        public Organizer() {
+        }
+
+        public String getDesignation() {
+            return designation;
+        }
+    }
+
 }

@@ -14,6 +14,8 @@ public class Menu {
     public void run() {
         System.out.println("Witaj w Event Manager");
         System.out.println("Have fun! :)");
+        LoadJson loadJson = new LoadJson();
+        loadJson.run();
         showMenu();
 
     }
@@ -33,8 +35,6 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("Wybrano opcję: " + menuList[1]);
-                    LoadJson loadJson = new LoadJson();
-                    loadJson.run();
                     break;
                 case 3:
                     System.out.println("Wybrano opcję: " + menuList[2]);
@@ -60,7 +60,6 @@ public class Menu {
     }
 
     void printLine() {
-
         for (int i = 0; i < 80; i++) {
             System.out.print("─");
         }

@@ -1,8 +1,5 @@
 package com.infoshare.eventmanagers;
 
-import com.infoshare.eventmanagers.LoadJson.Repository;
-import com.infoshare.eventmanagers.LoadJson.SaveJson;
-
 import java.util.Scanner;
 
 public class Menu {

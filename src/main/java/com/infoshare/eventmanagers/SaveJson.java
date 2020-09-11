@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.LoadJson;
+package com.infoshare.eventmanagers;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

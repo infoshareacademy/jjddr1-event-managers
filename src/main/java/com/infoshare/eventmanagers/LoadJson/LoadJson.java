@@ -44,4 +44,10 @@ public class LoadJson {
     }
 
 
+    public LoadJson(){
+
+    }
+
+    // repozytory, lista event
+
 }

@@ -1,4 +1,3 @@
-
 package com.infoshare.eventmanagers;
 
 import java.util.Scanner;
@@ -13,8 +12,6 @@ public class Menu {
     public void run() {
         System.out.println("Witaj w Event Manager");
         System.out.println("Have fun! :)");
-        SaveJson saveJson = new SaveJson();
-        Repository.eventList = saveJson.saveJsonAsArray();
         showMenu();
 
     }

@@ -22,7 +22,6 @@ public class Menu {
             System.out.print("Dokonaj wyboru(0 by wyjść) :");
             int choice = scanner.nextInt();
             if (choice == 0) {
-                //System.exit(0);
                 return;
             }
             switch (choice) {
@@ -56,7 +55,6 @@ public class Menu {
     }
 
     void printLine() {
-
         for (int i = 0; i < 80; i++) {
             System.out.print("─");
         }

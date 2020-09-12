@@ -23,6 +23,7 @@ public class EventMgrProperties {
         date
     }
 
+
     private final Properties properties;
     private final String DEFAULT_PROPERTIES = "default.properties";
     private final String APP_PROPERTIES = "app.properties";

@@ -1,14 +1,21 @@
 package com.infoshare.eventmanagers;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.Scanner;
+
+enum SORTING_ORDER {
+    host,
+    date
+}
 
 /**
  * Provides access to preferences for Event Manager app.
@@ -17,27 +24,125 @@ import java.util.Properties;
  */
 
 public class EventMgrProperties {
-
-    enum SORTING_ORDER {
-        host,
-        date
-    }
-
-
-    private final Properties properties;
+    private final static String MENU_LINE = "========================================";
+    private final static Scanner SCANNER = new Scanner(System.in);
+    private final static Logger LOGGER = LogManager.getLogger(MainProperties.class);
     private final String DEFAULT_PROPERTIES = "default.properties";
     private final String APP_PROPERTIES = "app.properties";
     private final String RESOURCE_PATH = getResourcePath();
+    private final Properties properties;
 
-
+    /**
+     * Constructor.
+     * Loads app or default properties.
+     */
     public EventMgrProperties() {
         this.properties = getProperties();
     }
 
     /**
+     * Displays main properties menu
+     */
+    public void displayPropertiesMenu() {
+        while (true) {
+            LOGGER.info(MENU_LINE);
+            LOGGER.info("Settings Menu");
+            LOGGER.info("Current Settings: \n");
+            LOGGER.info(this.toString());
+            LOGGER.info("Select an option, enter any not listed number to exit:");
+            LOGGER.info("""
+                    1. Change sorting order
+                    2. Change date format
+                    3. Reset to default
+                    4. Save settings
+                    Press [ENTER] to return to previous menu.
+                    """);
+            String userInput = SCANNER.nextLine();
+            if (userInput.equals("")) return;
+            else
+                try {
+                    int input = Integer.parseInt(userInput);
+                    switch (input) {
+                        case 1 -> displaySortingOrderMenu();
+                        case 2 -> displayDateFormatMenu();
+                        case 3 -> {
+                            resetProperties();
+                            LOGGER.info("Settings reset to default.");
+                        }
+                        case 4 -> {
+                            saveProperties();
+                            LOGGER.info("Settings saved.");
+                        }
+                        default -> {
+                            return;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    LOGGER.warn("Invalid input");
+                }
+        }
+    }
+
+    /**
+     * Displays menu to change the sorting order
+     */
+    private void displaySortingOrderMenu() {
+        while (true) {
+            LOGGER.info(MENU_LINE);
+            LOGGER.info("Choose sorting order");
+            LOGGER.info("Currently sorting by: " + getSortingOrder());
+            LOGGER.info("""
+                    Choose option:
+                    1. Sort by host
+                    2. Sort by date
+                    Press [ENTER] to return to previous menu.
+                    """);
+            String userInput = SCANNER.nextLine();
+            if (userInput.equals("")) return;
+            else
+                try {
+                    int input = Integer.parseInt(userInput);
+                    switch (input) {
+                        case 1 -> {
+                            setSortingOrder(SORTING_ORDER.host.toString());
+                            return;
+                        }
+                        case 2 -> {
+                            setSortingOrder(SORTING_ORDER.date.toString());
+                            return;
+                        }
+                        default -> {
+                            return;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    LOGGER.warn("Invalid input");
+                }
+        }
+    }
+
+    /**
+     * Display window to change the date format
+     */
+    private void displayDateFormatMenu() {
+        while (true) {
+            LOGGER.info(MENU_LINE);
+            LOGGER.info("Current date format: " + properties.getProperty("date.format"));
+            LOGGER.info("Enter new date format or press enter to return to previous menu.");
+            SCANNER.reset();
+            String userInput = SCANNER.nextLine();
+            if (userInput.equals("")) {
+                return;
+            } else {
+                setDateFormat(userInput);
+            }
+        }
+    }
+
+    /**
      * Loads default properties and stores it in app properties
      */
-    public void resetProperties(){
+    public void resetProperties() {
         getPropertiesFromFile(DEFAULT_PROPERTIES);
         saveProperties();
     }
@@ -53,7 +158,6 @@ public class EventMgrProperties {
      * Checks if provided string is a valid date format and sets property if it's valid.
      * If invalid, displays an error message
      */
-
     public void setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
             properties.setProperty("date.format", newFormat);
@@ -77,7 +181,7 @@ public class EventMgrProperties {
         if (validateSortingOrder(newOrder)) {
             properties.setProperty("sorting.order", newOrder);
         } else {
-            System.out.println("Invalid sorting order");
+            LOGGER.info("Invalid sorting order");
         }
     }
 
@@ -87,11 +191,11 @@ public class EventMgrProperties {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         properties.forEach((key, value) ->
-                builder.append(key + ":\t" + value + "\n").toString());
+                builder.append(key + ":\t" + value + "\n"));
         return builder.toString();
     }
 
-    private boolean validateSortingOrder(String newSortingOrder){
+    private boolean validateSortingOrder(String newSortingOrder) {
         for (SORTING_ORDER value : SORTING_ORDER.values()) {
             if (value.toString().equals(newSortingOrder)) {
                 return true;
@@ -101,10 +205,11 @@ public class EventMgrProperties {
     }
 
     private boolean validateDateFormat(String newFormat) {
-        DateFormat df = new SimpleDateFormat();
+
         try {
-            df.parse(newFormat);
-        } catch (ParseException e) {
+            new SimpleDateFormat(newFormat);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
             return false;
         }
         return true;

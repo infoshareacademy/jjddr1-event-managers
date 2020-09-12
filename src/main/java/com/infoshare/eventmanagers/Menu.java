@@ -3,8 +3,11 @@ package com.infoshare.eventmanagers;
 import java.util.Scanner;
 
 public class Menu {
+    public EventMgrProperties eventMgrproperties = new EventMgrProperties();
+
 
     private Scanner scanner = new Scanner(System.in);
+
     private String[] menuList = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia"};
 
@@ -36,7 +39,7 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("Wybrano opcję: " + menuList[3]);
-                    break;
+                    eventMgrproperties.displayPropertiesMenu();
                 case 5:
                     System.out.println("Wybrano opcję: " + menuList[4]);
                     break;

@@ -40,6 +40,7 @@ public class Menu {
                 case 4:
                     System.out.println("Wybrano opcję: " + menuList[3]);
                     eventMgrproperties.displayPropertiesMenu();
+                    break;
                 case 5:
                     System.out.println("Wybrano opcję: " + menuList[4]);
                     break;

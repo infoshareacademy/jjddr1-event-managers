@@ -24,13 +24,21 @@ enum SORTING_ORDER {
  */
 
 public class EventMgrProperties {
-    private final static String MENU_LINE = "========================================";
+    private final static String MENU_LINE = getLine();
     private final static Scanner SCANNER = new Scanner(System.in);
-    private final static Logger LOGGER = LogManager.getLogger(MainProperties.class);
+    private final static Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
     private final String DEFAULT_PROPERTIES = "default.properties";
     private final String APP_PROPERTIES = "app.properties";
     private final String RESOURCE_PATH = getResourcePath();
     private final Properties properties;
+
+    static String getLine() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 80; i++) {
+            sb.append("─");
+        }
+        return sb.toString();
+    }
 
     /**
      * Constructor.
@@ -45,18 +53,17 @@ public class EventMgrProperties {
      */
     public void displayPropertiesMenu() {
         while (true) {
-            LOGGER.info(MENU_LINE);
-            LOGGER.info("Settings Menu");
-            LOGGER.info("Current Settings: \n");
+            LOGGER.info("\n4########## Settings Menu ##########");
+            LOGGER.info("Current settings:\n");
             LOGGER.info(this.toString());
-            LOGGER.info("Select an option, enter any not listed number to exit:");
             LOGGER.info("""
-                    1. Change sorting order
-                    2. Change date format
-                    3. Reset to default
-                    4. Save settings
-                    Press [ENTER] to return to previous menu.
-                    """);
+                    1: Change sorting order
+                    2: Change date format
+                    3: Reset to default
+                    4: Save settings
+                    Press [ENTER] to return to previous menu.""");
+            LOGGER.info(MENU_LINE);
+            LOGGER.info("Choose option:");
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) return;
             else
@@ -88,15 +95,15 @@ public class EventMgrProperties {
      */
     private void displaySortingOrderMenu() {
         while (true) {
-            LOGGER.info(MENU_LINE);
             LOGGER.info("Choose sorting order");
             LOGGER.info("Currently sorting by: " + getSortingOrder());
             LOGGER.info("""
                     Choose option:
-                    1. Sort by host
-                    2. Sort by date
-                    Press [ENTER] to return to previous menu.
-                    """);
+                    1: Sort by host
+                    2: Sort by date
+                    Press [ENTER] to return to previous menu.""");
+            LOGGER.info(MENU_LINE);
+            LOGGER.info("Choose option:");
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) return;
             else
@@ -126,8 +133,9 @@ public class EventMgrProperties {
      */
     private void displayDateFormatMenu() {
         while (true) {
+            LOGGER.info("Change date format");
+            LOGGER.info("Current date format is: " + properties.getProperty("date.format"));
             LOGGER.info(MENU_LINE);
-            LOGGER.info("Current date format: " + properties.getProperty("date.format"));
             LOGGER.info("Enter new date format or press enter to return to previous menu.");
             SCANNER.reset();
             String userInput = SCANNER.nextLine();
@@ -251,6 +259,8 @@ public class EventMgrProperties {
     private String getResourcePath() {
         return Thread.currentThread().getContextClassLoader().getResource("").getPath();
     }
+
+
 
 
 }

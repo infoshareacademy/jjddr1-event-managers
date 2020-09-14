@@ -24,12 +24,17 @@ public class Event {
     public Event() {
     }
 
+<<<<<<< HEAD
     @JsonProperty("descShort")
     public void setDescShort(String descShort) {
         descShort = descShort.replaceAll("\\s{2,}", " ").trim();
         descShort = descShort.replaceAll("/\n/g, ", "");
 
         this.descShort = descShort;
+=======
+    public String getName() {
+        return name;
+>>>>>>> SearchingEvent changes
     }
 
     @JsonProperty("place")

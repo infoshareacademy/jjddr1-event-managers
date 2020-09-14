@@ -27,6 +27,8 @@ public class Menu {
             switch (choice) {
                 case 1:
                     System.out.println("Wybrano opcję: " + menuList[0]);
+                    SearchingEvent newSerchingEvent = new SearchingEvent();
+                    newSerchingEvent.run();
                     break;
                 case 2:
                     System.out.println("Wybrano opcję: " + menuList[1]);

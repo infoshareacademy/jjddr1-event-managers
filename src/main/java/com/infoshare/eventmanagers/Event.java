@@ -14,6 +14,10 @@ public class Event {
     public Event() {
     }
 
+    public String getName() {
+        return name;
+    }
+
     @JsonProperty("place")
     public void setPlaceName(Place place) {
         this.placeName = place.getName();

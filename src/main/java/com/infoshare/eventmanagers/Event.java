@@ -2,13 +2,16 @@ package com.infoshare.eventmanagers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 public class Event {
     private int id;
     @JsonProperty("name")
     private String name;
     private String placeName;
     private String organizer;
-    private String startDate;
+    private LocalDate startDate;
+    @JsonProperty("descShort")
     private String descShort;
 
     public Event() {
@@ -24,19 +27,19 @@ public class Event {
         this.organizer = organizer.getDesignation();
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public String getDescShort() {
-        return descShort;
-    }
+    @JsonProperty("startDate")
+    public void setStartDate(String startDate) {
 
+        this.startDate = LocalDate.parse(startDate.substring(0, 10));
+    }
 
     public void printMe() {
         for (int i = 0; i < 160; i++) {

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
 
     private Scanner scanner = new Scanner(System.in);
-    private String[] menuList = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
+    private String[] menuList = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń ",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia"};
 
 
@@ -30,6 +30,8 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("Wybrano opcję: " + menuList[1]);
+                    new EventList().run();
+
                     break;
                 case 3:
                     System.out.println("Wybrano opcję: " + menuList[2]);

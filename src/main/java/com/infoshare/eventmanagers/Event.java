@@ -41,7 +41,7 @@ public class Event {
         this.startDate = LocalDate.parse(startDate.substring(0, 10));
     }
 
-    public void printMe() {
+    public void printFull() {
         for (int i = 0; i < 160; i++) {
             System.out.print("─");
         }
@@ -51,9 +51,16 @@ public class Event {
         System.out.println("| Organizator: " + organizer);
         System.out.println("| Data rozpoczęcia: " + startDate);
         System.out.println("| Krótki opis: " + descShort);
-
-
     }
+
+    public void printAsList(){
+        for (int i = 0; i < 160; i++) {
+            System.out.print("─");
+        }
+        System.out.println();
+        System.out.println("| Miejsce: " +placeName +  "\n"+ "| Nazwa: "+name);
+    }
+
 
     @Override
     public String toString() {

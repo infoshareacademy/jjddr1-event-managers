@@ -8,8 +8,7 @@ import java.util.List;
 public class Repository {
 
     public static final EventMgrProperties SETTINGS = new EventMgrProperties();
-
-    public static  List<Event> eventList ;
+    public static final List<Event> eventList=new SaveJson().saveJsonAsArray();
 
     private Repository(){
 

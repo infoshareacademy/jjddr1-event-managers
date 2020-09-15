@@ -59,8 +59,12 @@ public class Event {
         this.startDate = LocalDate.parse(startDate.substring(0, 10));
     }
 
-    public void printFull() {
-        for (int i = 0; i < 84; i++) {
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void printMe() {
+        for (int i = 0; i < 160; i++) {
             System.out.print("─");
         }
         ;

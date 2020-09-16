@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Menu {
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
-    private final String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
-            "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia"};
+    private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
+            "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",
+            "Dodawanie/usuwanie ulubionych wydarzeń"};
     private Scanner scanner = new Scanner(System.in);
 
 
     public void run() {
-        LOGGER.info("Witaj w Event Manager\n");
-        LOGGER.info("Have fun! :)\n");
+        System.out.println("Witaj w Event Manager");
+        System.out.println("Have fun! :)");
         showMenu();
 
     }
@@ -46,9 +47,13 @@ public class Menu {
                     eventMenu.displayPropertiesMenu();
                     break;
                 case 5:
-                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[4]);
+                    System.out.println("Wybrano opcję: " + MENULIST[4]);
                     break;
                 case 6:
+                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[5]);
+
+                    break;
+                case 7:
                     next = false;
                     break;
                 default:

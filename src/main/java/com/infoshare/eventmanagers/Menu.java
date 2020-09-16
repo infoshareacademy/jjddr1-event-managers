@@ -39,6 +39,8 @@ public class Menu {
                     break;
                 case 5:
                     System.out.println("Wybrano opcję: " + menuList[4]);
+                    IncomingEvent incomingEvent = new IncomingEvent();
+                    incomingEvent.run();
                     break;
                 default:
                     System.out.println("Brak takiej opcji ");

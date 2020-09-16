@@ -39,6 +39,7 @@ public class Menu {
                     break;
                 case 3:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[2]);
+                    MenuEventListFilter.showMenu();
                     break;
                 case 4:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[3]);

@@ -12,6 +12,11 @@ public class Menu {
     public void run() {
         System.out.println("Witaj w Event Manager");
         System.out.println("Have fun! :)");
+        Repository.eventList = SaveJson.saveJsonAsArray();
+
+        for (Event e : Repository.eventList) {
+            e.printAsList();
+        }
         showMenu();
 
     }

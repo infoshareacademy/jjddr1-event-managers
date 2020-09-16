@@ -13,12 +13,12 @@ import java.util.List;
 
 public class SaveJson {
 
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final Path eventPaths = Paths.get("src/main/java/resources/events.json");
-    private String fileAsString;
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Path eventPaths = Paths.get("src/main/java/resources/events.json");
+    private static String fileAsString;
 
 
-    public List<Event> saveJsonAsArray() {
+    static  public List<Event> saveJsonAsArray() {
         Event[] events = null;
         if (Files.exists(eventPaths)) {
             try {

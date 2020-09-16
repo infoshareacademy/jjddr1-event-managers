@@ -1,15 +1,14 @@
 package com.infoshare.eventmanagers;
 
 
-
-
 import java.util.List;
 
 public class Repository {
 
-    public static final List<Event> eventList=new SaveJson().saveJsonAsArray();
+    public static  List<Event> eventList ;
 
-    private Repository(){
+
+    private Repository() {
 
     }
 

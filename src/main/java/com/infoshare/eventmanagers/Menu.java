@@ -33,6 +33,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Wybrano opcję: " + menuList[2]);
+                    MenuEventListFilter.showMenu();
                     break;
                 case 4:
                     System.out.println("Wybrano opcję: " + menuList[3]);

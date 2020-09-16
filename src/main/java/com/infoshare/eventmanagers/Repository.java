@@ -10,7 +10,9 @@ public class Repository {
     public static final EventMgrProperties SETTINGS = new EventMgrProperties();
     public static final List<Event> eventList=new SaveJson().saveJsonAsArray();
 
-    private Repository(){
+
+
+    private Repository() {
 
     }
 

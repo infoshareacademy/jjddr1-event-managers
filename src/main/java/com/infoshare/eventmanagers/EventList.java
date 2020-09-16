@@ -12,6 +12,7 @@ public class EventList {
         while (nextLoop) {
             System.out.println("1: Widok listy ");
             System.out.println("2: Widok pojedyńczego wydarzenia");
+            System.out.println("3: Powrót do porzedniego menu");
             System.out.print("Wybierz opcję: ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -37,7 +38,6 @@ public class EventList {
             Repository.eventList.get(i).printFull();
             if (i == 0) {
                 System.out.println("1: Następne wydarzenie");
-                ;
                 System.out.println("2: Powrót do porzedniego menu ");
                 int choice = scanner.nextInt();
                 switch (choice) {
@@ -86,7 +86,6 @@ public class EventList {
     }
 
     private void listView() {
-
 
     }
 }

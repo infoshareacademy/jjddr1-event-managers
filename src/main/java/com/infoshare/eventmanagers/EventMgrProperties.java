@@ -32,14 +32,6 @@ public class EventMgrProperties {
     private final String RESOURCE_PATH = getResourcePath();
     private final Properties properties;
 
-    static String getLine() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 80; i++) {
-            sb.append("─");
-        }
-        return sb.toString();
-    }
-
     /**
      * Constructor.
      * Loads app or default properties.
@@ -262,6 +254,12 @@ public class EventMgrProperties {
 
 
 
-
+    private static String getLine() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 80; i++) {
+            sb.append("─");
+        }
+        return sb.toString();
+    }
 }
 

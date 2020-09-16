@@ -14,18 +14,13 @@ public class SearchingEvent {
 
     public void run() {
 
-        SaveJson saveJson = new SaveJson();
-        Repository.eventList = saveJson.saveJsonAsArray();
-        List<Event> listOfEvents = Repository.eventList;
         Scanner scanner = new Scanner(System.in);
-
-        //pobierz dane od użytkownika
 
         System.out.println("Podaj nazwę wydarzenia, które szukasz");
         String givenEvent = scanner.nextLine();
 
         boolean isFound = false;
-        for (Event s : listOfEvents) {
+        for (Event s : Repository.eventList) {
             if (s.getName().contains(givenEvent)) {
                 isFound = true;
                 System.out.println("Wydarzenie o które pytasz to : ");

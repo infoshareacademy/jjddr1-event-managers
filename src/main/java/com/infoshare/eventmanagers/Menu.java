@@ -3,8 +3,6 @@ package com.infoshare.eventmanagers;
 import java.util.Scanner;
 
 public class Menu {
-    public EventMgrProperties eventMgrproperties = new EventMgrProperties();
-
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -39,7 +37,8 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("Wybrano opcję: " + menuList[3]);
-                    eventMgrproperties.displayPropertiesMenu();
+                    MenuEventMgrProperties eventMenu = new MenuEventMgrProperties();
+                    eventMenu.displayPropertiesMenu();
                     break;
                 case 5:
                     System.out.println("Wybrano opcję: " + menuList[4]);

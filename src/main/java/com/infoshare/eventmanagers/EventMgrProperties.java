@@ -10,11 +10,10 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
-import java.util.Scanner;
 
 enum SORTING_ORDER {
-    host,
-    date
+    ORGANIZATOR,
+    DATA
 }
 
 /**
@@ -24,13 +23,11 @@ enum SORTING_ORDER {
  */
 
 public class EventMgrProperties {
-    private final static String MENU_LINE = getLine();
-    private final static Scanner SCANNER = new Scanner(System.in);
     private final static Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
     private final String DEFAULT_PROPERTIES = "default.properties";
-    private final String APP_PROPERTIES = "app.properties";
+    private final static String APP_PROPERTIES = "app.properties";
     private final String RESOURCE_PATH = getResourcePath();
-    private final Properties properties;
+    private Properties properties;
 
     /**
      * Constructor.
@@ -40,117 +37,14 @@ public class EventMgrProperties {
         this.properties = getProperties();
     }
 
-    /**
-     * Displays main properties menu
-     */
-    public void displayPropertiesMenu() {
-        while (true) {
-            LOGGER.info("\n4########## Settings Menu ##########");
-            LOGGER.info("Current settings:\n");
-            LOGGER.info(this.toString());
-            LOGGER.info("""
-                    1: Change sorting order
-                    2: Change date format
-                    3: Reset to default
-                    4: Save settings
-                    Press [ENTER] to return to previous menu.""");
-            LOGGER.info(MENU_LINE);
-            LOGGER.info("Choose option:");
-            String userInput = SCANNER.nextLine();
-            if (userInput.equals("")) return;
-            else
-                try {
-                    int input = Integer.parseInt(userInput);
-                    switch (input) {
-                        case 1 -> displaySortingOrderMenu();
-                        case 2 -> displayDateFormatMenu();
-                        case 3 -> {
-                            resetProperties();
-                            LOGGER.info("Settings reset to default.");
-                        }
-                        case 4 -> {
-                            saveProperties();
-                            LOGGER.info("Settings saved.");
-                        }
-                        default -> {
-                            return;
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    LOGGER.warn("Invalid input");
-                }
-        }
-    }
-
-    /**
-     * Displays menu to change the sorting order
-     */
-    private void displaySortingOrderMenu() {
-        while (true) {
-            LOGGER.info("Choose sorting order");
-            LOGGER.info("Currently sorting by: " + getSortingOrder());
-            LOGGER.info("""
-                    Choose option:
-                    1: Sort by host
-                    2: Sort by date
-                    Press [ENTER] to return to previous menu.""");
-            LOGGER.info(MENU_LINE);
-            LOGGER.info("Choose option:");
-            String userInput = SCANNER.nextLine();
-            if (userInput.equals("")) return;
-            else
-                try {
-                    int input = Integer.parseInt(userInput);
-                    switch (input) {
-                        case 1 -> {
-                            setSortingOrder(SORTING_ORDER.host.toString());
-                            return;
-                        }
-                        case 2 -> {
-                            setSortingOrder(SORTING_ORDER.date.toString());
-                            return;
-                        }
-                        default -> {
-                            return;
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    LOGGER.warn("Invalid input");
-                }
-        }
-    }
-
-    /**
-     * Display window to change the date format
-     */
-    private void displayDateFormatMenu() {
-        while (true) {
-            LOGGER.info("Change date format");
-            LOGGER.info("Current date format is: " + properties.getProperty("date.format"));
-            LOGGER.info(MENU_LINE);
-            LOGGER.info("Enter new date format or press enter to return to previous menu.");
-            SCANNER.reset();
-            String userInput = SCANNER.nextLine();
-            if (userInput.equals("")) {
-                return;
-            } else {
-                setDateFormat(userInput);
-            }
-        }
-    }
-
-    /**
-     * Loads default properties and stores it in app properties
-     */
-    public void resetProperties() {
-        getPropertiesFromFile(DEFAULT_PROPERTIES);
-        saveProperties();
+    public String getDateFormatAsString() {
+        return properties.getProperty("date.format");
     }
 
     /**
      * @return DateTimeFormatter object with current date format
      */
-    public DateTimeFormatter getDateFormat() {
+    public DateTimeFormatter getDateFormatAsDateTimeFormatter() {
         return DateTimeFormatter.ofPattern(properties.getProperty("date.format"));
     }
 
@@ -162,7 +56,7 @@ public class EventMgrProperties {
         if (validateDateFormat(newFormat)) {
             properties.setProperty("date.format", newFormat);
         } else {
-            System.out.println("Invalid date format");
+            LOGGER.info("Niepoprawny format daty");
         }
     }
 
@@ -179,10 +73,18 @@ public class EventMgrProperties {
      */
     public void setSortingOrder(String newOrder) {
         if (validateSortingOrder(newOrder)) {
-            properties.setProperty("sorting.order", newOrder);
+            properties.setProperty("sorting.order", newOrder.toLowerCase());
         } else {
-            LOGGER.info("Invalid sorting order");
+            LOGGER.info("Podano niepoprawny porządek sortowania");
         }
+    }
+
+    /**
+     * Loads default properties and stores it in app properties
+     */
+    public void resetProperties() {
+        this.properties = getPropertiesFromFile(DEFAULT_PROPERTIES);
+        saveProperties();
     }
 
     /**
@@ -229,7 +131,7 @@ public class EventMgrProperties {
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -237,15 +139,15 @@ public class EventMgrProperties {
 
     private Properties getPropertiesFromFile(String properties) {
 
-        Properties eventMgrProps = new Properties();
+        Properties newProperties = new Properties();
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
-            eventMgrProps.load(stream);
+            newProperties.load(stream);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return eventMgrProps;
+        return newProperties;
     }
 
     private String getResourcePath() {
@@ -253,13 +155,5 @@ public class EventMgrProperties {
     }
 
 
-
-    private static String getLine() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 80; i++) {
-            sb.append("─");
-        }
-        return sb.toString();
-    }
 }
 

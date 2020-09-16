@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
 
 enum SORTING_ORDER {
@@ -23,10 +24,11 @@ enum SORTING_ORDER {
  */
 
 public class EventMgrProperties {
-    private final static Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
-    private final String DEFAULT_PROPERTIES = "default.properties";
-    private final static String APP_PROPERTIES = "app.properties";
-    private final String RESOURCE_PATH = getResourcePath();
+    private static final Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
+    private static final String DEFAULT_PROPERTIES = "default.properties";
+    private static final  String APP_PROPERTIES = "app.properties";
+    public static final String DATE_FORMAT = "date.format";
+    private static final String RESOURCE_PATH = getResourcePath();
     private Properties properties;
 
     /**
@@ -38,14 +40,14 @@ public class EventMgrProperties {
     }
 
     public String getDateFormatAsString() {
-        return properties.getProperty("date.format");
+        return properties.getProperty(DATE_FORMAT);
     }
 
     /**
      * @return DateTimeFormatter object with current date format
      */
     public DateTimeFormatter getDateFormatAsDateTimeFormatter() {
-        return DateTimeFormatter.ofPattern(properties.getProperty("date.format"));
+        return DateTimeFormatter.ofPattern(properties.getProperty(DATE_FORMAT));
     }
 
     /**
@@ -54,7 +56,7 @@ public class EventMgrProperties {
      */
     public void setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
-            properties.setProperty("date.format", newFormat);
+            properties.setProperty(DATE_FORMAT, newFormat);
         } else {
             LOGGER.info("Niepoprawny format daty");
         }
@@ -93,7 +95,7 @@ public class EventMgrProperties {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         properties.forEach((key, value) ->
-                builder.append(key + ":\t" + value + "\n"));
+                builder.append(key).append(":\t").append(value).append("\n"));
         return builder.toString();
     }
 
@@ -131,7 +133,7 @@ public class EventMgrProperties {
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
         } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku.");
+            LOGGER.info("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,15 +145,16 @@ public class EventMgrProperties {
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
             newProperties.load(stream);
         } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku.");
+            LOGGER.info("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return newProperties;
     }
 
-    private String getResourcePath() {
-        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
+    private static String getResourcePath() {
+        return Objects.requireNonNull(Thread.currentThread().
+                getContextClassLoader().getResource("")).getPath();
     }
 
 

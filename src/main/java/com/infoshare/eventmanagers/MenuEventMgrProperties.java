@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MenuEventMgrProperties {
 
-    private final static Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
+    private final static Logger LOGGER = LogManager.getLogger(MenuEventMgrProperties.class);
     private final static String MENU_LINE = getLine();
     private final static Scanner SCANNER = new Scanner(System.in);
     

@@ -12,23 +12,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 
-enum SORTING_ORDER {
-    ORGANIZATOR,
-    DATA
-}
-
 /**
  * Provides access to preferences for Event Manager app.
  * If the file app.properties does exist in the app working directory it is used as source,
  * if not default.properties is used as source of applications options.
  */
 
+
 public class EventMgrProperties {
+
     private static final Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
     private static final String DEFAULT_PROPERTIES = "default.properties";
-    private static final  String APP_PROPERTIES = "app.properties";
-    public static final String DATE_FORMAT = "date.format";
+    private static final String APP_PROPERTIES = "app.properties";
+    private static final String DATE_FORMAT = "date.format";
     private static final String RESOURCE_PATH = getResourcePath();
+
     private Properties properties;
 
     /**
@@ -58,7 +56,7 @@ public class EventMgrProperties {
         if (validateDateFormat(newFormat)) {
             properties.setProperty(DATE_FORMAT, newFormat);
         } else {
-            LOGGER.info("Niepoprawny format daty");
+            LOGGER.error("Niepoprawny format daty");
         }
     }
 
@@ -77,7 +75,7 @@ public class EventMgrProperties {
         if (validateSortingOrder(newOrder)) {
             properties.setProperty("sorting.order", newOrder.toLowerCase());
         } else {
-            LOGGER.info("Podano niepoprawny porządek sortowania");
+            LOGGER.error("Podano niepoprawny porządek sortowania");
         }
     }
 
@@ -100,7 +98,7 @@ public class EventMgrProperties {
     }
 
     private boolean validateSortingOrder(String newSortingOrder) {
-        for (SORTING_ORDER value : SORTING_ORDER.values()) {
+        for (SortingOrder value : SortingOrder.values()) {
             if (value.toString().equals(newSortingOrder)) {
                 return true;
             }
@@ -133,7 +131,7 @@ public class EventMgrProperties {
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
         } catch (FileNotFoundException e) {
-            LOGGER.info("Nie znaleziono pliku.");
+            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,7 +143,7 @@ public class EventMgrProperties {
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
             newProperties.load(stream);
         } catch (FileNotFoundException e) {
-            LOGGER.info("Nie znaleziono pliku.");
+            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -77,12 +77,12 @@ public class MenuEventMgrProperties {
                     switch (input) {
                         case 1 -> {
                             Repository.SETTINGS.setSortingOrder(
-                                    SORTING_ORDER.ORGANIZATOR.toString());
+                                    SortingOrder.ORGANIZATOR.toString());
                             return;
                         }
                         case 2 -> {
                             Repository.SETTINGS.setSortingOrder(
-                                    SORTING_ORDER.DATA.toString());
+                                    SortingOrder.DATA.toString());
                             return;
                         }
                         default -> {

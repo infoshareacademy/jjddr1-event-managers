@@ -10,7 +10,11 @@ public class IncomingEvent {
 
         if (Repository.eventList.size()>0) {
 
-            List<LocalDate> dates = Repository.eventList.stream().map(e -> e.getStartDate()).sorted().filter(e -> e.isAfter(LocalDate.now())).collect(Collectors.toList());
+            List<Event> dates = Repository.eventList
+                    .stream()
+                    .filter(e -> e.getStartDate().isAfter(LocalDate.now()))
+                    .collect(Collectors.toList());
+
             System.out.println(dates.get(0));
 
         } else {

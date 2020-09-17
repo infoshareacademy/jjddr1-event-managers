@@ -11,6 +11,9 @@ public class MenuEventListFilter {
     private static String[] menuList = {"Filtrowanie listy wydarzeń po dacie", "Filtrowanie listy wydarzeń po zakresie dat",
             "Filtrowanie listy wydarzeń po organizatorze"};
 
+    /**
+     * Method prints out user menu and calls other methods that implement specific functions.
+     */
     public static void showMenu() {
         while (true) {
             printMenu();
@@ -38,6 +41,9 @@ public class MenuEventListFilter {
         }
     }
 
+    /**
+     * Method prints out menuList elements in graphically attractive way.
+     */
     private static void printMenu() {
         printLine();
         for (int i = 0; i < menuList.length; i++) {
@@ -46,6 +52,9 @@ public class MenuEventListFilter {
         printLine();
     }
 
+    /**
+     * Method prints out string of dashes.
+     */
     static void printLine() {
         for (int i = 0; i < 80; i++) {
             System.out.print("─");
@@ -53,12 +62,22 @@ public class MenuEventListFilter {
         System.out.println();
     }
 
+
+    /**
+     * Method prints out list of events in user-friendly way.
+     * @param eventList List of events to be printed out.
+     */
     static void printEventList(List<Event> eventList) {
         for (Event event : eventList) {
             System.out.println(event);
         }
     }
 
+    /**
+     * Method handles scanning for user input that is used to call filterByDate method.
+     * After executing the method, it's results are printed out to user.
+     * In case no filtering results are returned, suitable message is printed out.
+     */
     private static void printFilterByDate() {
         printLine();
         System.out.println("Podaj datę (rrrr-mm-dd): ");
@@ -78,6 +97,11 @@ public class MenuEventListFilter {
         }
     }
 
+    /**
+     * Method handles scanning for user input that is used to call filterByDate method.
+     * After executing the method, it's results are printed out to user.
+     * In case no filtering results are returned, suitable message is printed out.
+     */
     private static void printFilterByDates() {
         printLine();
         System.out.println("Podaj początek zakresu dat (rrrr-mm-dd): ");
@@ -105,6 +129,11 @@ public class MenuEventListFilter {
         }
     }
 
+    /**
+     * Method handles scanning for user input that is used to call filterByOrganizer method.
+     * After executing the method, it's results are printed out to user.
+     * In case no filtering results are returned, suitable message is printed out.
+     */
     private static void printFilterByOrganizer() {
         printLine();
         System.out.println("Podaj organizatora: ");

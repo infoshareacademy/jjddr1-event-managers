@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.infoshare.eventmanagers.Event;
 import com.infoshare.eventmanagers.SaveJson;
 
@@ -14,6 +17,7 @@ import com.infoshare.eventmanagers.SaveJson;
  * A class to search the event from the whole list, by name.
  */
 public class SearchingEvent {
+    private static final Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
 
     /**
      * A method that takes data from the user and compares it with data,
@@ -26,7 +30,7 @@ public class SearchingEvent {
          */
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Podaj nazwę wydarzenia, które szukasz.");
+        LOGGER.info("Podaj nazwę wydarzenia, które szukasz.");
         String givenEvent = scanner.nextLine();
 
         /**
@@ -36,13 +40,13 @@ public class SearchingEvent {
         for (Event s : Repository.eventList) {
             if (s.getName().contains(givenEvent)) {
                 isFound = true;
-                System.out.println("Wydarzenie o które pytasz to : ");
+                LOGGER.info("Wydarzenie o które pytasz to : ");
                 s.printMe();
                 break;
             }
         }
         if (!isFound) {
-            System.out.println("Przykro nam, nie ma takiego wydarzenia.");
+            LOGGER.info("Przykro nam, nie ma takiego wydarzenia.");
         }
     }
 }

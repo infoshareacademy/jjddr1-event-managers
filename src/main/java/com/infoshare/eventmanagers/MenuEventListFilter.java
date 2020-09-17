@@ -1,13 +1,17 @@
 package com.infoshare.eventmanagers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuEventListFilter {
-
+    private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static Scanner scanner = new Scanner(System.in);
+
     private static String[] menuList = {"Filtrowanie listy wydarzeń po dacie", "Filtrowanie listy wydarzeń po zakresie dat",
             "Filtrowanie listy wydarzeń po organizatorze"};
 
@@ -17,26 +21,26 @@ public class MenuEventListFilter {
     public static void showMenu() {
         while (true) {
             printMenu();
-            System.out.print("Dokonaj wyboru(0 by wyjść) :");
+            STDOUT.info("Dokonaj wyboru(0 by wyjść) :");
             int choice = scanner.nextInt();
             if (choice == 0) {
                 return;
             }
             switch (choice) {
                 case 1:
-                    System.out.println("Wybrano opcję: " + menuList[0]);
+                    STDOUT.info("Wybrano opcję: {}\n", menuList[0]);
                     printFilterByDate();
                     break;
                 case 2:
-                    System.out.println("Wybrano opcję: " + menuList[1]);
+                    STDOUT.info("Wybrano opcję: {}\n", menuList[1]);
                     printFilterByDates();
                     break;
                 case 3:
-                    System.out.println("Wybrano opcję: " + menuList[2]);
+                    STDOUT.info("Wybrano opcję: {}\n", menuList[2]);
                     printFilterByOrganizer();
                     break;
                 default:
-                    System.out.println("Brak takiej opcji ");
+                    STDOUT.info("Brak takiej opcji\n");
             }
         }
     }
@@ -47,7 +51,7 @@ public class MenuEventListFilter {
     private static void printMenu() {
         printLine();
         for (int i = 0; i < menuList.length; i++) {
-            System.out.println((i + 1) + ": " + menuList[i]);
+            STDOUT.info("{}: {}\n", (i + 1), menuList[i]);
         }
         printLine();
     }
@@ -57,19 +61,19 @@ public class MenuEventListFilter {
      */
     static void printLine() {
         for (int i = 0; i < 80; i++) {
-            System.out.print("─");
+            STDOUT.info("─");
         }
-        System.out.println();
+        STDOUT.info("\n");
     }
-
 
     /**
      * Method prints out list of events in user-friendly way.
+     *
      * @param eventList List of events to be printed out.
      */
     static void printEventList(List<Event> eventList) {
         for (Event event : eventList) {
-            System.out.println(event);
+            STDOUT.info("{}\n", event);
         }
     }
 
@@ -80,18 +84,19 @@ public class MenuEventListFilter {
      */
     private static void printFilterByDate() {
         printLine();
-        System.out.println("Podaj datę (rrrr-mm-dd): ");
+        STDOUT.info("Podaj datę (rrrr-mm-dd): ");
         LocalDate date = null;
         try {
             date = LocalDate.parse(scanner.next());
         } catch (DateTimeParseException e) {
-            System.out.println("Niewłaściwy format daty.");
+            printLine();
+            STDOUT.error("Niewłaściwy format daty.\n");
             return;
         }
         printLine();
         List<Event> eventList = EventListFilter.filterByDate(date);
         if (eventList.isEmpty()) {
-            System.out.println("Brak wydarzeń w podanym dniu.");
+            STDOUT.info("Brak wydarzeń w podanym dniu.\n");
         } else {
             printEventList(eventList);
         }
@@ -104,26 +109,28 @@ public class MenuEventListFilter {
      */
     private static void printFilterByDates() {
         printLine();
-        System.out.println("Podaj początek zakresu dat (rrrr-mm-dd): ");
+        STDOUT.info("Podaj początek zakresu dat (rrrr-mm-dd): ");
         LocalDate fromDate = null;
         try {
             fromDate = LocalDate.parse(scanner.next());
         } catch (DateTimeParseException e) {
-            System.out.println("Niewłaściwy format daty.");
+            printLine();
+            STDOUT.info("Niewłaściwy format daty.\n");
             return;
         }
-        System.out.println("Podaj koniec zakresu dat (rrrr-mm-dd): ");
+        STDOUT.info("Podaj koniec zakresu dat (rrrr-mm-dd): ");
         LocalDate toDate = null;
         try {
             toDate = LocalDate.parse(scanner.next());
         } catch (DateTimeParseException e) {
-            System.out.println("Niewłaściwy format daty.");
+            printLine();
+            STDOUT.error("Niewłaściwy format daty.\n");
             return;
         }
         printLine();
         List<Event> eventList = EventListFilter.filterByDate(fromDate, toDate);
         if (eventList.isEmpty()) {
-            System.out.println("Brak wydarzeń w podanym zakresie dat.");
+            STDOUT.info("Brak wydarzeń w podanym zakresie dat.\n");
         } else {
             printEventList(eventList);
         }
@@ -136,17 +143,16 @@ public class MenuEventListFilter {
      */
     private static void printFilterByOrganizer() {
         printLine();
-        System.out.println("Podaj organizatora: ");
+        STDOUT.info("Podaj organizatora: ");
         scanner.nextLine();
         String organizer = scanner.nextLine();
         printLine();
         List<Event> eventList = EventListFilter.filterByOrganizer(organizer);
         if (eventList.isEmpty()) {
-            System.out.println("Brak wydarzeń organizowanych przez tego organizatora.");
+            STDOUT.info("Brak wydarzeń organizowanych przez tego organizatora.\n");
         } else {
             printEventList(eventList);
         }
     }
-
 }
 

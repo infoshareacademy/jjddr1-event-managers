@@ -6,6 +6,6 @@ public class Main {
 
         Menu menu = new Menu();
         menu.run();
-        //EventMgrProperties eventMgrproperties = new EventMgrProperties();
+        EventMgrProperties eventMgrproperties = new EventMgrProperties();
     }
 }

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoadJson {
-    private static final String PATHTOJSON = "/home/sebastian/Desktop/kurs/Projekt/jjddr1-event-managers/src/main/java/resources/events.json";
+    private static final String PATHTOJSON = "src/main/java/resources/events.json";
     private static final Logger LOGGER = LogManager.getLogger(LoadJson.class);
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final Path eventPaths = Paths.get(PATHTOJSON);

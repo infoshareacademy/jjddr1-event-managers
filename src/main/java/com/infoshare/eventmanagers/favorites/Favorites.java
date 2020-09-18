@@ -34,34 +34,34 @@ public class Favorites {
      * chosen by input in Scanner.
      */
     public void showFavoriteMenu() {
-        LOGGER.info("WITAMY W MENU ULUBIONYCH!!!");
+        LOGGER.info("WITAMY W MENU ULUBIONYCH!!!\n");
         printFavoriteMenu();
-        LOGGER.info("Wybierz opcję wpisując numer i zatwierdzając klawiszem 'enter'.");
+        LOGGER.info("Wybierz opcję wpisując numer i zatwierdzając klawiszem 'enter'.\n");
         boolean next = true;
         while (next) {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    LOGGER.info("Wybrano opcję: " + menuListFavorites[0]);
+                    LOGGER.info("Wybrano opcję: " + menuListFavorites[0] + "\n");
                     viewFavorites();
                     showFavoriteMenu();
                     break;
                 case 2:
-                    LOGGER.info("Wybrano opcję: " + menuListFavorites[1]);
+                    LOGGER.info("Wybrano opcję: " + menuListFavorites[1] + "\n");
                     addToFavorites();
                     showFavoriteMenu();
                     break;
                 case 3:
-                    LOGGER.info("Wybrano opcję: " + menuListFavorites[2]);
+                    LOGGER.info("Wybrano opcję: " + menuListFavorites[2] + "\n");
                     deleteFromFavorites();
                     showFavoriteMenu();
                     break;
                 case 4:
-                    LOGGER.info("Wybrano opcję: " + menuListFavorites[3]);
+                    LOGGER.info("Wybrano opcję: " + menuListFavorites[3] + "\n");
                     next = false;
                     break;
                 default:
-                    LOGGER.info("Brak takiej opcji ");
+                    LOGGER.info("Brak takiej opcji \n");
             }
         }
     }
@@ -74,7 +74,7 @@ public class Favorites {
         Menu menu = new Menu();
         menu.printLine();
         for (int i = 0; i < menuListFavorites.length; i++) {
-            LOGGER.info((i + 1) + ": " + menuListFavorites[i]);
+            LOGGER.info((i + 1) + ": " + menuListFavorites[i] + "\n");
         }
         menu.printLine();
     }
@@ -88,7 +88,7 @@ public class Favorites {
             e.printAsList();
         }
 
-        LOGGER.info("Write ID number of an event you want to add: ");
+        LOGGER.info("Write ID number of an event you want to add: \n");
         int index = scanner.nextInt();
 
         List<Event> eventList = Repository.eventList
@@ -97,10 +97,10 @@ public class Favorites {
                 .collect(Collectors.toList());
 
         if (eventList.isEmpty()) {
-            LOGGER.info("No such element in the list!");
+            LOGGER.info("No such element in the list!\n");
         } else {
             favoritesList.add(eventList.get(0));
-            LOGGER.info("Event added to your List of Favourites.");
+            LOGGER.info("Event added to your List of Favourites.\n");
         }
         printFavoriteMenu();
     }
@@ -111,19 +111,19 @@ public class Favorites {
     void deleteFromFavorites() {
 
         viewFavorites();
-        LOGGER.info("Write ID number of an event you want to delete: ");
+        LOGGER.info("Write ID number of an event you want to delete: \n");
         int index = scanner.nextInt();
 
-        List<Event> elementsToDelete = favoritesList
+        List<Event> elementsToDelete = Repository.eventList
                 .stream()
                 .filter(e -> e.getId() == index)
                 .collect(Collectors.toList());
 
-        if (favoritesList.isEmpty()) {
-            LOGGER.info("No such element in the list!");
+        if (elementsToDelete.isEmpty()) {
+            LOGGER.info("No such element in the list!\n");
         } else {
             favoritesList.remove(elementsToDelete);
-            LOGGER.info("Event deleted form List of Favorites.");
+            LOGGER.info("Event deleted form List of Favorites.\n");
         }
         printFavoriteMenu();
     }

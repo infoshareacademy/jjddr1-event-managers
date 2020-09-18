@@ -53,12 +53,15 @@ public class Menu {
                     eventMenu.displayPropertiesMenu();
                     break;
                 case 5:
-                    System.out.println("Wybrano opcję: " + MENULIST[4]);
+                    LOGGER.info("Wybrano opcję: " + MENULIST[4]);
                     break;
                 case 6:
                     LOGGER.info("Wybrano opcję: " + MENULIST[5]);
                     Favorites favorites = new Favorites();
                     favorites.showFavoriteMenu();
+                    break;
+                case 7:
+                    next = false;
                     break;
                 default:
                     LOGGER.info("Brak takiej opcji \n");

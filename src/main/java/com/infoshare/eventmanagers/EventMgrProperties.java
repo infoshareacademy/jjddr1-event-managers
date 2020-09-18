@@ -13,13 +13,14 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * Provides access to preferences for Event Manager app.
+ * A singleton class providing access to preferences for Event Manager app.
  * If the file app.properties does exist in the app working directory it is used as source,
  * if not default.properties is used as source of applications options.
  */
 
 
 public class EventMgrProperties {
+    private static EventMgrProperties instance = null;
 
     private static final Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
     private static final String DEFAULT_PROPERTIES = "default.properties";
@@ -33,8 +34,15 @@ public class EventMgrProperties {
      * Constructor.
      * Loads app or default properties.
      */
-    public EventMgrProperties() {
-        this.properties = getProperties();
+    public static EventMgrProperties getInstance()
+    {
+        if (instance == null)
+            instance = new EventMgrProperties();
+        return instance;
+    }
+
+    private EventMgrProperties(){
+        properties = getProperties();
     }
 
     public String getDateFormatAsString() {

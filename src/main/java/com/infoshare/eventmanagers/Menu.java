@@ -3,13 +3,18 @@ package com.infoshare.eventmanagers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 import java.util.Scanner;
 
 public class Menu {
+
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
-    private final String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
-            "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia"};
+
     private Scanner scanner = new Scanner(System.in);
+
+    private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
+            "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",
+            "Dodawanie/usuwanie ulubionych wydarzeń"};
 
 
     public void run() {
@@ -47,9 +52,14 @@ public class Menu {
                     eventMenu.displayPropertiesMenu();
                     break;
                 case 5:
-                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[4]);
+                    LOGGER.info("Wybrano opcję: " + MENULIST[4]);
                     break;
                 case 6:
+                    LOGGER.info("Wybrano opcję: " + MENULIST[5]);
+                    Favorites favorites = new Favorites();
+                    favorites.showFavoriteMenu();
+                    break;
+                case 7:
                     next = false;
                     break;
                 default:

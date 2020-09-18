@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+import static com.infoshare.eventmanagers.Main.SETTINGS;
+
 public class MenuEventMgrProperties {
 
     private final static Logger LOGGER = LogManager.getLogger(MenuEventMgrProperties.class);
@@ -20,7 +22,7 @@ public class MenuEventMgrProperties {
         while (true) {
             LOGGER.info("\n########## Ustawienia ##########");
             LOGGER.info("Obecnie ustawienia:\n");
-            LOGGER.info(Repository.SETTINGS.toString());
+            LOGGER.info(SETTINGS.toString());
             LOGGER.info("""
                     1: Zmień tryb sortowania.
                     2: Zmień format daty.
@@ -38,11 +40,11 @@ public class MenuEventMgrProperties {
                         case 1 -> displaySortingOrderMenu();
                         case 2 -> displayDateFormatMenu();
                         case 3 -> {
-                            Repository.SETTINGS.resetProperties();
+                            SETTINGS.resetProperties();
                             LOGGER.info("Przywrócono ustawienia domyślne.");
                         }
                         case 4 -> {
-                            Repository.SETTINGS.saveProperties();
+                            SETTINGS.saveProperties();
                             LOGGER.info("Ustawienia zapisane.");
                         }
                         default -> {
@@ -61,7 +63,7 @@ public class MenuEventMgrProperties {
     private void displaySortingOrderMenu() {
         while (true) {
             LOGGER.info("Wybierz porządek sortowania");
-            LOGGER.info("Obecnie sortuję po: " + Repository.SETTINGS.getSortingOrder());
+            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder());
             LOGGER.info("""
                     Wybierz opcję:
                     1: Sortuj po organizatorze,
@@ -76,12 +78,12 @@ public class MenuEventMgrProperties {
                     int input = Integer.parseInt(userInput);
                     switch (input) {
                         case 1 -> {
-                            Repository.SETTINGS.setSortingOrder(
+                            SETTINGS.setSortingOrder(
                                     SortingOrder.ORGANIZATOR.toString());
                             return;
                         }
                         case 2 -> {
-                            Repository.SETTINGS.setSortingOrder(
+                            SETTINGS.setSortingOrder(
                                     SortingOrder.DATA.toString());
                             return;
                         }
@@ -101,7 +103,7 @@ public class MenuEventMgrProperties {
     private void displayDateFormatMenu() {
         while (true) {
             LOGGER.info("Zmień format daty");
-            LOGGER.info("Obecny format to: " + Repository.SETTINGS.getDateFormatAsString());
+            LOGGER.info("Obecny format to: " + SETTINGS.getDateFormatAsString());
             LOGGER.info(MENU_LINE);
             LOGGER.info("Podaj nowy format daty lub " +
                     "naciśnij enter aby wrócić do poprzedniego menu.");
@@ -110,7 +112,7 @@ public class MenuEventMgrProperties {
             if (userInput.equals("")) {
                 return;
             } else {
-                Repository.SETTINGS.setDateFormat(userInput);
+                SETTINGS.setDateFormat(userInput);
             }
         }
     }

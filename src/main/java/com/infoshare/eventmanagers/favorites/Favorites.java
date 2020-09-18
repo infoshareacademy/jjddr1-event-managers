@@ -1,5 +1,8 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.favorites;
 
+import com.infoshare.eventmanagers.Menu;
+import com.infoshare.eventmanagers.model.Event;
+import com.infoshare.eventmanagers.repository.Repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

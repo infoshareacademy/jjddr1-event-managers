@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.properties;
 
 enum SortingOrder {
         ORGANIZATOR,

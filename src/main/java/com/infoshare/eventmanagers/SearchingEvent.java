@@ -1,17 +1,13 @@
 package com.infoshare.eventmanagers;
 
-import com.infoshare.eventmanagers.Repository;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
+import com.infoshare.eventmanagers.properties.EventMgrProperties;
+import com.infoshare.eventmanagers.repository.Repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.infoshare.eventmanagers.Event;
-import com.infoshare.eventmanagers.LoadJson;
+import com.infoshare.eventmanagers.model.Event;
 
 /**
  * A class to search the event from the whole list, by name.

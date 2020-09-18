@@ -1,7 +1,7 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.repository;
 
 
-import com.infoshare.eventmanagers.Event;
+import com.infoshare.eventmanagers.model.Event;
 
 import java.util.List;
 

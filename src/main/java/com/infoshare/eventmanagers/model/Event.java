@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.logging.log4j.LogManager;
@@ -67,7 +67,6 @@ public class Event {
         for (int i = 0; i < 84; i++) {
             System.out.print("─");
         }
-        ;
         LOGGER.info("\n| Id: {}", id);
         printName(name);
         LOGGER.info("\n| Miejsce: {}", placeName);

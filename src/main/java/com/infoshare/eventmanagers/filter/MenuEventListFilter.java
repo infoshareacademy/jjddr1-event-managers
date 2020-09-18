@@ -1,5 +1,6 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.filter;
 
+import com.infoshare.eventmanagers.model.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

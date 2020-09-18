@@ -1,7 +1,8 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.repository;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infoshare.eventmanagers.model.Event;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class LoadJson {
     private static String fileAsString;
 
 
-    public static List<Event> loadJsonAsArray() {
+    static List<Event> loadJsonAsArray() {
         Event[] events = null;
         if (Files.exists(eventPaths)) {
             try {

@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.properties;
 
 
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,7 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.filter;
+
+import com.infoshare.eventmanagers.model.Event;
+import com.infoshare.eventmanagers.repository.Repository;
 
 import java.time.LocalDate;
 import java.util.List;

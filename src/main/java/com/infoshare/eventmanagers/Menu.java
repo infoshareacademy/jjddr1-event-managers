@@ -1,5 +1,8 @@
 package com.infoshare.eventmanagers;
 
+import com.infoshare.eventmanagers.favorites.Favorites;
+import com.infoshare.eventmanagers.filter.MenuEventListFilter;
+import com.infoshare.eventmanagers.properties.MenuEventMgrProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +14,7 @@ public class Menu {
 
     private Scanner scanner = new Scanner(System.in);
 
-    private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
+    private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedyńczego wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",
             "Dodawanie/usuwanie ulubionych wydarzeń"};
 
@@ -79,7 +82,7 @@ public class Menu {
         printLine();
     }
 
-    void printLine() {
+    public void printLine() {
         for (int i = 0; i < 80; i++) {
             LOGGER.info("─");
         }

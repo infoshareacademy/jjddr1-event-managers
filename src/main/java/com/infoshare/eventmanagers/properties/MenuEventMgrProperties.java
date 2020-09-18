@@ -1,6 +1,7 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.properties;
 
 
+import com.infoshare.eventmanagers.properties.SortingOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +16,7 @@ public class MenuEventMgrProperties {
     private final static String MENU_LINE = getLine();
     private final static Scanner SCANNER = new Scanner(System.in);
     
-    MenuEventMgrProperties() {
+    public MenuEventMgrProperties() {
     }
 
     public void displayPropertiesMenu() {

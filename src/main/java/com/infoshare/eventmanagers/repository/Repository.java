@@ -14,7 +14,6 @@ public class Repository {
     public static List<Event> favoritesList;
 
 
-
     private Repository() {
 
     }

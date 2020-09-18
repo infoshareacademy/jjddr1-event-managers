@@ -12,7 +12,7 @@ public class EventListFilter {
      * @return list of filtered Events.
      */
     static List<Event> filterByDate(LocalDate date) {
-        List<Event> filterEvent = SaveJson.saveJsonAsArray()
+        List<Event> filterEvent = Repository.eventList
                 .stream()
                 .filter(e -> e.getStartDate().equals(date))
                 .collect(Collectors.toList());
@@ -26,7 +26,7 @@ public class EventListFilter {
      * @return list of filtered Events.
      */
     static List<Event> filterByDate(LocalDate fromDate, LocalDate toDate) {
-        List<Event> filterEvent = SaveJson.saveJsonAsArray()
+        List<Event> filterEvent = Repository.eventList
                 .stream()
                 .filter(e -> e.getStartDate().isAfter(fromDate.minusDays(1)))
                 .filter(e -> e.getStartDate().isBefore(toDate.plusDays(1)))
@@ -40,7 +40,7 @@ public class EventListFilter {
      * @return list of filtered Events.
      */
     static List<Event> filterByOrganizer(String organizer) {
-        List<Event> filterEvent = SaveJson.saveJsonAsArray()
+        List<Event> filterEvent = Repository.eventList
                 .stream()
                 .filter(event -> event.getOrganizer().equals(organizer))
                 .collect(Collectors.toList());

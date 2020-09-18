@@ -63,7 +63,7 @@ public class Event {
         return organizer;
     }
 
-    public void printMe() {
+    public void printFull() {
         for (int i = 0; i < 160; i++) {
             System.out.print("─");
         }

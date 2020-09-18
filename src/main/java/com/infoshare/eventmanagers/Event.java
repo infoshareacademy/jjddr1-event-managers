@@ -24,17 +24,16 @@ public class Event {
     public Event() {
     }
 
-<<<<<<< HEAD
     @JsonProperty("descShort")
     public void setDescShort(String descShort) {
         descShort = descShort.replaceAll("\\s{2,}", " ").trim();
         descShort = descShort.replaceAll("/\n/g, ", "");
 
         this.descShort = descShort;
-=======
+    }
+
     public String getName() {
         return name;
->>>>>>> SearchingEvent changes
     }
 
     @JsonProperty("place")
@@ -42,17 +41,8 @@ public class Event {
         this.placeName = place.getName();
     }
 
-    @JsonProperty("organizer")
-    public void setOrganizer(Organizer organizer) {
-        this.organizer = organizer.getDesignation();
-    }
-
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public LocalDate getStartDate() {
@@ -66,6 +56,11 @@ public class Event {
 
     public String getOrganizer() {
         return organizer;
+    }
+
+    @JsonProperty("organizer")
+    public void setOrganizer(Organizer organizer) {
+        this.organizer = organizer.getDesignation();
     }
 
     public void printFull() {

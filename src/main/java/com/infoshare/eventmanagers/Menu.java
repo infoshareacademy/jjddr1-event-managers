@@ -3,7 +3,6 @@ package com.infoshare.eventmanagers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import java.util.Scanner;
 
 public class Menu {
@@ -36,13 +35,10 @@ public class Menu {
             }
             switch (choice) {
                 case 1:
-<<<<<<< HEAD
                     LOGGER.info("Wybrano opcję: {}\n ", MENULIST[0]);
-=======
-                    System.out.println("Wybrano opcję: " + menuList[0]);
                     SearchingEvent newSerchingEvent = new SearchingEvent();
                     newSerchingEvent.run();
->>>>>>> SearchingEvent changes
+
                     break;
                 case 2:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[1]);
@@ -79,7 +75,7 @@ public class Menu {
         for (int i = 0; i < MENULIST.length; i++) {
             LOGGER.info("{}: {}\n", (i + 1), MENULIST[i]);
         }
-        LOGGER.info("6: Wyjście \n");
+        LOGGER.info("7: Wyjście \n");
         printLine();
     }
 

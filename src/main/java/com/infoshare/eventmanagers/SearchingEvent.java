@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.infoshare.eventmanagers.Event;
-import com.infoshare.eventmanagers.SaveJson;
+import com.infoshare.eventmanagers.LoadJson;
 
 /**
  * A class to search the event from the whole list, by name.

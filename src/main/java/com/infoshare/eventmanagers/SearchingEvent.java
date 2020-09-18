@@ -41,7 +41,7 @@ public class SearchingEvent {
             if (s.getName().contains(givenEvent)) {
                 isFound = true;
                 LOGGER.info("Wydarzenie o które pytasz to : ");
-                s.printMe();
+                s.printFull();
                 break;
             }
         }

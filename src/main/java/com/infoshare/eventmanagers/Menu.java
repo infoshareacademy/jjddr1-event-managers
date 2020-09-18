@@ -3,8 +3,6 @@ package com.infoshare.eventmanagers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
@@ -20,8 +18,8 @@ public class Menu {
 
 
     public void run() {
-        System.out.println("Witaj w Event Manager");
-        System.out.println("Have fun! :)");
+        LOGGER.info("Witaj w Event Manager\n");
+        LOGGER.info("Have fun! :)\n");
         showMenu();
 
     }

@@ -20,9 +20,9 @@ public class IncomingEvent {
      */
     void run() {
 
-        if (Repository.eventList.size() > 0) {
+        if (Repository.favoritesList.size() > 0) {
 
-            List<Event> dates = Repository.eventList
+            List<Event> dates = Repository.favoritesList
                     .stream()
                     .filter(e -> e.getStartDate().isAfter(LocalDate.now()))
                     .collect(Collectors.toList());

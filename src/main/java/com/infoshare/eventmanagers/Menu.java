@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 public class Menu {
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
-    private final String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń ",
-
-    private Scanner scanner = new Scanner(System.in);
-    private String[] menuList = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
+    private final String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedynczeho wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia"};
+    private Scanner scanner = new Scanner(System.in);
 
 
     public void run() {
@@ -27,7 +25,7 @@ public class Menu {
             clearScreen();
             printMenu();
             LOGGER.info("Dokonaj wyboru :");
-            int choice = Integer.parseInt(scanner.next());
+            int choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 0) {
                 return;
             }

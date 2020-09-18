@@ -24,7 +24,7 @@ public class EventList {
                 LOGGER.info("\n1: Następne wydarzenie \n");
                 LOGGER.info("2: Powrót do porzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
                         index++;
@@ -38,7 +38,7 @@ public class EventList {
                 LOGGER.info("2: Poprzednie wydarzenie \n");
                 LOGGER.info("3: Powrót do porzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
                         index++;
@@ -54,7 +54,7 @@ public class EventList {
                 LOGGER.info("1: Poprzednie wydarzenie \n");
                 LOGGER.info("2: Powrót do porzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
                         index--;
@@ -81,7 +81,7 @@ public class EventList {
                 LOGGER.info("2: Szczegóły pojedyńczego wydarzenia \n");
                 LOGGER.info("3: Powrót do poprzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
-                switch (Integer.parseInt(scanner.next())) {
+                switch (Integer.parseInt(scanner.nextLine().trim())) {
                     case 1:
                         start += 5;
                         break;
@@ -95,13 +95,13 @@ public class EventList {
                         LOGGER.info("Brak takiej opcji \n");
                 }
             } else if (start > 0 && start < Repository.eventList.size() - 5) {
-                LOGGER.info("1: Następne 5 pozyji \n");
+                LOGGER.info("\n1: Następne 5 pozyji \n");
                 LOGGER.info("2: Poprzednie 5 pozyji \n");
                 LOGGER.info("3: Szczegóły pojedyńczego wydarzenia \n");
                 LOGGER.info("4: Powrót do poprzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
 
-                switch (Integer.parseInt(scanner.next())) {
+                switch (Integer.parseInt(scanner.nextLine().trim())) {
                     case 1:
                         start += 5;
                         break;
@@ -122,7 +122,7 @@ public class EventList {
                 LOGGER.info("2: Szczegóły pojedyńczego wydarzenia \n");
                 LOGGER.info("3: Powrót do poprzedniego menu \n");
                 LOGGER.info("Wybierz opcję: ");
-                switch (Integer.parseInt(scanner.next())) {
+                switch (Integer.parseInt(scanner.nextLine())) {
                     case 1:
                         start -= 5;
                         break;
@@ -141,8 +141,8 @@ public class EventList {
 
     private void runOneEventView() {
         while (true) {
-            System.out.print("Proszę podać Id wydarzenia ( lub 0 by wrócić) : ");
-            int id = Integer.parseInt(scanner.next());
+            LOGGER.info("\nProszę podać Id wydarzenia ( lub 0 by wrócić) : ");
+            int id = Integer.parseInt(scanner.nextLine().trim());
             if (id == 0) {
                 return;
             }
@@ -158,14 +158,14 @@ public class EventList {
 
     private void clearScreen() {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        LOGGER.info("\033[H\033[2J");
+        LOGGER.info("\n");
 
     }
 
     private void printLine() {
         for (int i = 0; i < 84; i++) {
-            System.out.print("─");
+           LOGGER.info("─");
         }
     }
 }

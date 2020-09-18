@@ -18,17 +18,10 @@ import java.util.Properties;
 
 public class EventMgrProperties {
 
-    enum SORTING_ORDER {
-        host,
-        date
-    }
-
     private final Properties properties;
     private final String DEFAULT_PROPERTIES = "default.properties";
     private final String APP_PROPERTIES = "app.properties";
     private final String RESOURCE_PATH = getResourcePath();
-
-
     public EventMgrProperties() {
         this.properties = getProperties();
     }
@@ -36,7 +29,7 @@ public class EventMgrProperties {
     /**
      * Loads default properties and stores it in app properties
      */
-    public void resetProperties(){
+    public void resetProperties() {
         getPropertiesFromFile(DEFAULT_PROPERTIES);
         saveProperties();
     }
@@ -90,7 +83,7 @@ public class EventMgrProperties {
         return builder.toString();
     }
 
-    private boolean validateSortingOrder(String newSortingOrder){
+    private boolean validateSortingOrder(String newSortingOrder) {
         for (SORTING_ORDER value : SORTING_ORDER.values()) {
             if (value.toString().equals(newSortingOrder)) {
                 return true;
@@ -144,6 +137,11 @@ public class EventMgrProperties {
 
     private String getResourcePath() {
         return Thread.currentThread().getContextClassLoader().getResource("").getPath();
+    }
+
+    enum SORTING_ORDER {
+        host,
+        date
     }
 
 

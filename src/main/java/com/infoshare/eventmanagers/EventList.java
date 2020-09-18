@@ -1,91 +1,171 @@
 package com.infoshare.eventmanagers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class EventList {
-    private Scanner scanner = new Scanner(System.in);
+    private final static Logger LOGGER = LogManager.getLogger(EventList.class);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public void run() {
 
+    private void oneEventView(Event event) {
+
+        int index;
         boolean nextLoop = true;
-        int choice;
+        index = Repository.eventList.indexOf(event);
         while (nextLoop) {
-            System.out.println("1: Widok listy ");
-            System.out.println("2: Widok pojedyńczego wydarzenia");
-            System.out.println("3: Powrót do porzedniego menu");
-            System.out.print("Wybierz opcję: ");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    listView();
-                    break;
-                case 2:
-                    oneEventView();
-                    break;
-                case 3:
-                    nextLoop = false;
-                    break;
-            }
-        }
-
-
-    }
-
-    private void oneEventView() {
-        int i = 0;
-        boolean nextLoop = true;
-        while (nextLoop) {
-            Repository.eventList.get(i).printFull();
-            if (i == 0) {
-                System.out.println("1: Następne wydarzenie");
-                System.out.println("2: Powrót do porzedniego menu ");
+            clearScreen();
+            Repository.eventList.get(index).printFull();
+            if (index == 0) {
+                LOGGER.info("\n1: Następne wydarzenie \n");
+                LOGGER.info("2: Powrót do porzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        i++;
+                        index++;
                         break;
                     case 2:
                         nextLoop = false;
                         break;
-
                 }
-
-            } else if (i > 0 && i < Repository.eventList.size() - 1) {
-                System.out.println("1: Następne wydarzenie");
-                System.out.println("2: Poprzednie wydarzenie");
-                System.out.println("3: Powrót do porzedniego menu ");
+            } else if (index > 0 && index < Repository.eventList.size() - 1) {
+                LOGGER.info("1: Następne wydarzenie \n");
+                LOGGER.info("2: Poprzednie wydarzenie \n");
+                LOGGER.info("3: Powrót do porzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        i++;
+                        index++;
                         break;
                     case 2:
-                        i--;
+                        index--;
                         break;
                     case 3:
                         nextLoop = false;
                         break;
                 }
             } else {
-                System.out.println("1: Poprzednie wydarzenie");
-                System.out.println("2: Powrót do porzedniego menu ");
+                LOGGER.info("1: Poprzednie wydarzenie \n");
+                LOGGER.info("2: Powrót do porzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        i--;
+                        index--;
                         break;
                     case 2:
                         nextLoop = false;
                         break;
-
                 }
-
             }
-
         }
     }
 
-    private void listView() {
+    public void listView() {
+        int start = 0;
+        boolean next = true;
+        while (next) {
+            clearScreen();
+            for (int i = start; i < start + 5; i++) {
+                Repository.eventList.get(i).printAsList();
+            }
+            printLine();
+            if (start == 0) {
+                LOGGER.info("\n1: Następne 5 pozyji \n");
+                LOGGER.info("2: Szczegóły pojedyńczego wydarzenia \n");
+                LOGGER.info("3: Powrót do poprzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
+                switch (Integer.parseInt(scanner.next())) {
+                    case 1:
+                        start += 5;
+                        break;
+                    case 2:
+                        runOneEventView();
+                        break;
+                    case 3:
+                        next = false;
+                        break;
+                    default:
+                        LOGGER.info("Brak takiej opcji \n");
+                }
+            } else if (start > 0 && start < Repository.eventList.size() - 5) {
+                LOGGER.info("1: Następne 5 pozyji \n");
+                LOGGER.info("2: Poprzednie 5 pozyji \n");
+                LOGGER.info("3: Szczegóły pojedyńczego wydarzenia \n");
+                LOGGER.info("4: Powrót do poprzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
 
+                switch (Integer.parseInt(scanner.next())) {
+                    case 1:
+                        start += 5;
+                        break;
+                    case 2:
+                        start -= 5;
+                        break;
+                    case 3:
+                        runOneEventView();
+                        break;
+                    case 4:
+                        next = false;
+                        break;
+                    default:
+                        LOGGER.info("Brak takiej opcji \n");
+                }
+            } else {
+                LOGGER.info("1: Poprzednie 5 pozyji \n");
+                LOGGER.info("2: Szczegóły pojedyńczego wydarzenia \n");
+                LOGGER.info("3: Powrót do poprzedniego menu \n");
+                LOGGER.info("Wybierz opcję: ");
+                switch (Integer.parseInt(scanner.next())) {
+                    case 1:
+                        start -= 5;
+                        break;
+                    case 2:
+                        runOneEventView();
+                        break;
+                    case 3:
+                        next = false;
+                        break;
+                    default:
+                        LOGGER.info("Brak takiej opcji \n");
+                }
+            }
+        }
+    }
+
+    private void runOneEventView() {
+        while (true) {
+            System.out.print("Proszę podać Id wydarzenia ( lub 0 by wrócić) : ");
+            int id = Integer.parseInt(scanner.next());
+            if (id == 0) {
+                return;
+            }
+            List<Event> collect = Repository.eventList.parallelStream().filter(input -> input.getId() == id).collect(Collectors.toList());
+            if (collect.isEmpty()) {
+                LOGGER.info("Brak wydarzenia o podanym indeksie \n");
+            } else {
+                oneEventView(collect.get(0));
+                break;
+            }
+        }
+    }
+
+    private void clearScreen() {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+    }
+
+    private void printLine() {
+        for (int i = 0; i < 84; i++) {
+            System.out.print("─");
+        }
     }
 }

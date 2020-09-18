@@ -36,7 +36,13 @@ public class Menu {
             }
             switch (choice) {
                 case 1:
+<<<<<<< HEAD
                     LOGGER.info("Wybrano opcję: {}\n ", MENULIST[0]);
+=======
+                    System.out.println("Wybrano opcję: " + menuList[0]);
+                    SearchingEvent newSerchingEvent = new SearchingEvent();
+                    newSerchingEvent.run();
+>>>>>>> SearchingEvent changes
                     break;
                 case 2:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[1]);

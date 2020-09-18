@@ -22,7 +22,7 @@ public class MenuEventListFilter {
         while (true) {
             printMenu();
             STDOUT.info("Dokonaj wyboru(0 by wyjść) :");
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
             if (choice == 0) {
                 return;
             }
@@ -87,7 +87,7 @@ public class MenuEventListFilter {
         STDOUT.info("Podaj datę (rrrr-mm-dd): ");
         LocalDate date = null;
         try {
-            date = LocalDate.parse(scanner.next());
+            date = LocalDate.parse(scanner.nextLine());
         } catch (DateTimeParseException e) {
             printLine();
             STDOUT.error("Niewłaściwy format daty.\n");
@@ -112,7 +112,7 @@ public class MenuEventListFilter {
         STDOUT.info("Podaj początek zakresu dat (rrrr-mm-dd): ");
         LocalDate fromDate = null;
         try {
-            fromDate = LocalDate.parse(scanner.next());
+            fromDate = LocalDate.parse(scanner.nextLine());
         } catch (DateTimeParseException e) {
             printLine();
             STDOUT.info("Niewłaściwy format daty.\n");
@@ -121,7 +121,7 @@ public class MenuEventListFilter {
         STDOUT.info("Podaj koniec zakresu dat (rrrr-mm-dd): ");
         LocalDate toDate = null;
         try {
-            toDate = LocalDate.parse(scanner.next());
+            toDate = LocalDate.parse(scanner.nextLine());
         } catch (DateTimeParseException e) {
             printLine();
             STDOUT.error("Niewłaściwy format daty.\n");
@@ -144,7 +144,6 @@ public class MenuEventListFilter {
     private static void printFilterByOrganizer() {
         printLine();
         STDOUT.info("Podaj organizatora: ");
-        scanner.nextLine();
         String organizer = scanner.nextLine();
         printLine();
         List<Event> eventList = EventListFilter.filterByOrganizer(organizer);

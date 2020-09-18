@@ -22,10 +22,11 @@ public class Menu {
     }
 
     private void showMenu() {
-        while (true) {
+        boolean next = true;
+        while (next) {
             clearScreen();
             printMenu();
-            LOGGER.info("Dokonaj wyboru(0 by wyjść) :");
+            LOGGER.info("Dokonaj wyboru :");
             int choice = Integer.parseInt(scanner.next());
             if (choice == 0) {
                 return;
@@ -49,6 +50,9 @@ public class Menu {
                 case 5:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[4]);
                     break;
+                case 6:
+                    next = false;
+                    break;
                 default:
                     LOGGER.info("Brak takiej opcji \n");
             }
@@ -60,7 +64,7 @@ public class Menu {
         for (int i = 0; i < MENULIST.length; i++) {
             LOGGER.info("{}: {}\n", (i + 1), MENULIST[i]);
         }
-        LOGGER.info("5: Wyjście \n");
+        LOGGER.info("6: Wyjście \n");
         printLine();
     }
 

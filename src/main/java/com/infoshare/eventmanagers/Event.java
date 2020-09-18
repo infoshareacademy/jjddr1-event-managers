@@ -64,7 +64,7 @@ public class Event {
     }
 
     public void printFull() {
-        for (int i = 0; i < 160; i++) {
+        for (int i = 0; i < 84; i++) {
             System.out.print("─");
         }
         ;

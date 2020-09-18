@@ -60,6 +60,7 @@ public class EventMgrProperties {
      * Checks if provided string is a valid date format and sets property if it's valid.
      * If invalid, displays an error message
      */
+
     public void setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
             properties.setProperty(DATE_FORMAT, newFormat);

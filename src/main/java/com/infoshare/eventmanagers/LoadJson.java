@@ -2,7 +2,8 @@ package com.infoshare.eventmanagers;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshare.eventmanagers.Event;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,14 +12,15 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-public class SaveJson {
+public class LoadJson {
+    private static final String PATHTOJSON = "/home/sebastian/Desktop/kurs/Projekt/jjddr1-event-managers/src/main/java/resources/events.json";
+    private static final Logger LOGGER = LogManager.getLogger(LoadJson.class);
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Path eventPaths = Paths.get(PATHTOJSON);
+    private static String fileAsString;
 
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final Path eventPaths = Paths.get("src/main/java/resources/events.json");
-    private String fileAsString;
 
-
-    public List<Event> saveJsonAsArray() {
+    public static List<Event> loadJsonAsArray() {
         Event[] events = null;
         if (Files.exists(eventPaths)) {
             try {
@@ -27,7 +29,7 @@ public class SaveJson {
                 events = mapper.reader().forType(Event[].class).readValue(fileAsString);
 
             } catch (IOException e) {
-                System.out.println("Ups! Coś poszło nie tak podczas otwierania pliku, lub odczytu, lub mapowania ");
+                LOGGER.info("Ups! Coś poszło nie tak podczas otwierania pliku, lub odczytu, lub mapowania ");
             }
 
         }

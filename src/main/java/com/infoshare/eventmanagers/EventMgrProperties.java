@@ -1,13 +1,15 @@
 package com.infoshare.eventmanagers;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -16,48 +18,45 @@ import java.util.Properties;
  * if not default.properties is used as source of applications options.
  */
 
+
 public class EventMgrProperties {
 
-    enum SORTING_ORDER {
-        host,
-        date
-    }
+    private static final Logger LOGGER = LogManager.getLogger(EventMgrProperties.class);
+    private static final String DEFAULT_PROPERTIES = "default.properties";
+    private static final String APP_PROPERTIES = "app.properties";
+    private static final String DATE_FORMAT = "date.format";
+    private static final String RESOURCE_PATH = getResourcePath();
 
-    private final Properties properties;
-    private final String DEFAULT_PROPERTIES = "default.properties";
-    private final String APP_PROPERTIES = "app.properties";
-    private final String RESOURCE_PATH = getResourcePath();
+    private Properties properties;
 
-
+    /**
+     * Constructor.
+     * Loads app or default properties.
+     */
     public EventMgrProperties() {
         this.properties = getProperties();
     }
 
-    /**
-     * Loads default properties and stores it in app properties
-     */
-    public void resetProperties(){
-        getPropertiesFromFile(DEFAULT_PROPERTIES);
-        saveProperties();
+    public String getDateFormatAsString() {
+        return properties.getProperty(DATE_FORMAT);
     }
 
     /**
      * @return DateTimeFormatter object with current date format
      */
-    public DateTimeFormatter getDateFormat() {
-        return DateTimeFormatter.ofPattern(properties.getProperty("date.format"));
+    public DateTimeFormatter getDateFormatAsDateTimeFormatter() {
+        return DateTimeFormatter.ofPattern(properties.getProperty(DATE_FORMAT));
     }
 
     /**
      * Checks if provided string is a valid date format and sets property if it's valid.
      * If invalid, displays an error message
      */
-
     public void setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
-            properties.setProperty("date.format", newFormat);
+            properties.setProperty(DATE_FORMAT, newFormat);
         } else {
-            System.out.println("Invalid date format");
+            LOGGER.error("Niepoprawny format daty");
         }
     }
 
@@ -74,10 +73,18 @@ public class EventMgrProperties {
      */
     public void setSortingOrder(String newOrder) {
         if (validateSortingOrder(newOrder)) {
-            properties.setProperty("sorting.order", newOrder);
+            properties.setProperty("sorting.order", newOrder.toLowerCase());
         } else {
-            System.out.println("Invalid sorting order");
+            LOGGER.error("Podano niepoprawny porządek sortowania");
         }
+    }
+
+    /**
+     * Loads default properties and stores it in app properties
+     */
+    public void resetProperties() {
+        this.properties = getPropertiesFromFile(DEFAULT_PROPERTIES);
+        saveProperties();
     }
 
     /**
@@ -86,12 +93,12 @@ public class EventMgrProperties {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         properties.forEach((key, value) ->
-                builder.append(key + ":\t" + value + "\n").toString());
+                builder.append(key).append(":\t").append(value).append("\n"));
         return builder.toString();
     }
 
-    private boolean validateSortingOrder(String newSortingOrder){
-        for (SORTING_ORDER value : SORTING_ORDER.values()) {
+    private boolean validateSortingOrder(String newSortingOrder) {
+        for (SortingOrder value : SortingOrder.values()) {
             if (value.toString().equals(newSortingOrder)) {
                 return true;
             }
@@ -100,10 +107,11 @@ public class EventMgrProperties {
     }
 
     private boolean validateDateFormat(String newFormat) {
-        DateFormat df = new SimpleDateFormat();
+
         try {
-            df.parse(newFormat);
-        } catch (ParseException e) {
+            new SimpleDateFormat(newFormat);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
             return false;
         }
         return true;
@@ -123,7 +131,7 @@ public class EventMgrProperties {
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,19 +139,20 @@ public class EventMgrProperties {
 
     private Properties getPropertiesFromFile(String properties) {
 
-        Properties eventMgrProps = new Properties();
+        Properties newProperties = new Properties();
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
-            eventMgrProps.load(stream);
+            newProperties.load(stream);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return eventMgrProps;
+        return newProperties;
     }
 
-    private String getResourcePath() {
-        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
+    private static String getResourcePath() {
+        return Objects.requireNonNull(Thread.currentThread().
+                getContextClassLoader().getResource("")).getPath();
     }
 
 

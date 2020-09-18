@@ -29,7 +29,7 @@ public class MenuEventMgrProperties {
                     2: Zmień format daty.
                     3: Przywróć ustawienia domyślne.
                     4: Zapisz ustawienia.
-                    Naciśnij [ENTER] aby wrócić do głównego menu""");
+                    Naciśnij [ENTER] aby wrócić do głównego menu\n""");
             LOGGER.info(MENU_LINE);
             LOGGER.info("Wybierz opcję:");
             String userInput = SCANNER.nextLine();
@@ -42,18 +42,18 @@ public class MenuEventMgrProperties {
                         case 2 -> displayDateFormatMenu();
                         case 3 -> {
                             SETTINGS.resetProperties();
-                            LOGGER.info("Przywrócono ustawienia domyślne.");
+                            LOGGER.info("Przywrócono ustawienia domyślne.\n");
                         }
                         case 4 -> {
                             SETTINGS.saveProperties();
-                            LOGGER.info("Ustawienia zapisane.");
+                            LOGGER.info("Ustawienia zapisane.\n");
                         }
                         default -> {
                             return;
                         }
                     }
                 } catch (NumberFormatException e) {
-                    LOGGER.warn("Nie rozumiem. Wybierz opcję z listy.");
+                    LOGGER.warn("Nie rozumiem. Wybierz opcję z listy.\n");
                 }
         }
     }
@@ -63,15 +63,15 @@ public class MenuEventMgrProperties {
      */
     private void displaySortingOrderMenu() {
         while (true) {
-            LOGGER.info("Wybierz porządek sortowania");
-            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder());
+            LOGGER.info("Wybierz porządek sortowania\n");
+            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder() + "\n");
             LOGGER.info("""
                     Wybierz opcję:
                     1: Sortuj po organizatorze,
                     2: Sortuj po dacie.
-                    Naciśnij [ENTER] aby wrócić do głównego menu""");
+                    Naciśnij [ENTER] aby wrócić do głównego menu\n""");
             LOGGER.info(MENU_LINE);
-            LOGGER.info("Wybierz opcję:");
+            LOGGER.info("Wybierz opcję:\n");
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) return;
             else
@@ -93,7 +93,7 @@ public class MenuEventMgrProperties {
                         }
                     }
                 } catch (NumberFormatException e) {
-                    LOGGER.warn("Nie rozumiem. Wybierz opcję z listy");
+                    LOGGER.warn("Nie rozumiem. Wybierz opcję z listy\n");
                 }
         }
     }
@@ -103,11 +103,11 @@ public class MenuEventMgrProperties {
      */
     private void displayDateFormatMenu() {
         while (true) {
-            LOGGER.info("Zmień format daty");
-            LOGGER.info("Obecny format to: " + SETTINGS.getDateFormatAsString());
+            LOGGER.info("Zmień format daty\n");
+            LOGGER.info("Obecny format to: " + SETTINGS.getDateFormatAsString() + "\n");
             LOGGER.info(MENU_LINE);
             LOGGER.info("Podaj nowy format daty lub " +
-                    "naciśnij enter aby wrócić do poprzedniego menu.");
+                    "naciśnij enter aby wrócić do poprzedniego menu.\n");
             SCANNER.reset();
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) {
@@ -119,6 +119,6 @@ public class MenuEventMgrProperties {
     }
 
     private static String getLine() {
-        return "─".repeat(80);
+        return ("─".repeat(80) + "\n");
     }
 }

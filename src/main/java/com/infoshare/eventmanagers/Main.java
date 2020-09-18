@@ -7,5 +7,6 @@ public class Main {
         Menu menu = new Menu();
         System.out.println("niby działa");
         menu.run();
+        EventMgrProperties eventMgrproperties = new EventMgrProperties();
     }
 }

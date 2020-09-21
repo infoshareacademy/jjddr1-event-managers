@@ -22,7 +22,6 @@ public class Utils {
     }
 
     public static void printLine() {
-        STDOUT.info("\n");
         for (int i = 0; i < 84; i++) {
             STDOUT.info("─");
         }
@@ -36,7 +35,7 @@ public class Utils {
 
     // TODO:implement methods in Printer class, then call them in static context here.
     public static void printListByFive(List<Event> eventList) {
-        new Printer(eventList).listView();
+        Printer.runListView(eventList);
     }
 
 }

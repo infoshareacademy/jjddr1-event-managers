@@ -8,35 +8,47 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static com.infoshare.eventmanagers.utils.Utils.*;
 
 public class Printer {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    private static final String DEFAULT_MSG = "Brak takiej opcji \n";
+    private static final String DETAILS_MSG = "Szczegóły pojedyńczego wydarzenia";
+    private static final String NEXT_5_MSG = "Następne pozycje";
+    private static final String PREVIOUS_5_MSG = "Poprzednie pozycje";
     private final List<Event> eventList;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public Printer(List<Event> eventList) {
         this.eventList = eventList;
+    }
+
+    public static void runListView(List<Event> eventList) {
+        new Printer(eventList).listView();
     }
 
     public void listView() {
         int start = 0;
         boolean next = true;
         while (next) {
-            clearScreen();
-            if ((start + 5) < eventList.size()) {
-                for (int i = start; i < start + 5; i++) {
-                    eventList.get(i).printAsList();
+            Utils.clearScreen();
+            printElements(start);
+
+            if (start == 0 && eventList.size() <= 5) {
+                Utils.printMenu(new String[]{DETAILS_MSG});
+                switch (Integer.parseInt(scanner.nextLine().trim())) {
+                    case 1:
+                        runOneEventView();
+                        break;
+                    case 2:
+                        next = false;
+                        break;
+                    default:
+                        STDOUT.info(DEFAULT_MSG);
                 }
-            } else {
-                for (int i = start; i < eventList.size(); i++) {
-                    eventList.get(i).printAsList();
-                }
-            }
-            printLine();
-            if (start == 0) {
-                printMenu(new String[]{"Następne 5 pozycji", "Szczegóły pojedyńczego wydarzenia"});
+
+            } else if (start == 0) {
+                Utils.printMenu(new String[]{NEXT_5_MSG, DETAILS_MSG});
                 switch (Integer.parseInt(scanner.nextLine().trim())) {
                     case 1:
                         start += 5;
@@ -48,10 +60,10 @@ public class Printer {
                         next = false;
                         break;
                     default:
-                        STDOUT.info("Brak takiej opcji \n");
+                        STDOUT.info(DEFAULT_MSG);
                 }
             } else if (start > 0 && start < eventList.size() - 5) {
-                printMenu(new String[]{"Następne 5 pozycji", "Poprzednie 5 pozycji", "Szczególy pojedyńczego wydarzenia"});
+                Utils.printMenu(new String[]{NEXT_5_MSG, PREVIOUS_5_MSG, DETAILS_MSG});
                 switch (Integer.parseInt(scanner.nextLine().trim())) {
                     case 1:
                         start += 5;
@@ -66,10 +78,10 @@ public class Printer {
                         next = false;
                         break;
                     default:
-                        STDOUT.info("Brak takiej opcji \n");
+                        STDOUT.info(DEFAULT_MSG);
                 }
             } else {
-                printMenu(new String[]{"Poprzednie 5 pozyji", "Szczegóły pojedyńczego wydarzenia"});
+                Utils.printMenu(new String[]{PREVIOUS_5_MSG, DETAILS_MSG});
                 switch (Integer.parseInt(scanner.nextLine())) {
                     case 1:
                         start -= 5;
@@ -81,14 +93,27 @@ public class Printer {
                         next = false;
                         break;
                     default:
-                        STDOUT.info("Brak takiej opcji \n");
+                        STDOUT.info(DEFAULT_MSG);
                 }
             }
         }
     }
 
+    private void printElements(int start) {
+        if ((start + 5) < eventList.size()) {
+            for (int i = start; i < start + 5; i++) {
+                eventList.get(i).printAsElement();
+            }
+        } else {
+            for (int i = start; i < eventList.size(); i++) {
+                eventList.get(i).printAsElement();
+            }
+        }
+        Utils.printLine();
+        STDOUT.info("\n");
+    }
 
-    public void runOneEventView() {
+    private void runOneEventView() {
         while (true) {
             STDOUT.info("\nProszę podać Id wydarzenia ( lub 0 by wrócić) : ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -111,10 +136,20 @@ public class Printer {
         boolean nextLoop = true;
         index = eventList.indexOf(event);
         while (nextLoop) {
-            clearScreen();
+            Utils.clearScreen();
             eventList.get(index).printFull();
-            if (index == 0) {
-                printMenu(new String[]{"Następne wydarzenie"});
+            if (eventList.size() == 1) {
+                Utils.printMenu(new String[]{});
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+                switch (choice) {
+                    case 1:
+                        nextLoop = false;
+                        break;
+                    default:
+                        STDOUT.info(DEFAULT_MSG);
+                }
+            } else if (index == 0) {
+                Utils.printMenu(new String[]{"Następne wydarzenie"});
                 int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
@@ -123,9 +158,11 @@ public class Printer {
                     case 2:
                         nextLoop = false;
                         break;
+                    default:
+                        STDOUT.info(DEFAULT_MSG);
                 }
             } else if (index > 0 && index < eventList.size() - 1) {
-                printMenu(new String[]{"Następne wydarzenie", "Poprzednie wydarzenie"});
+                Utils.printMenu(new String[]{"Następne wydarzenie", "Poprzednie wydarzenie"});
                 int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
@@ -137,9 +174,11 @@ public class Printer {
                     case 3:
                         nextLoop = false;
                         break;
+                    default:
+                        STDOUT.info(DEFAULT_MSG);
                 }
             } else {
-                printMenu(new String[]{"Poprzednie wydarzenie"});
+                Utils.printMenu(new String[]{"Poprzednie wydarzenie"});
                 int choice = Integer.parseInt(scanner.nextLine().trim());
                 switch (choice) {
                     case 1:
@@ -148,6 +187,8 @@ public class Printer {
                     case 2:
                         nextLoop = false;
                         break;
+                    default:
+                        STDOUT.info(DEFAULT_MSG);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers;
 
 import com.infoshare.eventmanagers.favorites.Favorites;
+import com.infoshare.eventmanagers.favorites.IncomingEvent;
 import com.infoshare.eventmanagers.filter.MenuEventListFilter;
 import com.infoshare.eventmanagers.properties.MenuEventMgrProperties;
 import com.infoshare.eventmanagers.repository.Repository;
@@ -8,11 +9,13 @@ import com.infoshare.eventmanagers.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 public class Menu {
 
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
     private final String message = "Wybrano opcję: {} \n";
 
+   
 
     private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedyńczego wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",
@@ -40,7 +43,7 @@ public class Menu {
 
                     break;
                 case 2:
-                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[1]);
+                    LOGGER.info(message, MENULIST[1]);
                     Utils.printListByFive(Repository.eventList);
                     break;
                 case 3:
@@ -54,6 +57,7 @@ public class Menu {
                     break;
                 case 5:
                     LOGGER.info(message, MENULIST[4]);
+                    IncomingEvent.run();
                     break;
                 case 6:
                     LOGGER.info(message, MENULIST[5]);

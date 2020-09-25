@@ -3,6 +3,7 @@ package com.infoshare.eventmanagers.favorites;
 import com.infoshare.eventmanagers.Menu;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
+import com.infoshare.eventmanagers.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,7 +72,7 @@ public class Favorites {
      * Prints Menu of Favorites Events.
      */
     private void printFavoriteMenu() {
-        Menu menu = new Menu();
+
         menu.printLine();
         for (int i = 0; i < menuListFavorites.length; i++) {
             LOGGER.info((i + 1) + ": " + menuListFavorites[i] + "\n");

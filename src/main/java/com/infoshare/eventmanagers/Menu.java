@@ -3,6 +3,8 @@ package com.infoshare.eventmanagers;
 import com.infoshare.eventmanagers.favorites.Favorites;
 import com.infoshare.eventmanagers.filter.MenuEventListFilter;
 import com.infoshare.eventmanagers.properties.MenuEventMgrProperties;
+import com.infoshare.eventmanagers.repository.Repository;
+import com.infoshare.eventmanagers.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,7 +47,7 @@ public class Menu {
                     break;
                 case 2:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[1]);
-                    new EventList().listView();
+                    Utils.printListByFive(Repository.eventList);
                     break;
                 case 3:
                     LOGGER.info("Wybrano opcję: {} \n", MENULIST[2]);

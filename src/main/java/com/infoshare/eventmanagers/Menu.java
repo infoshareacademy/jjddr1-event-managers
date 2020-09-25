@@ -44,11 +44,11 @@ public class Menu {
 
                     break;
                 case 2:
-                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[1]);
+                    LOGGER.info(message, MENULIST[1]);
                     Utils.printListByFive(Repository.eventList);
                     break;
                 case 3:
-                    LOGGER.info("Wybrano opcję: {} \n", MENULIST[2]);
+                    LOGGER.info(message, MENULIST[2]);
                     MenuEventListFilter.showMenu();
                     break;
                 case 4:

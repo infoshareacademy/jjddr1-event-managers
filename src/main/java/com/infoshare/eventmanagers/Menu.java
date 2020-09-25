@@ -9,14 +9,13 @@ import com.infoshare.eventmanagers.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Scanner;
 
 public class Menu {
 
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
     private final String message = "Wybrano opcję: {} \n";
 
-    private Scanner scanner = new Scanner(System.in);
+   
 
     private String[] MENULIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedyńczego wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",

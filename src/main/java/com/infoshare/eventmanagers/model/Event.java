@@ -92,7 +92,7 @@ public class Event {
     }
 
 
-    public void printAsList() {
+    public void printAsElement() {
         for (int i = 0; i < 84; i++) {
             LOGGER.info("─");
         }

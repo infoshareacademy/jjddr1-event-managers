@@ -102,11 +102,11 @@ public class Printer {
     private void printElements(int start) {
         if ((start + 5) < eventList.size()) {
             for (int i = start; i < start + 5; i++) {
-                eventList.get(i).printAsList();
+                eventList.get(i).printAsElement();
             }
         } else {
             for (int i = start; i < eventList.size(); i++) {
-                eventList.get(i).printAsList();
+                eventList.get(i).printAsElement();
             }
         }
         Utils.printLine();

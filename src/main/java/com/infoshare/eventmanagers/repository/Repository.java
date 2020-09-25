@@ -11,7 +11,7 @@ public class Repository {
 
     public static final List<Event> eventList = LoadJson.loadJsonAsArray();;
 
-
+    public static List<Event> favoritesList;
 
 
 

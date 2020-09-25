@@ -4,6 +4,7 @@ import com.infoshare.eventmanagers.Menu;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
 import com.infoshare.eventmanagers.utils.Utils;
+import jdk.jshell.execution.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class Favorites {
      * in Menu of Favorites.
      */
     String[] menuListFavorites = {"Wyświetl listę ulubionych wydarzeń", "Dodaj wydarzenie do listy ulubionych",
-            "Usuń wydarzenie z listy ulubionych", "Wróć do menu głównego"};
+            "Usuń wydarzenie z listy ulubionych" };
 
     /**
      * Shows Menu of Favorites Events with all options in switch instruction, which could be
@@ -37,7 +38,6 @@ public class Favorites {
     public void showFavoriteMenu() {
         LOGGER.info("WITAMY W MENU ULUBIONYCH!!!\n");
         printFavoriteMenu();
-        LOGGER.info("Wybierz opcję wpisując numer i zatwierdzając klawiszem 'enter'.\n");
         boolean next = true;
         while (next) {
             int choice = scanner.nextInt();
@@ -58,7 +58,6 @@ public class Favorites {
                     showFavoriteMenu();
                     break;
                 case 4:
-                    LOGGER.info("Wybrano opcję: " + menuListFavorites[3] + "\n");
                     next = false;
                     break;
                 default:
@@ -72,12 +71,8 @@ public class Favorites {
      * Prints Menu of Favorites Events.
      */
     private void printFavoriteMenu() {
-
-        menu.printLine();
-        for (int i = 0; i < menuListFavorites.length; i++) {
-            LOGGER.info((i + 1) + ": " + menuListFavorites[i] + "\n");
-        }
-        menu.printLine();
+        Utils.printLine();
+        Utils.printMenu(menuListFavorites);
     }
 
     /**
@@ -86,7 +81,7 @@ public class Favorites {
     void addToFavorites() {
 
         for (Event e : Repository.eventList) {
-            e.printAsList();
+            e.printAsElement();
         }
 
         LOGGER.info("Write ID number of an event you want to add: \n");
@@ -104,6 +99,7 @@ public class Favorites {
             LOGGER.info("Event added to your List of Favourites.\n");
         }
         printFavoriteMenu();
+        saveToRepository();
     }
 
     /**
@@ -127,6 +123,7 @@ public class Favorites {
             LOGGER.info("Event deleted form List of Favorites.\n");
         }
         printFavoriteMenu();
+        saveToRepository();
     }
 
     /**
@@ -134,15 +131,15 @@ public class Favorites {
      */
     void viewFavorites() {
         for (Event event : favoritesList) {
-            event.printAsList();
+            event.printAsElement();
         }
     }
 
     /**
-     * @return List of Favorites Events
+     * Updates favoriteslist in Repository class.
      */
-    public static List<Event> favoriteList() {
-        return favoriteList();
+    public void saveToRepository() {
+        Repository.favoritesList = favoritesList;
     }
 
 }

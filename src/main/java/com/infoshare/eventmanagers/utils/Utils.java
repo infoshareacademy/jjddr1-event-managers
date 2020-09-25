@@ -12,15 +12,15 @@ public class Utils {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static Scanner scanner = new Scanner(System.in);
 
-
     public static void printMenu(String[] menuArray) {
-        printLine();
+
         int i = 0;
         for (; i < menuArray.length; i++) {
             STDOUT.info("{}: {}\n", (i + 1), menuArray[i]);
         }
         STDOUT.info("{}: Powrót \n", i + 1);
-        printLine();
+        STDOUT.info("Wybierz opcję: ");
+
     }
 
     public static void printLine() {
@@ -36,8 +36,9 @@ public class Utils {
     }
 
     // TODO:implement methods in Printer class, then call them in static context here.
-    static void printListByFive(List<Event> eventList) {
 
+    public static void printListByFive(List<Event> eventList) {
+        Printer.runListView(eventList);
     }
 
     /**
@@ -58,5 +59,6 @@ public class Utils {
         }
         return choice;
     }
+
 
 }

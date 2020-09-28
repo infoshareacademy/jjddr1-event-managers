@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 
 public class Printer {
@@ -19,7 +19,7 @@ public class Printer {
     private final List<Event> eventList;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Printer(List<Event> eventList) {
+    private Printer(List<Event> eventList) {
         this.eventList = eventList;
     }
 
@@ -27,7 +27,7 @@ public class Printer {
         new Printer(eventList).listView();
     }
 
-    public void listView() {
+    private void listView() {
         int start = 0;
         boolean next = true;
         while (next) {
@@ -36,7 +36,7 @@ public class Printer {
 
             if (start == 0 && eventList.size() <= 5) {
                 Utils.printMenu(new String[]{DETAILS_MSG});
-                switch (Integer.parseInt(scanner.nextLine().trim())) {
+                switch (Utils.makeAChoice()) {
                     case 1:
                         runOneEventView();
                         break;
@@ -49,7 +49,7 @@ public class Printer {
 
             } else if (start == 0) {
                 Utils.printMenu(new String[]{NEXT_5_MSG, DETAILS_MSG});
-                switch (Integer.parseInt(scanner.nextLine().trim())) {
+                switch (Utils.makeAChoice()) {
                     case 1:
                         start += 5;
                         break;
@@ -64,7 +64,7 @@ public class Printer {
                 }
             } else if (start > 0 && start < eventList.size() - 5) {
                 Utils.printMenu(new String[]{NEXT_5_MSG, PREVIOUS_5_MSG, DETAILS_MSG});
-                switch (Integer.parseInt(scanner.nextLine().trim())) {
+                switch (Utils.makeAChoice()) {
                     case 1:
                         start += 5;
                         break;
@@ -82,7 +82,7 @@ public class Printer {
                 }
             } else {
                 Utils.printMenu(new String[]{PREVIOUS_5_MSG, DETAILS_MSG});
-                switch (Integer.parseInt(scanner.nextLine())) {
+                switch (Utils.makeAChoice()) {
                     case 1:
                         start -= 5;
                         break;
@@ -120,11 +120,11 @@ public class Printer {
             if (id == 0) {
                 return;
             }
-            List<Event> collect = eventList.parallelStream().filter(input -> input.getId() == id).collect(Collectors.toList());
-            if (collect.isEmpty()) {
+            Optional<Event> Event = eventList.parallelStream().filter(input -> input.getId() == id).findFirst();
+            if (Event.isEmpty()) {
                 STDOUT.info("Brak wydarzenia o podanym indeksie \n");
             } else {
-                oneEventView(collect.get(0));
+                oneEventView(Event.get());
                 break;
             }
         }
@@ -140,7 +140,7 @@ public class Printer {
             eventList.get(index).printFull();
             if (eventList.size() == 1) {
                 Utils.printMenu(new String[]{});
-                int choice = Integer.parseInt(scanner.nextLine().trim());
+                int choice = Utils.makeAChoice();
                 switch (choice) {
                     case 1:
                         nextLoop = false;
@@ -150,7 +150,7 @@ public class Printer {
                 }
             } else if (index == 0) {
                 Utils.printMenu(new String[]{"Następne wydarzenie"});
-                int choice = Integer.parseInt(scanner.nextLine().trim());
+                int choice = Utils.makeAChoice();
                 switch (choice) {
                     case 1:
                         index++;
@@ -163,7 +163,7 @@ public class Printer {
                 }
             } else if (index > 0 && index < eventList.size() - 1) {
                 Utils.printMenu(new String[]{"Następne wydarzenie", "Poprzednie wydarzenie"});
-                int choice = Integer.parseInt(scanner.nextLine().trim());
+                int choice = Utils.makeAChoice();
                 switch (choice) {
                     case 1:
                         index++;
@@ -179,7 +179,7 @@ public class Printer {
                 }
             } else {
                 Utils.printMenu(new String[]{"Poprzednie wydarzenie"});
-                int choice = Integer.parseInt(scanner.nextLine().trim());
+                int choice = Utils.makeAChoice();
                 switch (choice) {
                     case 1:
                         index--;

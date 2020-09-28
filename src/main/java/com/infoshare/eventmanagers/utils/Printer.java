@@ -131,7 +131,6 @@ public class Printer {
     }
 
     private void oneEventView(Event event) {
-
         int index;
         boolean nextLoop = true;
         index = eventList.indexOf(event);

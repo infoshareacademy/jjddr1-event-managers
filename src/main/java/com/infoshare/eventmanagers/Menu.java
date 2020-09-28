@@ -15,8 +15,6 @@ public class Menu {
     private final static Logger LOGGER = LogManager.getLogger(Menu.class);
     private final String message = "Wybrano opcję: {} \n";
 
-
-
     private final String[] MENU_LIST = {"Wyszukiwanie wydarzeń", "Lista wszystkich wydarzeń z widokiem pojedyńczego wydarzenia",
             "Filtrowanie listy wydarzeń", "Edycja konfiguracji", "Pokazywanie najbliższego w czasie ulubionego wydarzenia",
             "Dodawanie/usuwanie ulubionych wydarzeń"};
@@ -34,7 +32,6 @@ public class Menu {
         while (next) {
             Utils.clearScreen();
             Utils.printMenu(MENU_LIST);
-            LOGGER.info("Dokonaj wyboru :");
             switch (Utils.makeAChoice()) {
                 case 1:
                     LOGGER.info(message, MENU_LIST[0]);

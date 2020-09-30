@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 
+import static com.infoshare.eventmanagers.Main.SETTINGS;
+
 /**
  * A singleton class providing access to preferences for Event Manager app.
  * If the file app.properties does exist in the app working directory it is used as source,
@@ -61,11 +63,12 @@ public class EventMgrProperties {
      * If invalid, displays an error message
      */
 
-    public void setDateFormat(String newFormat) {
+    public boolean setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
             properties.setProperty(DATE_FORMAT, newFormat);
+            return true;
         } else {
-            LOGGER.error("Niepoprawny format daty");
+            return false;
         }
     }
 
@@ -73,19 +76,31 @@ public class EventMgrProperties {
      * @return String object with current sorting order
      */
     public String getSortingOrder() {
-        return (String) properties.get("sorting.order");
+        return (String) properties.get("sorting.orderby");
     }
 
     /**
-     * Checks if provided string is a valid sorting order and sets property if valid.
-     * If invalid, displays an error message.
+     * Sets sortin order.
      */
     public void setSortingOrder(String newOrder) {
-        if (validateSortingOrder(newOrder)) {
-            properties.setProperty("sorting.order", newOrder.toLowerCase());
-        } else {
-            LOGGER.error("Podano niepoprawny porządek sortowania");
+            properties.setProperty("sorting.orderby", newOrder.toLowerCase());
+    }
+
+    public void switchSortingOrder(){
+        if (getSortingDirection().equals(Ascending.TRUE.toString().toLowerCase())) {
+            setSortingOrder(Ascending.FALSE.toString().toLowerCase());
         }
+        else {
+            setSortingOrder(Ascending.TRUE.toString().toLowerCase());
+        }
+    }
+
+    public String getSortingDirection(){
+        return properties.getProperty("sorting.direction");
+    }
+
+    public void setSortingDirection(String direction){
+        properties.setProperty("sorting.direction", direction);
     }
 
     /**
@@ -106,14 +121,16 @@ public class EventMgrProperties {
         return builder.toString();
     }
 
-    private boolean validateSortingOrder(String newSortingOrder) {
+
+
+ /*   private boolean validateSortingOrder(String newSortingOrder) {
         for (SortingOrder value : SortingOrder.values()) {
             if (value.toString().equals(newSortingOrder)) {
                 return true;
             }
         }
         return false;
-    }
+    } */
 
     private boolean validateDateFormat(String newFormat) {
 

@@ -1,10 +1,8 @@
 package com.infoshare.eventmanagers.properties;
 
 
-import com.infoshare.eventmanagers.properties.SortingOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 import java.util.Scanner;
 
@@ -12,24 +10,27 @@ import static com.infoshare.eventmanagers.Main.SETTINGS;
 
 public class MenuEventMgrProperties {
 
-    private final static Logger LOGGER = LogManager.getLogger(MenuEventMgrProperties.class);
-    private final static String MENU_LINE = getLine();
-    private final static Scanner SCANNER = new Scanner(System.in);
-    
+    private static final Logger LOGGER = LogManager.getLogger(MenuEventMgrProperties.class);
+    private static final String MENU_LINE = getLine();
+    private static final Scanner SCANNER = new Scanner(System.in);
+
     public MenuEventMgrProperties() {
+    }
+
+    private static String getLine() {
+        return ("─".repeat(80) + "\n");
     }
 
     public void displayPropertiesMenu() {
         while (true) {
-            LOGGER.info("\n########## Ustawienia ##########");
+            LOGGER.info("\n########## Ustawienia ##########\n");
             LOGGER.info("Obecnie ustawienia:\n");
             LOGGER.info(SETTINGS.toString());
-            LOGGER.info("""
-                    1: Zmień tryb sortowania.
-                    2: Zmień format daty.
-                    3: Przywróć ustawienia domyślne.
-                    4: Zapisz ustawienia.
-                    Naciśnij [ENTER] aby wrócić do głównego menu\n""");
+            LOGGER.info("1: Zmień tryb sortowania\n" +
+                    "2: Zmień format daty\n" +
+                    "3: Przywróć ustawienia domyślne\n" +
+                    "4: Zapisz ustawienia\n" +
+                    "Naciśnij [ENTER] aby wrócić do głównego menu\n");
             LOGGER.info(MENU_LINE);
             LOGGER.info("Wybierz opcję:");
             String userInput = SCANNER.nextLine();
@@ -38,17 +39,24 @@ public class MenuEventMgrProperties {
                 try {
                     int input = Integer.parseInt(userInput);
                     switch (input) {
-                        case 1 -> displaySortingOrderMenu();
-                        case 2 -> displayDateFormatMenu();
-                        case 3 -> {
+                        case 1:
+                            displaySortingOrderMenu();
+                            break;
+                        case 2:
+                            displayDateFormatMenu();
+                            break;
+                        case 3: {
                             SETTINGS.resetProperties();
                             LOGGER.info("Przywrócono ustawienia domyślne.\n");
+                            break;
+
                         }
-                        case 4 -> {
+                        case 4: {
                             SETTINGS.saveProperties();
                             LOGGER.info("Ustawienia zapisane.\n");
+                            break;
                         }
-                        default -> {
+                        default: {
                             return;
                         }
                     }
@@ -64,37 +72,46 @@ public class MenuEventMgrProperties {
     private void displaySortingOrderMenu() {
         while (true) {
             LOGGER.info("Wybierz porządek sortowania\n");
-            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder() + "\n");
-            LOGGER.info("""
-                    Wybierz opcję:
-                    1: Sortuj po organizatorze,
-                    2: Sortuj po dacie.
-                    Naciśnij [ENTER] aby wrócić do głównego menu\n""");
+            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder() +
+                    SETTINGS.getSortingDirection() + ".");
             LOGGER.info(MENU_LINE);
+            LOGGER.info("Wybierz opcję: \n" +
+                    "1: Sortuj po organizatorze\n," +
+                    "2: Sortuj po dacie.\n" +
+                    "3. Sortuj po nazwie wydarzenia\n" +
+                    "4. Zmień rosnąco/malejąco.\n" +
+                    "Naciśnij [ENTER] aby wrócić do głównego menu\n");
             LOGGER.info("Wybierz opcję:\n");
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) return;
-            else
+            else {
                 try {
                     int input = Integer.parseInt(userInput);
                     switch (input) {
-                        case 1 -> {
+                        case 1: {
                             SETTINGS.setSortingOrder(
                                     SortingOrder.ORGANIZATOR.toString());
-                            return;
+                            break;
                         }
-                        case 2 -> {
+                        case 2: {
                             SETTINGS.setSortingOrder(
                                     SortingOrder.DATA.toString());
-                            return;
+                            break;
                         }
-                        default -> {
+                        case 3: {
+                            SETTINGS.setSortingOrder(SortingOrder.NAZWA.toString());
+                        }
+                        case 4: {
+                            SETTINGS.switchSortingOrder();
+                        }
+                        default: {
                             return;
                         }
                     }
                 } catch (NumberFormatException e) {
                     LOGGER.warn("Nie rozumiem. Wybierz opcję z listy\n");
                 }
+            }
         }
     }
 
@@ -113,12 +130,11 @@ public class MenuEventMgrProperties {
             if (userInput.equals("")) {
                 return;
             } else {
-                SETTINGS.setDateFormat(userInput);
+                boolean dateFormatCorrect = SETTINGS.setDateFormat(userInput);
+                if (!dateFormatCorrect) {
+                    LOGGER.error("Niepoprawny format daty.");
+                }
             }
         }
-    }
-
-    private static String getLine() {
-        return ("─".repeat(80) + "\n");
     }
 }

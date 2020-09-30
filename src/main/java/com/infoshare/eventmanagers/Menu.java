@@ -2,6 +2,7 @@ package com.infoshare.eventmanagers;
 
 import com.infoshare.eventmanagers.favorites.Favorites;
 import com.infoshare.eventmanagers.favorites.IncomingEvent;
+import com.infoshare.eventmanagers.favorites.MenuFavorites;
 import com.infoshare.eventmanagers.filter.MenuEventListFilter;
 import com.infoshare.eventmanagers.properties.MenuEventMgrProperties;
 import com.infoshare.eventmanagers.repository.Repository;
@@ -57,8 +58,8 @@ public class Menu {
                     break;
                 case 6:
                     LOGGER.info(message, MENU_LIST[5]);
-                    Favorites favorites = new Favorites();
-                    favorites.showFavoriteMenu();
+                    MenuFavorites menuFavorites = new MenuFavorites();
+                    menuFavorites.showFavoriteMenu();
                     break;
                 case 7:
                     next = false;

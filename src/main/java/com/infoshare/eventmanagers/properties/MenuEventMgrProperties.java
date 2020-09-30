@@ -4,6 +4,7 @@ package com.infoshare.eventmanagers.properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static com.infoshare.eventmanagers.Main.SETTINGS;
@@ -35,7 +36,7 @@ public class MenuEventMgrProperties {
             LOGGER.info("Wybierz opcję:");
             String userInput = SCANNER.nextLine();
             if (userInput.equals("")) return;
-            else
+            else {
                 try {
                     int input = Integer.parseInt(userInput);
                     switch (input) {
@@ -46,7 +47,11 @@ public class MenuEventMgrProperties {
                             displayDateFormatMenu();
                             break;
                         case 3: {
-                            SETTINGS.resetProperties();
+                            try {
+                                SETTINGS.resetProperties();
+                            } catch (FileNotFoundException e) {
+                                LOGGER.warn("Nie znaleziono pliku z domyślnymi ustawieniami.");
+                            }
                             LOGGER.info("Przywrócono ustawienia domyślne.\n");
                             break;
 
@@ -62,7 +67,10 @@ public class MenuEventMgrProperties {
                     }
                 } catch (NumberFormatException e) {
                     LOGGER.warn("Nie rozumiem. Wybierz opcję z listy.\n");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
+            }
         }
     }
 

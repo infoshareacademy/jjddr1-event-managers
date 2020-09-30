@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 
+import static com.infoshare.eventmanagers.Main.SETTINGS;
+
 /**
  * A singleton class providing access to preferences for Event Manager app.
  * If the file app.properties does exist in the app working directory it is used as source,
@@ -45,6 +47,9 @@ public class EventMgrProperties {
         properties = getProperties();
     }
 
+    /**
+     * @return date format as String.
+     */
     public String getDateFormatAsString() {
         return properties.getProperty(DATE_FORMAT);
     }
@@ -61,11 +66,12 @@ public class EventMgrProperties {
      * If invalid, displays an error message
      */
 
-    public void setDateFormat(String newFormat) {
+    public boolean setDateFormat(String newFormat) {
         if (validateDateFormat(newFormat)) {
             properties.setProperty(DATE_FORMAT, newFormat);
+            return true;
         } else {
-            LOGGER.error("Niepoprawny format daty");
+            return false;
         }
     }
 
@@ -73,25 +79,40 @@ public class EventMgrProperties {
      * @return String object with current sorting order
      */
     public String getSortingOrder() {
-        return (String) properties.get("sorting.order");
+        return (String) properties.get("sorting.orderby");
     }
 
     /**
-     * Checks if provided string is a valid sorting order and sets property if valid.
-     * If invalid, displays an error message.
+     * Sets sortin order.
      */
     public void setSortingOrder(String newOrder) {
-        if (validateSortingOrder(newOrder)) {
-            properties.setProperty("sorting.order", newOrder.toLowerCase());
-        } else {
-            LOGGER.error("Podano niepoprawny porządek sortowania");
+            properties.setProperty("sorting.orderby", newOrder.toLowerCase());
+    }
+
+    /**
+     * Switches property "sorting.ascending" between "true" and "false".
+     */
+    public void switchSortingDirection(){
+        if (getSortingDirection().equals(Ascending.TRUE.toString().toLowerCase())) {
+            setSortingDirection(Ascending.FALSE.toString().toLowerCase());
         }
+        else {
+            setSortingDirection(Ascending.TRUE.toString().toLowerCase());
+        }
+    }
+
+    public String getSortingDirection(){
+        return properties.getProperty("sorting.ascending");
+    }
+
+    public void setSortingDirection(String direction){
+        properties.setProperty("sorting.ascending", direction);
     }
 
     /**
      * Loads default properties and stores it in app properties
      */
-    public void resetProperties() {
+    public void resetProperties() throws FileNotFoundException {
         this.properties = getPropertiesFromFile(DEFAULT_PROPERTIES);
         saveProperties();
     }
@@ -106,53 +127,44 @@ public class EventMgrProperties {
         return builder.toString();
     }
 
-    private boolean validateSortingOrder(String newSortingOrder) {
-        for (SortingOrder value : SortingOrder.values()) {
-            if (value.toString().equals(newSortingOrder)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private boolean validateDateFormat(String newFormat) {
+    private boolean validateDateFormat(String newFormat) throws IllegalArgumentException {
 
-        try {
-            new SimpleDateFormat(newFormat);
-        } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.getMessage());
-            return false;
-        }
+        new SimpleDateFormat(newFormat);
         return true;
     }
 
     private Properties getProperties() {
-
+        Properties newProperties = null;
         if (!Files.exists(Path.of(RESOURCE_PATH + APP_PROPERTIES))) {
-            return getPropertiesFromFile(DEFAULT_PROPERTIES);
+            try {
+                newProperties = getPropertiesFromFile(DEFAULT_PROPERTIES);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
-            return getPropertiesFromFile(APP_PROPERTIES);
-        }
+            try {
+                newProperties = getPropertiesFromFile(APP_PROPERTIES);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } return newProperties;
     }
 
-    public void saveProperties() {
+    public void saveProperties() throws FileNotFoundException {
 
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Properties getPropertiesFromFile(String properties) {
+    private Properties getPropertiesFromFile(String properties) throws FileNotFoundException {
 
         Properties newProperties = new Properties();
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
             newProperties.load(stream);
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }

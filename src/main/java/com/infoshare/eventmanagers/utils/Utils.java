@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Utils {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void printMenu(String[] menuArray) {
 
@@ -35,7 +35,6 @@ public class Utils {
         STDOUT.info("\n");
     }
 
-    // TODO:implement methods in Printer class, then call them in static context here.
 
     public static void printListByFive(List<Event> eventList) {
         Printer.runListView(eventList);
@@ -49,7 +48,6 @@ public class Utils {
 
 
     public static int makeAChoice() {
-        STDOUT.info("Dokonaj wyboru :");
         int choice;
         try {
             choice = Integer.parseInt(scanner.nextLine().trim());

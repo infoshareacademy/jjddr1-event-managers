@@ -3,8 +3,8 @@ package com.infoshare.eventmanagers.favorites;
 import com.infoshare.eventmanagers.Menu;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
+import com.infoshare.eventmanagers.utils.Printer;
 import com.infoshare.eventmanagers.utils.Utils;
-import jdk.jshell.execution.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +22,9 @@ public class Favorites {
      */
     List<Event> favoritesList = new ArrayList<>();
 
+    /**
+     * Declaration of Scanner with console implementation.
+     */
     Scanner scanner = new Scanner(System.in);
 
     /**
@@ -36,7 +39,6 @@ public class Favorites {
      * chosen by input in Scanner.
      */
     public void showFavoriteMenu() {
-        LOGGER.info("WITAMY W MENU ULUBIONYCH!!!\n");
         printFavoriteMenu();
         boolean next = true;
         while (next) {
@@ -80,9 +82,8 @@ public class Favorites {
      */
     void addToFavorites() {
 
-        for (Event e : Repository.eventList) {
-            e.printAsElement();
-        }
+        Printer printer = new Printer(Repository.eventList);
+        printer.listView();
 
         LOGGER.info("Write ID number of an event you want to add: \n");
         int index = scanner.nextInt();
@@ -98,7 +99,6 @@ public class Favorites {
             favoritesList.add(eventList.get(0));
             LOGGER.info("Event added to your List of Favourites.\n");
         }
-        printFavoriteMenu();
         saveToRepository();
     }
 
@@ -111,18 +111,18 @@ public class Favorites {
         LOGGER.info("Write ID number of an event you want to delete: \n");
         int index = scanner.nextInt();
 
-        List<Event> elementsToDelete = Repository.eventList
+        List<Event> elementsToDelete = favoritesList
                 .stream()
                 .filter(e -> e.getId() == index)
                 .collect(Collectors.toList());
 
+
         if (elementsToDelete.isEmpty()) {
             LOGGER.info("No such element in the list!\n");
         } else {
-            favoritesList.remove(elementsToDelete);
+            favoritesList.remove(elementsToDelete.get(0));
             LOGGER.info("Event deleted form List of Favorites.\n");
         }
-        printFavoriteMenu();
         saveToRepository();
     }
 

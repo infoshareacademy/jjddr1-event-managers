@@ -112,7 +112,7 @@ public class EventMgrProperties {
     /**
      * Loads default properties and stores it in app properties
      */
-    public void resetProperties() {
+    public void resetProperties() throws FileNotFoundException {
         this.properties = getPropertiesFromFile(DEFAULT_PROPERTIES);
         saveProperties();
     }
@@ -128,44 +128,43 @@ public class EventMgrProperties {
     }
 
 
-    private boolean validateDateFormat(String newFormat) {
+    private boolean validateDateFormat(String newFormat) throws IllegalArgumentException {
 
-        try {
-            new SimpleDateFormat(newFormat);
-        } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.getMessage());
-            return false;
-        }
+        new SimpleDateFormat(newFormat);
         return true;
     }
 
     private Properties getProperties() {
-
+        Properties newProperties = null;
         if (!Files.exists(Path.of(RESOURCE_PATH + APP_PROPERTIES))) {
-            return getPropertiesFromFile(DEFAULT_PROPERTIES);
+            try {
+                newProperties = getPropertiesFromFile(DEFAULT_PROPERTIES);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
-            return getPropertiesFromFile(APP_PROPERTIES);
-        }
+            try {
+                newProperties = getPropertiesFromFile(APP_PROPERTIES);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } return newProperties;
     }
 
-    public void saveProperties() {
+    public void saveProperties() throws FileNotFoundException {
 
         try (OutputStream stream = new FileOutputStream(getResourcePath() + APP_PROPERTIES)) {
             properties.store(stream, "");
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Properties getPropertiesFromFile(String properties) {
+    private Properties getPropertiesFromFile(String properties) throws FileNotFoundException {
 
         Properties newProperties = new Properties();
         try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
             newProperties.load(stream);
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Nie znaleziono pliku.");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -72,12 +72,12 @@ public class MenuEventMgrProperties {
     private void displaySortingOrderMenu() {
         while (true) {
             LOGGER.info("Wybierz porządek sortowania\n");
-            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder() +
-                    SETTINGS.getSortingDirection() + ".");
+            LOGGER.info("Obecnie sortuję po: " + SETTINGS.getSortingOrder() + ", " +
+                    getSortingDirectionAsString() + ".\n");
             LOGGER.info(MENU_LINE);
             LOGGER.info("Wybierz opcję: \n" +
-                    "1: Sortuj po organizatorze\n," +
-                    "2: Sortuj po dacie.\n" +
+                    "1: Sortuj po organizatorze\n" +
+                    "2: Sortuj po dacie\n" +
                     "3. Sortuj po nazwie wydarzenia\n" +
                     "4. Zmień rosnąco/malejąco.\n" +
                     "Naciśnij [ENTER] aby wrócić do głównego menu\n");
@@ -100,9 +100,11 @@ public class MenuEventMgrProperties {
                         }
                         case 3: {
                             SETTINGS.setSortingOrder(SortingOrder.NAZWA.toString());
+                            break;
                         }
                         case 4: {
-                            SETTINGS.switchSortingOrder();
+                            SETTINGS.switchSortingDirection();
+                            break;
                         }
                         default: {
                             return;
@@ -137,4 +139,15 @@ public class MenuEventMgrProperties {
             }
         }
     }
+
+    private String getSortingDirectionAsString() {
+        if (SETTINGS.getSortingDirection().equals("true")) {
+            return "rosnąco";
+
+        } else if (SETTINGS.getSortingDirection().equals("false")) {
+            return "malejąco";
+        }
+        return null;
+    }
 }
+

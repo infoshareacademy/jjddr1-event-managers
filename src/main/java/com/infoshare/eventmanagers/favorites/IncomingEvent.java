@@ -31,8 +31,13 @@ public class IncomingEvent {
                     .filter(e -> e.getStartDate().isAfter(LocalDate.now()))
                     .collect(Collectors.toList());
 
-            Event incomingEvent = dates.get(0);
-            incomingEvent.printAsElement();
+            if (dates.isEmpty()) {
+                Utils.printLine();
+                LOGGER.info("Nie ma zbliżających się wydarzeń");
+            } else {
+                Event incomingEvent = dates.get(0);
+                incomingEvent.printAsElement();
+            }
 
         } else {
             LOGGER.info("Lista nie posiada żadnych wydarzeń.");

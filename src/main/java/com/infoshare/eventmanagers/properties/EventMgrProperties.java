@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 
-import static com.infoshare.eventmanagers.Main.SETTINGS;
-
 /**
  * A singleton class providing access to preferences for Event Manager app.
  * If the file app.properties does exist in the app working directory it is used as source,
@@ -103,6 +101,11 @@ public class EventMgrProperties {
 
     public String getSortingDirection(){
         return properties.getProperty("sorting.ascending");
+    }
+
+    public boolean checkIfAscending(){
+        return getSortingDirection().equals("true");
+
     }
 
     public void setSortingDirection(String direction){

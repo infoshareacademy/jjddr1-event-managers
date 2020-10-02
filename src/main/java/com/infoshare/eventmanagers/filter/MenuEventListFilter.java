@@ -2,12 +2,10 @@ package com.infoshare.eventmanagers.filter;
 
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.utils.Utils;
-import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 

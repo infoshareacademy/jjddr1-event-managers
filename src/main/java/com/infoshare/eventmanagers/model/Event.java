@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.infoshare.eventmanagers.properties.EventMgrProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ public class Event {
     private LocalDate startDate;
 
     private String descShort;
+
 
     public Event() {
     }
@@ -71,7 +73,7 @@ public class Event {
         printName(name);
         LOGGER.info("\n| Miejsce: {}", placeName);
         LOGGER.info("\n| Organizator: {}", organizer);
-        LOGGER.info("\n| Data rozpoczęcia: {}", startDate);
+        LOGGER.info("\n| Data rozpoczęcia: {}", this::getDateAsFormattedString);
         printShortDesc(descShort);
         LOGGER.info("\n");
         for (int i = 0; i < 84; i++) {
@@ -79,7 +81,6 @@ public class Event {
         }
         LOGGER.info("\n");
     }
-
 
     private void printName(String name) {
         if ((name.length() > 73)) {
@@ -97,7 +98,7 @@ public class Event {
             LOGGER.info("─");
         }
 
-        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, placeName, startDate, ((name.length() > 58) ? name.substring(0, 62) : name));
+        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, placeName, getDateAsFormattedString(), ((name.length() > 58) ? name.substring(0, 62) : name));
     }
 
     private void printShortDesc(String descShort) {
@@ -148,6 +149,11 @@ public class Event {
                 ", startDate='" + startDate + '\'' +
                 ", descShort='" + descShort + '\'' +
                 '}';
+    }
+
+    private String getDateAsFormattedString() {
+        EventMgrProperties properties = EventMgrProperties.getInstance();
+        return this.getStartDate().format(properties.getDateFormatAsDateTimeFormatter());
     }
 
     class Place {

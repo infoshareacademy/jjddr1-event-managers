@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.utils;
 
 import com.infoshare.eventmanagers.model.Event;
-import com.infoshare.eventmanagers.properties.EventMgrProperties;
 import com.infoshare.eventmanagers.sorting.Sorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

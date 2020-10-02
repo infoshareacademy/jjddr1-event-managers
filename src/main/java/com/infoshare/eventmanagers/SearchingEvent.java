@@ -26,7 +26,7 @@ public class SearchingEvent {
          */
         Scanner scanner = new Scanner(System.in);
 
-        LOGGER.info("Podaj nazwę wydarzenia, które szukasz.");
+        LOGGER.info("Podaj nazwę wydarzenia, które szukasz : ");
         String givenEvent = scanner.nextLine();
 
         /**
@@ -36,13 +36,13 @@ public class SearchingEvent {
         for (Event s : Repository.eventList) {
             if (s.getName().contains(givenEvent)) {
                 isFound = true;
-                LOGGER.info("Wydarzenie o które pytasz to : ");
+                LOGGER.info("Wydarzenie o które pytasz to : \n");
                 s.printFull();
                 break;
             }
         }
         if (!isFound) {
-            LOGGER.info("Przykro nam, nie ma takiego wydarzenia.");
+            LOGGER.info("\nPrzykro nam, nie ma takiego wydarzenia.\n");
         }
     }
 }

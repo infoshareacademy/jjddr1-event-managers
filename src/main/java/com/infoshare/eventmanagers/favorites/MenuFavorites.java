@@ -33,7 +33,7 @@ public class MenuFavorites {
         Favorites.printFavoriteMenu();
         boolean next = true;
         while (next) {
-            int choice = scanner.nextInt();
+            int choice = Utils.makeAChoice();
             switch (choice) {
                 case 1:
                     Utils.printLine();

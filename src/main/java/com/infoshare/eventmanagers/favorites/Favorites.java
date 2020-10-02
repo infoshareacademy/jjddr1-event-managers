@@ -43,7 +43,7 @@ public class Favorites {
         Utils.printListByFive(Repository.eventList);
 
         LOGGER.info("Write ID number of an event you want to add: \n");
-        int index = scanner.nextInt();
+        int index = Utils.makeAChoice();
 
         List<Event> eventList = Repository.eventList
                 .stream()
@@ -66,7 +66,7 @@ public class Favorites {
 
         viewFavorites();
         LOGGER.info("Write ID number of an event you want to delete: \n");
-        int index = scanner.nextInt();
+        int index = Utils.makeAChoice();
 
         List<Event> elementsToDelete = favoritesList
                 .stream()
@@ -87,9 +87,7 @@ public class Favorites {
      * Prints every event in favoritesList
      */
     protected void viewFavorites() {
-        for (Event event : favoritesList) {
-            event.printAsElement();
-        }
+        Utils.printListByFive(favoritesList);
     }
 
     /**

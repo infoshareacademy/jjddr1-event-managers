@@ -105,6 +105,11 @@ public class EventMgrProperties {
         return properties.getProperty("sorting.ascending");
     }
 
+    public boolean checkIfAscending(){
+        return getSortingDirection().equals("true");
+
+    }
+
     public void setSortingDirection(String direction){
         properties.setProperty("sorting.ascending", direction);
     }

@@ -43,7 +43,7 @@ public class EventMgrProperties {
         return instance;
     }
 
-    private EventMgrProperties(){
+    public EventMgrProperties(){
         properties = getProperties();
     }
 

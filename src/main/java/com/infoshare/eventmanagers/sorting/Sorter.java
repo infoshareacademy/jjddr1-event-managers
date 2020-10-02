@@ -3,6 +3,7 @@ package com.infoshare.eventmanagers.sorting;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.properties.EventMgrProperties;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +12,8 @@ public class Sorter {
 
     EventMgrProperties properties;
 
-    public Sorter(EventMgrProperties properties) {
-        this.properties = properties;
+    public Sorter() {
+        this.properties = EventMgrProperties.getInstance();
     }
 
     public List<Event> sort(List<Event> list) {
@@ -36,16 +37,34 @@ public class Sorter {
 
     private List<Event> sortByName(List<Event> list, boolean ascending) {
         Comparator<Event> compareByName = new CompareByName();
-        return list.stream().sorted(compareByName).collect(Collectors.toList());
+        List<Event> sortedList = list.stream().sorted(compareByName).collect(Collectors.toList());
+        if (ascending) {
+            return sortedList;
+        } else {
+            Collections.reverse(sortedList);
+        }
+        return sortedList;
     }
 
     private List<Event> sortByDate(List<Event> list, boolean ascending) {
         Comparator<Event> compareByDate = new CompareByDate();
-        return list.stream().sorted(compareByDate).collect(Collectors.toList());
+        List<Event> sortedList = list.stream().sorted(compareByDate).collect(Collectors.toList());
+        if (ascending) {
+            return sortedList;
+        } else {
+            Collections.reverse(sortedList);
+        }
+        return sortedList;
     }
 
     private List<Event> sortByOrganizer(List<Event> list, boolean ascending) {
         Comparator<Event> compareByOrganizer = new CompareByOrganizer();
-        return list.stream().sorted(compareByOrganizer).collect(Collectors.toList());
+        List<Event> sortedList = list.stream().sorted(compareByOrganizer).collect(Collectors.toList());
+        if (ascending) {
+            return sortedList;
+        } else {
+            Collections.reverse(sortedList);
+        }
+        return sortedList;
     }
 }

@@ -1,6 +1,8 @@
 package com.infoshare.eventmanagers.utils;
 
 import com.infoshare.eventmanagers.model.Event;
+import com.infoshare.eventmanagers.properties.EventMgrProperties;
+import com.infoshare.eventmanagers.sorting.Sorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,9 @@ public class Printer {
     }
 
     public static void runListView(List<Event> eventList) {
-        new Printer(eventList).listView();
+        Sorter sorter = new Sorter();
+        List<Event> sortedList = sorter.sort(eventList);
+        new Printer(sortedList).listView();
     }
 
     private void listView() {

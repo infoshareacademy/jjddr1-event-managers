@@ -4,6 +4,7 @@ import com.infoshare.eventmanagers.Menu;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
 import com.infoshare.eventmanagers.utils.Utils;
+import jdk.jshell.execution.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -80,6 +81,7 @@ public class Favorites {
             favoritesList.remove(elementsToDelete.get(0));
             LOGGER.info("Event deleted form List of Favorites.\n");
         }
+        printFavoriteMenu();
         saveToRepository();
     }
 

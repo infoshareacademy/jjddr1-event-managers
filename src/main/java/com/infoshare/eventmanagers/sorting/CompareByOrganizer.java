@@ -8,6 +8,7 @@ public class CompareByOrganizer implements Comparator<Event> {
 
     @Override
     public int compare(Event e1, Event e2) {
+
         return e1.getOrganizer().compareTo(e2.getOrganizer());
     }
 }

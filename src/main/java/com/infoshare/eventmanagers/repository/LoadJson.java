@@ -17,6 +17,8 @@ public class LoadJson {
     private static final Logger LOGGER = LogManager.getLogger(LoadJson.class);
     private static final ObjectMapper mapper = new ObjectMapper();
     private static String fileAsString;
+    private static final String PATH_TO_FAVORITES_JSON = "/home/mitold/Desktop/infoShareAcademy/EventManagers/jjddr1-event-managers/src/main/resources/favorites.json";
+    private static final Path favoritesPath = Paths.get(PATH_TO_FAVORITES_JSON);
 
 
     static List<Event> loadJsonAsArray(String jsonPath) {
@@ -31,11 +33,8 @@ public class LoadJson {
             } catch (IOException e) {
                 LOGGER.info("Ups! Coś poszło nie tak podczas otwierania pliku, lub odczytu, lub mapowania ");
             }
-
         }
-
         return Arrays.asList(events);
     }
-
 
 }

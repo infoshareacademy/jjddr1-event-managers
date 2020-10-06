@@ -1,5 +1,6 @@
 package com.infoshare.eventmanagers.favorites;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoshare.eventmanagers.Menu;
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
@@ -8,6 +9,7 @@ import jdk.jshell.execution.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -89,14 +91,21 @@ public class Favorites {
      * Prints every event in favoritesList
      */
     protected void viewFavorites() {
-        Utils.printListByFive(favoritesList);
+        Utils.printListByFive(Repository.favoritesList);
     }
 
     /**
      * Updates favoriteslist in Repository class.
      */
     public void saveToRepository() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(Paths.get("/home/mitold/Desktop/infoShareAcademy/EventManagers/jjddr1-event-managers/src/main/resources/favorites.json").toFile(), favoritesList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         Repository.favoritesList = favoritesList;
     }
+
 
 }

@@ -45,7 +45,7 @@ public class EventListFilter {
     static List<Event> filterByOrganizer(String organizer) {
         List<Event> filterEvent = Repository.eventList
                 .stream()
-                .filter(event -> event.getOrganizer().equals(organizer))
+                .filter(event -> event.getOrganizerAsString().equals(organizer))
                 .collect(Collectors.toList());
         return filterEvent;
     }

@@ -118,7 +118,7 @@ public class Event {
             LOGGER.info("─");
         }
 
-        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, place, getDateAsFormattedString(), ((name.length() > 58) ? name.substring(0, 62) : name));
+        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, place, getDateAsFormattedString(), ((name.length() > 62) ? name.substring(0, 62) : name));
     }
 
     private void printShortDesc(String descShort) {

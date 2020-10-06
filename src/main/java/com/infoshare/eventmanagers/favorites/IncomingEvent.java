@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;
+import com.infoshare.eventmanagers.sorting.CompareByDate;
 import com.infoshare.eventmanagers.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +29,7 @@ public class IncomingEvent {
 
             List<Event> dates = favoritesList
                     .stream()
+                    .sorted(new CompareByDate())
                     .filter(e -> e.getStartDateAsLocalDate().isAfter(LocalDate.now()))
                     .collect(Collectors.toList());
 

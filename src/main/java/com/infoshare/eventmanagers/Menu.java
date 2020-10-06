@@ -24,6 +24,8 @@ public class Menu {
     public void run() {
         LOGGER.info("Witaj w Event Manager\n");
         LOGGER.info("Have fun! :)\n");
+        LOGGER.info("Twoje najbliższe wydarzenie to...\n");
+        IncomingEvent.run();
         showMenu();
 
     }

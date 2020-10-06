@@ -30,28 +30,25 @@ public class MenuFavorites {
      * chosen by input in Scanner.
      */
     public void showFavoriteMenu() {
-        Favorites.printFavoriteMenu();
         boolean next = true;
         while (next) {
+            Favorites.printFavoriteMenu();
             int choice = Utils.makeAChoice();
             switch (choice) {
                 case 1:
                     Utils.printLine();
                     LOGGER.info("Wybrano opcję: " + menuListFavorites[0] + "\n");
                     favorites.viewFavorites();
-                    showFavoriteMenu();
                     break;
                 case 2:
                     Utils.printLine();
                     LOGGER.info("Wybrano opcję: " + menuListFavorites[1] + "\n");
                     favorites.addToFavorites();
-                    showFavoriteMenu();
                     break;
                 case 3:
                     Utils.printLine();
                     LOGGER.info("Wybrano opcję: " + menuListFavorites[2] + "\n");
                     favorites.deleteFromFavorites();
-                    showFavoriteMenu();
                     break;
                 case 4:
                     next = false;

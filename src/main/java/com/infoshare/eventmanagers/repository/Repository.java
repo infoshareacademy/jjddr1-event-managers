@@ -9,9 +9,9 @@ public class Repository {
 
 
 
-    public static final List<Event> eventList = LoadJson.loadJsonAsArray("src/main/java/resources/events.json");;
+    public static final List<Event> eventList = LoadJson.loadJsonAsArray("src/main/resources/events.json");;
 
-    public static List<Event> favoritesList;
+    public static List<Event> favoritesList = LoadJson.loadJsonAsArray("src/main/resources/favorites.json");
 
 
     private Repository() {

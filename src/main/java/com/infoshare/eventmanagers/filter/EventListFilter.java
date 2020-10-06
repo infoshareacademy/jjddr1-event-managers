@@ -17,7 +17,7 @@ public class EventListFilter {
     static List<Event> filterByDate(LocalDate date) {
         List<Event> filterEvent = Repository.eventList
                 .stream()
-                .filter(e -> e.getStartDate().equals(date))
+                .filter(e -> e.getStartDateAsLocalDate().equals(date))
                 .collect(Collectors.toList());
         return filterEvent;
     }
@@ -31,8 +31,8 @@ public class EventListFilter {
     static List<Event> filterByDate(LocalDate fromDate, LocalDate toDate) {
         List<Event> filterEvent = Repository.eventList
                 .stream()
-                .filter(e -> e.getStartDate().isAfter(fromDate.minusDays(1)))
-                .filter(e -> e.getStartDate().isBefore(toDate.plusDays(1)))
+                .filter(e -> e.getStartDateAsLocalDate().isAfter(fromDate.minusDays(1)))
+                .filter(e -> e.getStartDateAsLocalDate().isBefore(toDate.plusDays(1)))
                 .collect(Collectors.toList());
         return filterEvent;
     }
@@ -45,7 +45,7 @@ public class EventListFilter {
     static List<Event> filterByOrganizer(String organizer) {
         List<Event> filterEvent = Repository.eventList
                 .stream()
-                .filter(event -> event.getOrganizer().equals(organizer))
+                .filter(event -> event.getOrganizerAsString().equals(organizer))
                 .collect(Collectors.toList());
         return filterEvent;
     }

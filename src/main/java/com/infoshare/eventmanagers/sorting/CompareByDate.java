@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class CompareByDate implements Comparator<Event> {
     @Override
     public int compare(Event e1, Event e2) {
-        return e1.getStartDate().compareTo(e2.getStartDate());
+        return e1.getStartDateAsLocalDate().compareTo(e2.getStartDateAsLocalDate());
     }
 
 }

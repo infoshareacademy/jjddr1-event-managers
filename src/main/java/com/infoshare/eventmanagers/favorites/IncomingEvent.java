@@ -28,7 +28,7 @@ public class IncomingEvent {
 
             List<Event> dates = favoritesList
                     .stream()
-                    .filter(e -> e.getStartDate().isAfter(LocalDate.now()))
+                    .filter(e -> e.getStartDateAsLocalDate().isAfter(LocalDate.now()))
                     .collect(Collectors.toList());
 
             if (dates.isEmpty()) {

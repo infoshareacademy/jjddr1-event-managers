@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class Favorites {
     /**
      * Declaration and initialization of List of Favorites Events.
      */
-    List<Event> favoritesList = new ArrayList<>();
+    List<Event> favoritesList = Repository.favoritesList;
 
     /**
      * Prints Menu of Favorites Events.
@@ -48,15 +49,15 @@ public class Favorites {
         LOGGER.info("Write ID number of an event you want to add: \n");
         int index = Utils.makeAChoice();
 
-        List<Event> eventList = Repository.eventList
+        Optional<Event> eventList = Repository.eventList
                 .stream()
                 .filter(e -> e.getId() == index)
-                .collect(Collectors.toList());
+                .findFirst();
 
         if (eventList.isEmpty()) {
             LOGGER.info("No such element in the list!\n");
         } else {
-            favoritesList.add(eventList.get(0));
+            favoritesList.add(eventList.get());
             LOGGER.info("Event added to your List of Favourites.\n");
         }
         saveToRepository();
@@ -100,7 +101,7 @@ public class Favorites {
     public void saveToRepository() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(Paths.get("/home/mitold/Desktop/infoShareAcademy/EventManagers/jjddr1-event-managers/src/main/resources/favorites.json").toFile(), favoritesList);
+            mapper.writeValue(Paths.get("src/main/resources/favorites.json").toFile(), favoritesList);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

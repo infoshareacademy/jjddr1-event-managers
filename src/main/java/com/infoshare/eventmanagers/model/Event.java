@@ -1,5 +1,6 @@
 package com.infoshare.eventmanagers.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.infoshare.eventmanagers.properties.EventMgrProperties;
 import org.apache.logging.log4j.LogManager;
@@ -47,11 +48,14 @@ public class Event {
         return id;
     }
 
-    public LocalDate getStartDate() {
+    @JsonIgnore
+    public LocalDate getStartDateAsLocalDate() {
         return startDate;
     }
 
     @JsonProperty("startDate")
+    public String getStartDate() {return startDate.toString();}
+
     public void setStartDate(String startDate) {
         this.startDate = LocalDate.parse(startDate.substring(0, 10));
     }
@@ -153,7 +157,7 @@ public class Event {
 
     private String getDateAsFormattedString() {
         EventMgrProperties properties = EventMgrProperties.getInstance();
-        return this.getStartDate().format(properties.getDateFormatAsDateTimeFormatter());
+        return this.getStartDateAsLocalDate().format(properties.getDateFormatAsDateTimeFormatter());
     }
 
     class Place {

@@ -17,7 +17,7 @@ public class Event {
     private int id;
     @JsonProperty("name")
     private String name;
-    private String placeName;
+    private String place;
     private String organizer;
     private LocalDate startDate;
 
@@ -27,21 +27,28 @@ public class Event {
     public Event() {
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Place getPlace() {
+        return new Place(place);
+    }
+
+    public void setPlace(Place place) {
+        this.place = place.getName();
+    }
+
+    public String getDescShort() {
+        return descShort;
+    }
+
     @JsonProperty("descShort")
     public void setDescShort(String descShort) {
         descShort = descShort.replaceAll("\\s{2,}", " ").trim();
         descShort = descShort.replaceAll("/\n/g, ", "");
 
         this.descShort = descShort;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty("place")
-    public void setPlaceName(Place place) {
-        this.placeName = place.getName();
     }
 
     public int getId() {
@@ -54,19 +61,28 @@ public class Event {
     }
 
     @JsonProperty("startDate")
-    public String getStartDate() {return startDate.toString();}
+    public String getStartDate() {
+        return startDate.toString();
+    }
 
     public void setStartDate(String startDate) {
         this.startDate = LocalDate.parse(startDate.substring(0, 10));
     }
 
-    public String getOrganizer() {
-        return organizer;
+    @JsonProperty("organizer")
+    public Organizer getOrganizer() {
+        return new Organizer(organizer);
     }
 
-    @JsonProperty("organizer")
+
     public void setOrganizer(Organizer organizer) {
         this.organizer = organizer.getDesignation();
+    }
+
+
+    @JsonIgnore
+    public String getOrganizerAsString() {
+        return organizer;
     }
 
     public void printFull() {
@@ -75,7 +91,7 @@ public class Event {
         }
         LOGGER.info("\n| Id: {}", id);
         printName(name);
-        LOGGER.info("\n| Miejsce: {}", placeName);
+        LOGGER.info("\n| Miejsce: {}", place);
         LOGGER.info("\n| Organizator: {}", organizer);
         LOGGER.info("\n| Data rozpoczęcia: {}", this::getDateAsFormattedString);
         printShortDesc(descShort);
@@ -102,7 +118,7 @@ public class Event {
             LOGGER.info("─");
         }
 
-        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, placeName, getDateAsFormattedString(), ((name.length() > 58) ? name.substring(0, 62) : name));
+        LOGGER.info("\n| Id : {} | Miejsce: {} \n| {} | Nazwa: {} \n", id, place, getDateAsFormattedString(), ((name.length() > 58) ? name.substring(0, 62) : name));
     }
 
     private void printShortDesc(String descShort) {
@@ -126,7 +142,7 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, placeName, organizer, startDate, descShort);
+        return Objects.hash(id, name, place, organizer, startDate, descShort);
     }
 
     @Override
@@ -136,7 +152,7 @@ public class Event {
         Event event = (Event) o;
         return id == event.id &&
                 Objects.equals(name, event.name) &&
-                Objects.equals(placeName, event.placeName) &&
+                Objects.equals(place, event.place) &&
                 Objects.equals(organizer, event.organizer) &&
                 Objects.equals(startDate, event.startDate) &&
                 Objects.equals(descShort, event.descShort);
@@ -148,7 +164,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", placeName='" + placeName + '\'' +
+                ", placeName='" + place + '\'' +
                 ", organizer='" + organizer + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", descShort='" + descShort + '\'' +
@@ -169,6 +185,11 @@ public class Event {
 
         }
 
+        public Place(String name) {
+            this.name = name;
+
+        }
+
         public String getName() {
             return name;
         }
@@ -178,6 +199,10 @@ public class Event {
         String designation;
 
         public Organizer() {
+        }
+
+        public Organizer(String designation) {
+            this.designation = designation;
         }
 
         public String getDesignation() {

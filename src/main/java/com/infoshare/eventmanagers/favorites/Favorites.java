@@ -46,7 +46,6 @@ public class Favorites {
 
         Utils.printListByFive(Repository.eventList);
 
-//        LOGGER.info("Write ID number of an event you want to add: \n");
         LOGGER.info("Podaj numer ID wydarzenia, które chcesz dodać: ");
         int index = Utils.makeAChoice();
 
@@ -56,11 +55,9 @@ public class Favorites {
                 .findFirst();
 
         if (eventList.isEmpty()) {
-//            LOGGER.info("No such element in the list!\n");
             LOGGER.info("Nie ma takiego wydarzenia!\n");
         } else {
             favoritesList.add(eventList.get());
-//            LOGGER.info("Event added to your List of Favourites.\n");
             LOGGER.info("Wydarzenie pomyślnie dodane do listy.\n");
         }
         saveToRepository();
@@ -72,7 +69,6 @@ public class Favorites {
     protected void deleteFromFavorites() {
 
         viewFavorites();
-//        LOGGER.info("Write ID number of an event you want to delete: \n");
         LOGGER.info("Podaj numer ID wydarzenia, które chcesz dodać: ");
         int index = Utils.makeAChoice();
 
@@ -83,11 +79,9 @@ public class Favorites {
 
 
         if (elementsToDelete.isEmpty()) {
-//            LOGGER.info("No such element in the list!\n");
             LOGGER.info("Nie ma takiego wydarzenia!\n");
         } else {
             favoritesList.remove(elementsToDelete.get(0));
-//            LOGGER.info("Event deleted form List of Favorites.\n");
             LOGGER.info("Wydarzenie pomyślnie usunięte z listy.\n");
         }
         saveToRepository();

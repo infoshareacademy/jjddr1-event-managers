@@ -1,6 +1,5 @@
 package com.infoshare.eventmanagers;
 
-import com.infoshare.eventmanagers.favorites.Favorites;
 import com.infoshare.eventmanagers.favorites.IncomingEvent;
 import com.infoshare.eventmanagers.favorites.MenuFavorites;
 import com.infoshare.eventmanagers.filter.MenuEventListFilter;
@@ -22,6 +21,7 @@ public class Menu {
 
 
     public void run() {
+        Utils.clearScreen();
         LOGGER.info("Witaj w Event Manager\n");
         LOGGER.info("Have fun! :)\n");
         LOGGER.info("Twoje najbliższe wydarzenie to...\n");
@@ -33,7 +33,6 @@ public class Menu {
     private void showMenu() {
         boolean next = true;
         while (next) {
-            Utils.clearScreen();
             Utils.printMenu(MENU_LIST);
             switch (Utils.makeAChoice()) {
                 case 1:

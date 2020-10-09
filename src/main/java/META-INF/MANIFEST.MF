@@ -1,3 +1,6 @@
 Manifest-Version: 1.0
 Main-Class: com.infoshare.eventmanagers.Main
+Class-Path: jackson-annotations-2.10.3.jar log4j-api-2.13.0.jar slf4j-ap
+ i-1.7.30.jar jackson-core-2.10.3.jar jackson-databind-2.10.3.jar log4j-
+ core-2.13.0.jar log4j-slf4j-impl-2.13.0.jar
 

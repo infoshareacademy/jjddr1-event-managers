@@ -38,6 +38,10 @@ public class LoadJson {
             }
         }
 
+        if (events == null) {
+            return new ArrayList<>();
+        }
+
         return new ArrayList<>(Arrays.asList(events));
     }
 

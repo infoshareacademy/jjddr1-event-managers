@@ -100,7 +100,7 @@ public class Favorites {
     public void saveToRepository() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(Paths.get("src/main/resources/favorites.json").toFile(), favoritesList);
+            mapper.writeValue(Paths.get("favorites.json").toFile(), favoritesList);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

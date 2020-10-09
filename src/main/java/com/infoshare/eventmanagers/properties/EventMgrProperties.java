@@ -139,7 +139,7 @@ public class EventMgrProperties {
 
     private Properties getProperties() {
         Properties newProperties = null;
-        if (!Files.exists(Path.of(RESOURCE_PATH + APP_PROPERTIES))) {
+        if (!Files.exists(Path.of(APP_PROPERTIES))) {
             try {
                 newProperties = getPropertiesFromFile(DEFAULT_PROPERTIES);
             } catch (FileNotFoundException e) {
@@ -166,7 +166,7 @@ public class EventMgrProperties {
     private Properties getPropertiesFromFile(String properties) throws FileNotFoundException {
 
         Properties newProperties = new Properties();
-        try (FileInputStream stream = new FileInputStream(getResourcePath() + properties)) {
+        try (FileInputStream stream = new FileInputStream(properties)) {
             newProperties.load(stream);
         } catch (IOException e) {
             e.printStackTrace();

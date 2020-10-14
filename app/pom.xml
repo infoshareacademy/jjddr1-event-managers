@@ -13,11 +13,11 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>Event-Manager</finalName>
+                    <finalName>ServiceCreate</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>com.infoshare.eventmanagers.Main</mainClass>
+                            <mainClass>com.svt.optimoo.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -60,6 +60,7 @@
             <version>5.7.0-RC1</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

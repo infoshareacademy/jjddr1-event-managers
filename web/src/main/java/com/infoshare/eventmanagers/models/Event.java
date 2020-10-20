@@ -2,10 +2,6 @@ package com.infoshare.eventmanagers.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Table
 @Entity
@@ -25,25 +21,18 @@ public class Event {
     private String attachments;
     @Column
     private String descShort;
-    @Column(length=1000000)
+    @Column
     private String descLong;
     @Column
-    private String categoryId;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Organizer_id")
+    private Integer categoryId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Organizer_id",referencedColumnName = "id")
     private Organizer organizer;
     @Column
     private String active;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Ticket_id", referencedColumnName = "id")
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="Ticket_id",referencedColumnName = "id")
     private Ticket ticket;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "Users_Event",
-            joinColumns = { @JoinColumn(name = "Event_id") },
-            inverseJoinColumns = { @JoinColumn(name = "User_id") }
-    )
-    private List<User> userList = new ArrayList<>();
 
     public Event() {
     }
@@ -104,11 +93,11 @@ public class Event {
         this.descLong = descLong;
     }
 
-    public String getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -142,13 +131,5 @@ public class Event {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
     }
 }

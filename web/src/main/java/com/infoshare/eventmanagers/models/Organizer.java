@@ -3,11 +3,11 @@ package com.infoshare.eventmanagers.models;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table
-public class Organizer {
+public class Organizer  {
     @Id
     private Integer id;
     @Column

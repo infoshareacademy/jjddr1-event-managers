@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dto;
 
 import com.infoshare.eventmanagers.models.Organizer;
-import com.infoshare.eventmanagers.models.jsonModels.JsonOrganizer;
 
 public class OrganizerDto {
     private String id;
@@ -30,12 +29,5 @@ public class OrganizerDto {
         organizer.setDesignation(organizerDto.getDesignation());
 
         return organizer;
-    }
-
-    public static OrganizerDto toOrganizerDto(Organizer organizer) {
-        OrganizerDto organizerDto = new OrganizerDto();
-        organizerDto.setId(organizer.getId().toString());
-        organizerDto.setDesignation(organizer.getDesignation());
-        return organizerDto;
     }
 }

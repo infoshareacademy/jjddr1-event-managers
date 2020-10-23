@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.servlet;
+package com.infoshare.eventmanagers.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

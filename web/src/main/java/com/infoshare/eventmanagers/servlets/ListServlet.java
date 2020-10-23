@@ -1,4 +1,5 @@
-package com.infoshare.eventmanagers;
+package com.infoshare.eventmanagers.servlets;
+
 
 import com.infoshare.eventmanagers.model.Event;
 import com.infoshare.eventmanagers.repository.Repository;

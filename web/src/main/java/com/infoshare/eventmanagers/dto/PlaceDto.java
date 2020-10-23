@@ -1,18 +1,12 @@
-package com.infoshare.eventmanagers.models;
+package com.infoshare.eventmanagers.dto;
 
-import javax.persistence.*;
+import com.infoshare.eventmanagers.models.Place;
 
-@Entity
-@Table
-public class Place {
-    @Id
+public class PlaceDto {
+
     private Integer id;
-    @Column
     private String subName;
-    @Column
     private String name;
-    @OneToOne(mappedBy = "place")
-    private Event event;
 
     public Integer getId() {
         return id;
@@ -38,11 +32,11 @@ public class Place {
         this.name = name;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    public static Place toPlace(PlaceDto placeDto){
+        Place place = new Place();
+        place.setId(placeDto.getId());
+        place.setName(placeDto.getName());
+        place.setSubName(place.getSubName());
+        return place;
     }
 }

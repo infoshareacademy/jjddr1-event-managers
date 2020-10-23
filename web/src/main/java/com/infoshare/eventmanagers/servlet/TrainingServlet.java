@@ -30,7 +30,7 @@ public class TrainingServlet extends HttpServlet {
         eventService.saveAll();
         PrintWriter printWriter = resp.getWriter();
 
-        printWriter.println("Hello");
+        printWriter.println("Rekordy zostały wpisane ");
 
 
     }

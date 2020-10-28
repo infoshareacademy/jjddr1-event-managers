@@ -1,13 +1,12 @@
 package com.infoshare.eventmanagers.models.jsonModels;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 public class JsonUrl {
+    @JsonbProperty("www")
     private String www;
 
     public JsonUrl() {
-    }
-
-    public JsonUrl(String www) {
-        this.www = www;
     }
 
     public String getWww() {

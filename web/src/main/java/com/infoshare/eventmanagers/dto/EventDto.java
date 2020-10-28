@@ -120,6 +120,23 @@ public class EventDto {
         this.ticket = ticket;
     }
 
+    public static Event toEvent(EventDto eventDto) {
+        Event event = new Event();
+        event.setName(eventDto.getName());
+        event.setId(eventDto.getId());
+        event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
+        event.setStartDate(eventDto.getStartDate());
+        event.setEndDate(eventDto.getEndDate());
+        event.setUrl(eventDto.getUrl());
+        event.setAttachments(eventDto.getAttachments());
+        event.setDescShort(eventDto.getDescShort());
+        event.setDescLong(eventDto.getDescLong());
+        event.setCategoryId(eventDto.getCategoryId());
+        event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
+        event.setActive(eventDto.getActive());
+        event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
+        return event;
+    }
     @Override
     public String toString() {
         return "EventDto{" +
@@ -136,22 +153,6 @@ public class EventDto {
                 ", active='" + active + '\'' +
                 ", ticket=" + ticket +
                 '}';
-    }
-
-    public static Event toEvent(EventDto eventDto){
-        Event event = new Event();
-        event.setId(eventDto.getId());
-        event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
-        event.setStartDate(eventDto.getStartDate());
-        event.setEndDate(eventDto.getEndDate());
-        event.setUrl(eventDto.getUrl());
-        event.setAttachments(eventDto.getAttachments());
-        event.setDescShort(eventDto.getDescShort());
-        event.setDescLong(eventDto.getDescLong());
-        event.setCategoryId(eventDto.getCategoryId());
-        event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
-        event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
-        return event;
     }
 
     public static EventDto toEventDto(Event event){

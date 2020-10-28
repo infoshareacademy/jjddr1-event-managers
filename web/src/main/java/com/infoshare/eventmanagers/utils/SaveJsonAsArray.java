@@ -48,14 +48,15 @@ class SaveJsonAsArray {
         List<EventDto> eventDtoList = new ArrayList<>();
         for (JsonEvent jsonEvent : jsonEvents) {
             EventDto eventDto = new EventDto();
+            eventDto.setName(jsonEvent.getName().replaceAll("\\s{2,}", " ").replaceAll("\\<.*?\\>", "").trim());
             eventDto.setId(Integer.parseInt(jsonEvent.getId()));
             eventDto.setPlace(fromJsonPlaceToPlaceDto(jsonEvent.getPlace()));
             eventDto.setStartDate(LocalDateTime.parse(jsonEvent.getStartDate().substring(0,16)));
             eventDto.setEndDate(LocalDateTime.parse(jsonEvent.getEndDate().substring(0,16)));
-            eventDto.setUrl(jsonEvent.getUrl()!=null?jsonEvent.getUrl().getWww():null);
+            eventDto.setUrl(jsonEvent.getUrls()!=null?jsonEvent.getUrls().getWww():null);
             eventDto.setAttachments(jsonEvent.getAttachments().length>0?jsonEvent.getAttachments()[0].getFileName():null);
-            eventDto.setDescShort(jsonEvent.getDescShort());
-            eventDto.setDescLong(jsonEvent.getDescLong());
+            eventDto.setDescShort(jsonEvent.getDescShort().replaceAll("\\s{2,}", " ").replaceAll("\\<.*?\\>", "").trim());
+            eventDto.setDescLong(jsonEvent.getDescLong().replaceAll("\\s{2,}", " ").replaceAll("\\<.*?\\>", "").trim());
             eventDto.setCategoryId(jsonEvent.getCategoryId());
             eventDto.setOrganizer(fromJsonOrganizerToOrganizerDto(jsonEvent.getOrganizer()));
             eventDto.setActive(jsonEvent.getActive());

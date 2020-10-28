@@ -24,32 +24,32 @@
            href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
                 class="fa fa-bars"></i></a>
 
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">zuza</a>
-        <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">WYDARZENIA</a>
+        <a href="#home" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+        <a href="#wydarzenia" class="w3-bar-item w3-button w3-padding-large w3-hide-small">WYDARZENIA</a>
 
 
         <div class="w3-dropdown-hover w3-hide-small">
-            <button class="w3-padding-large w3-button" title="More">ULUBIONE <i class="fa fa-caret-down"></i></button>
+            <button class="w3-padding-large w3-button" title="#ulubione">ULUBIONE <i class="fa fa-caret-down"></i></button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 <a href="#" class="w3-bar-item w3-button">najbliższe</a>
                 <a href="#" class="w3-bar-item w3-button">dodaj</a>
                 <a href="#" class="w3-bar-item w3-button">usuń</a>
             </div>
         </div>
-        <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">KONTAKT</a>
+        <a href="#kontakt" class="w3-bar-item w3-button w3-padding-large w3-hide-small">KONTAKT</a>
         <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i
                 class="fa fa-search"></i></a>
-        <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Log in</a>
+        <a href="#login" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Log in</a>
 
     </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-    <a href="#band" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BAND</a>
-    <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TOUR</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>
+    <a href="#login" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BAND</a>
+    <a href="#wydarzenia" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TOUR</a>
+    <a href="#kontakt" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">HOME</a>
 </div>
 
 <!-- Page content -->
@@ -60,26 +60,29 @@
         <img src="images/pic1.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
             <h3>PGE ARENA GDAŃSK</h3>
-            <p><b>We had the best time playing at Venice Beach!</b></p>
+            <h4>25 grudnień 2020</h4>
+            <p><b>Super impreza na największym stadionie w Trójmieście!</b></p>
         </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
         <img src="images/pic2.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-            <h3>Spodek Wrocław</h3>
-            <p><b>The atmosphere in New York is lorem ipsum.</b></p>
+            <h3>Spodek w Katowicach</h3>
+            <h4>1 luty 2020</h4>
+            <p><b>Festiwal Jazz Music</b></p>
         </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
         <img src="images/pic4.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-            <h3>Chicago</h3>
-            <p><b>Thank you, Chicago - A night we won't forget.</b></p>
+            <h3>Warszawa Stadion</h3>
+            <h4>15 maj 2020</h4>
+            <p><b>Konkurs karaoke dla wszystkich ;)</b></p>
         </div>
     </div>
 
     <!-- The Band Section -->
-    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="home">
         <h2 class="w3-wide">event.managers</h2>
         <p class="w3-opacity"><i>We love music</i></p>
         <p class="w3-justify">event.managers to liderzy internetowej bazy eventów oraz sprzedaży biletów w branży
@@ -106,8 +109,8 @@
         </div>
     </div>
 
-    <!-- The Tour Section -->
-    <div class="w3-black" id="tour">
+    <!-- The Wydarzenia Section -->
+    <div class="w3-black" id="wydarzenia">
         <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
             <h2 class="w3-wide w3-center">WYDARZENIA</h2>
             <p class="w3-opacity w3-center"><i>Nie przegap!</i></p><br>
@@ -180,7 +183,7 @@
     </div>
 
     <!-- The Contact Section -->
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="kontakt">
         <h2 class="w3-wide w3-center">KONTAKT</h2>
         <p class="w3-opacity w3-center"><i>Skontaktuj się z nami!</i></p>
         <div class="w3-row w3-padding-32">

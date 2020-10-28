@@ -9,6 +9,7 @@ public class EventDto {
 
 
     private Integer id;
+    private String name;
     private PlaceDto place;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -30,6 +31,14 @@ public class EventDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public PlaceDto getPlace() {
@@ -120,8 +129,9 @@ public class EventDto {
         this.ticket = ticket;
     }
 
-    public static Event toEvent(EventDto eventDto){
+    public static Event toEvent(EventDto eventDto) {
         Event event = new Event();
+        event.setName(eventDto.getName());
         event.setId(eventDto.getId());
         event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
         event.setStartDate(eventDto.getStartDate());
@@ -132,6 +142,7 @@ public class EventDto {
         event.setDescLong(eventDto.getDescLong());
         event.setCategoryId(eventDto.getCategoryId());
         event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
+        event.setActive(eventDto.getActive());
         event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
         return event;
     }

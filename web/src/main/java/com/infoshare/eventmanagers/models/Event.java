@@ -3,15 +3,17 @@ package com.infoshare.eventmanagers.models;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
-@Table
+// @Column nie potrzebne
+// @Table nie potrzebne
 @Entity
 public class Event {
     @Id
     private Integer id;
+    @Column
+    private String name;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Place_id", referencedColumnName = "id")
     private Place place;
@@ -25,7 +27,7 @@ public class Event {
     private String attachments;
     @Column
     private String descShort;
-    @Column(length=1000000)
+    @Column(length = 1000000)
     private String descLong;
     @Column
     private String categoryId;
@@ -40,8 +42,8 @@ public class Event {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "Users_Event",
-            joinColumns = { @JoinColumn(name = "Event_id") },
-            inverseJoinColumns = { @JoinColumn(name = "User_id") }
+            joinColumns = {@JoinColumn(name = "Event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "User_id")}
     )
     private List<User> userList = new ArrayList<>();
 
@@ -54,6 +56,14 @@ public class Event {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getStartDate() {
@@ -150,5 +160,17 @@ public class Event {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

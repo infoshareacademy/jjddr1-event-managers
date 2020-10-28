@@ -20,12 +20,10 @@ public class EventDao {
 
 
     @Transactional
-    public void saveAll() {
-        List<EventDto> eventDtos = Utils.saveJsonAsArray("/home/sebastian/Pulpit/kurs/Projekt/jjddr1-event-managers/web/src/main/resources/events.json");
+    public void saveAll(List<Event> events) {
+        for (Event event : events) {
 
-        for (EventDto eventDto : eventDtos) {
 
-            Event event = EventDto.toEvent(eventDto);
             Organizer organizer = entityManager.find(Organizer.class, event.getOrganizer().getId());
             if (organizer != null) {
                 event.setOrganizer(organizer);
@@ -38,11 +36,6 @@ public class EventDao {
 
         }
 
-    }
-
-    public EventDto saveEvent(EventDto eventDto) {
-        entityManager.persist(EventDto.toEvent(eventDto));
-        return eventDto;
     }
 
 }

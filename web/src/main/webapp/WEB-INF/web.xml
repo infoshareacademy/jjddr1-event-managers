@@ -3,4 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <data-source>
+        <name>java:ds/demo</name>
+        <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
+        <url>jdbc:mysql://0.0.0.0:3307/Events?useLegacyDatetimeCode=false&amp;
+            serverTimezone=Europe/Warsaw</url>
+        <user>root</user>
+        <password>root</password>
+    </data-source>
 </web-app>
+

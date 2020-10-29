@@ -9,8 +9,10 @@ import com.infoshare.eventmanagers.utils.Utils;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class EventDao {
@@ -43,6 +45,17 @@ public class EventDao {
     public EventDto saveEvent(EventDto eventDto) {
         entityManager.persist(EventDto.toEvent(eventDto));
         return eventDto;
+    }
+
+    public EventDto getEvent(Integer id) {
+        return EventDto.toEventDto(entityManager.find(Event.class, id));
+    }
+
+    //TODO: eventService.getAll zwraca błąd: More than one row with the given identifier was found
+
+    public List<EventDto> getAll() {
+        TypedQuery<Event> select_e_from_event_e = entityManager.createQuery("SELECT e from Event e", Event.class);
+        return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
     }
 
 }

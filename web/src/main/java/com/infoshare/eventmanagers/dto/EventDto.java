@@ -120,6 +120,24 @@ public class EventDto {
         this.ticket = ticket;
     }
 
+    @Override
+    public String toString() {
+        return "EventDto{" +
+                "id=" + id +
+                ", place=" + place +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", url='" + url + '\'' +
+                ", attachments='" + attachments + '\'' +
+                ", descShort='" + descShort + '\'' +
+                ", descLong='" + descLong + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", organizer=" + organizer +
+                ", active='" + active + '\'' +
+                ", ticket=" + ticket +
+                '}';
+    }
+
     public static Event toEvent(EventDto eventDto){
         Event event = new Event();
         event.setId(eventDto.getId());
@@ -134,6 +152,22 @@ public class EventDto {
         event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
         event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
         return event;
+    }
+
+    public static EventDto toEventDto(Event event){
+        EventDto eventDto = new EventDto();
+        eventDto.setId(event.getId());
+        eventDto.setPlace(PlaceDto.toPlaceDto(event.getPlace()));
+        eventDto.setStartDate(event.getStartDate());
+        eventDto.setEndDate(event.getEndDate());
+        eventDto.setUrl(event.getUrl());
+        eventDto.setAttachments(event.getAttachments());
+        eventDto.setDescShort(event.getDescShort());
+        eventDto.setDescLong(event.getDescLong());
+        eventDto.setCategoryId(event.getCategoryId());
+        eventDto.setOrganizer(OrganizerDto.toOrganizerDto(event.getOrganizer()));
+        eventDto.setTicket(TicketDto.toTicketDto(event.getTicket()));
+        return eventDto;
     }
 
 }

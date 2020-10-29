@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.dto;
 
 import com.infoshare.eventmanagers.models.Place;
+import com.infoshare.eventmanagers.models.jsonModels.JsonPlace;
 
 public class PlaceDto {
 
@@ -38,5 +39,14 @@ public class PlaceDto {
         place.setName(placeDto.getName());
         place.setSubName(place.getSubName());
         return place;
+    }
+
+    public static PlaceDto toPlaceDto(Place place) {
+        PlaceDto placeDto = new PlaceDto();
+        placeDto.setId(place.getId());
+        placeDto.setName(place.getName());
+        placeDto.setSubName(place.getSubName());
+        return placeDto;
+
     }
 }

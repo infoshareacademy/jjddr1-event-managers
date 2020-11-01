@@ -11,7 +11,7 @@ public class Place {
     private String subName;
     @Column
     private String name;
-    @OneToOne(mappedBy = "place")
+    @OneToOne(mappedBy = "place", fetch = FetchType.LAZY)
     private Event event;
 
     public Integer getId() {

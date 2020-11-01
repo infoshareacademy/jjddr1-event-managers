@@ -32,11 +32,19 @@ public class PlaceDto {
         this.name = name;
     }
 
-    public static Place toPlace(PlaceDto placeDto){
+    public static Place toPlace(PlaceDto placeDto) {
         Place place = new Place();
         place.setId(placeDto.getId());
         place.setName(placeDto.getName());
         place.setSubName(place.getSubName());
         return place;
+    }
+
+    public static PlaceDto toPlaceDto(Place place) {
+        PlaceDto placeDto = new PlaceDto();
+        placeDto.setId(place.getId());
+        placeDto.setSubName(place.getSubName());
+        placeDto.setName(place.getName());
+        return placeDto;
     }
 }

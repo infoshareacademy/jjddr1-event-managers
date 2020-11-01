@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dto;
 
 import com.infoshare.eventmanagers.models.Event;
-import com.infoshare.eventmanagers.models.Place;
 
 import java.time.LocalDateTime;
 
@@ -167,6 +166,24 @@ public class EventDto {
         eventDto.setDescLong(event.getDescLong());
         eventDto.setCategoryId(event.getCategoryId());
         eventDto.setOrganizer(OrganizerDto.toOrganizerDto(event.getOrganizer()));
+        eventDto.setTicket(TicketDto.toTicketDto(event.getTicket()));
+        return eventDto;
+    }
+
+    public static EventDto toEventDto(Event event) {
+        EventDto eventDto = new EventDto();
+        eventDto.setId(event.getId());
+        eventDto.setName(event.getName());
+        eventDto.setPlace(PlaceDto.toPlaceDto(event.getPlace()));
+        eventDto.setStartDate(event.getStartDate());
+        eventDto.setEndDate(event.getEndDate());
+        eventDto.setUrl(event.getUrl());
+        eventDto.setAttachments(event.getUrl());
+        eventDto.setDescShort(event.getDescShort());
+        eventDto.setDescLong(event.getDescLong());
+        eventDto.setCategoryId(event.getCategoryId());
+        eventDto.setOrganizer(OrganizerDto.toOrganizerDto(event.getOrganizer()));
+        eventDto.setActive(event.getActive());
         eventDto.setTicket(TicketDto.toTicketDto(event.getTicket()));
         return eventDto;
     }

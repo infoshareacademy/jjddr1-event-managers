@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-// @Column nie potrzebne
-// @Table nie potrzebne
+
 @Entity
 public class Event {
     @Id
     private Integer id;
     @Column
     private String name;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Place_id", referencedColumnName = "id")
     private Place place;
     @Column
@@ -31,12 +30,12 @@ public class Event {
     private String descLong;
     @Column
     private String categoryId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Organizer_id")
     private Organizer organizer;
     @Column
     private String active;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Ticket_id", referencedColumnName = "id")
     private Ticket ticket;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

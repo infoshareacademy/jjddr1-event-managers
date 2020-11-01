@@ -30,4 +30,11 @@ public class OrganizerDto {
 
         return organizer;
     }
+
+    public static OrganizerDto toOrganizerDto(Organizer organizer) {
+        OrganizerDto organizerDto = new OrganizerDto();
+        organizerDto.setId(String.valueOf(organizer.getId()));
+        organizerDto.setDesignation(organizer.getDesignation());
+        return organizerDto;
+    }
 }

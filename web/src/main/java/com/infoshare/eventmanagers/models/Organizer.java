@@ -13,7 +13,7 @@ public class Organizer {
     @Column
     private String designation;
 
-    @OneToMany(mappedBy = "organizer")
+    @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY)
     private List<Event> events;
 
     public Integer getId() {

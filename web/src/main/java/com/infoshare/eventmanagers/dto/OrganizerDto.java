@@ -3,14 +3,15 @@ package com.infoshare.eventmanagers.dto;
 import com.infoshare.eventmanagers.models.Organizer;
 
 public class OrganizerDto {
-    private String id;
+    private Integer id;
     private String designation;
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -25,7 +26,7 @@ public class OrganizerDto {
     public static Organizer toOrganizer(OrganizerDto organizerDto) {
 
         Organizer organizer = new Organizer();
-        organizer.setId(Integer.parseInt(organizerDto.getId()));
+        organizer.setId(organizerDto.getId());
         organizer.setDesignation(organizerDto.getDesignation());
 
         return organizer;
@@ -33,7 +34,7 @@ public class OrganizerDto {
 
     public static OrganizerDto toOrganizerDto(Organizer organizer) {
         OrganizerDto organizerDto = new OrganizerDto();
-        organizerDto.setId(String.valueOf(organizer.getId()));
+        organizerDto.setId(organizer.getId());
         organizerDto.setDesignation(organizer.getDesignation());
         return organizerDto;
     }

@@ -1,9 +1,7 @@
 package com.infoshare.eventmanagers.dto;
 
-import com.infoshare.eventmanagers.models.Place;
 import com.infoshare.eventmanagers.models.User;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 

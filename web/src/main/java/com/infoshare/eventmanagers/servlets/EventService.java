@@ -12,10 +12,6 @@ public class EventService {
     @Inject
     EventDao eventDao;
 
-    public void saveAll() {
-
-        eventDao.saveAll();
-    }
 
     public EventDto get(Integer id) {
         return eventDao.getEvent(id);

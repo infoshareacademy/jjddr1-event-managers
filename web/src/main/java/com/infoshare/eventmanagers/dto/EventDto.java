@@ -8,6 +8,7 @@ public class EventDto {
 
 
     private Integer id;
+    private String name;
     private PlaceDto place;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -29,6 +30,14 @@ public class EventDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public PlaceDto getPlace() {
@@ -119,23 +128,6 @@ public class EventDto {
         this.ticket = ticket;
     }
 
-    public static Event toEvent(EventDto eventDto) {
-        Event event = new Event();
-        event.setName(eventDto.getName());
-        event.setId(eventDto.getId());
-        event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
-        event.setStartDate(eventDto.getStartDate());
-        event.setEndDate(eventDto.getEndDate());
-        event.setUrl(eventDto.getUrl());
-        event.setAttachments(eventDto.getAttachments());
-        event.setDescShort(eventDto.getDescShort());
-        event.setDescLong(eventDto.getDescLong());
-        event.setCategoryId(eventDto.getCategoryId());
-        event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
-        event.setActive(eventDto.getActive());
-        event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
-        return event;
-    }
     @Override
     public String toString() {
         return "EventDto{" +
@@ -153,21 +145,22 @@ public class EventDto {
                 ", ticket=" + ticket +
                 '}';
     }
-
-    public static EventDto toEventDto(Event event){
-        EventDto eventDto = new EventDto();
-        eventDto.setId(event.getId());
-        eventDto.setPlace(PlaceDto.toPlaceDto(event.getPlace()));
-        eventDto.setStartDate(event.getStartDate());
-        eventDto.setEndDate(event.getEndDate());
-        eventDto.setUrl(event.getUrl());
-        eventDto.setAttachments(event.getAttachments());
-        eventDto.setDescShort(event.getDescShort());
-        eventDto.setDescLong(event.getDescLong());
-        eventDto.setCategoryId(event.getCategoryId());
-        eventDto.setOrganizer(OrganizerDto.toOrganizerDto(event.getOrganizer()));
-        eventDto.setTicket(TicketDto.toTicketDto(event.getTicket()));
-        return eventDto;
+    public static Event toEvent(EventDto eventDto) {
+        Event event = new Event();
+        event.setName(eventDto.getName());
+        event.setId(eventDto.getId());
+        event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
+        event.setStartDate(eventDto.getStartDate());
+        event.setEndDate(eventDto.getEndDate());
+        event.setUrl(eventDto.getUrl());
+        event.setAttachments(eventDto.getAttachments());
+        event.setDescShort(eventDto.getDescShort());
+        event.setDescLong(eventDto.getDescLong());
+        event.setCategoryId(eventDto.getCategoryId());
+        event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
+        event.setActive(eventDto.getActive());
+        event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
+        return event;
     }
 
     public static EventDto toEventDto(Event event) {

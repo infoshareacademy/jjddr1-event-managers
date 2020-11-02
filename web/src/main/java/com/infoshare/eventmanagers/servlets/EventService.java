@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.servlet;
+package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dao.EventDao;
 import com.infoshare.eventmanagers.dto.EventDto;

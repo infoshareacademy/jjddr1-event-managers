@@ -2,7 +2,6 @@ package com.infoshare.eventmanagers.servlets;
 
 
 import com.infoshare.eventmanagers.dto.EventDto;
-import com.infoshare.eventmanagers.servlet.EventService;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;

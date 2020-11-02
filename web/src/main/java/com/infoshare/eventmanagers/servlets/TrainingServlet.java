@@ -1,8 +1,4 @@
-package com.infoshare.eventmanagers.servlet;
-
-import com.infoshare.eventmanagers.dao.EventDao;
-import com.infoshare.eventmanagers.dto.EventDto;
-import com.infoshare.eventmanagers.utils.Utils;
+package com.infoshare.eventmanagers.servlets;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -12,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet("/event")
 public class TrainingServlet extends HttpServlet {

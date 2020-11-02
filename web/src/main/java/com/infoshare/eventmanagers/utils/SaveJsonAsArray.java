@@ -77,7 +77,7 @@ class SaveJsonAsArray {
 
     private static OrganizerDto fromJsonOrganizerToOrganizerDto(JsonOrganizer jsonOrganizer) {
         OrganizerDto organizerDto = new OrganizerDto();
-        organizerDto.setId(jsonOrganizer.getId());
+        organizerDto.setId(Integer.parseInt(jsonOrganizer.getId()));
         organizerDto.setDesignation(jsonOrganizer.getDesignation());
         return organizerDto;
     }

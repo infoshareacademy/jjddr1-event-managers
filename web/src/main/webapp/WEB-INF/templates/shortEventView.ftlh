@@ -1,3 +1,6 @@
-<H1>${eventDto.getDescShort()}</H1>
-<p>Data: ${eventDto.getStartDate().toString()}. Organizator: ${eventDto.getOrganizer().getDesignation()}</p>
-<p>Miejsce: ${eventDto.getPlace().getName()}</p>
+<div class="w3-content" style="max-width:600px;margin-top:46px">
+    <H3>${eventDto.getName()}</H3>
+    <p>Opis: ${eventDto.getDescShort()}</p>
+    <p>Data: ${eventDto.getStartDate().toString()}.<br>Organizator: ${eventDto.getOrganizer().getDesignation()}</p>
+    <p>Miejsce: ${eventDto.getPlace().getName()}</p>
+</div>

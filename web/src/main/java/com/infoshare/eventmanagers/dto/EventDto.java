@@ -171,7 +171,7 @@ public class EventDto {
         eventDto.setStartDate(event.getStartDate());
         eventDto.setEndDate(event.getEndDate());
         eventDto.setUrl(event.getUrl());
-        eventDto.setAttachments(event.getUrl());
+        eventDto.setAttachments(event.getAttachments());
         eventDto.setDescShort(event.getDescShort());
         eventDto.setDescLong(event.getDescLong());
         eventDto.setCategoryId(event.getCategoryId());

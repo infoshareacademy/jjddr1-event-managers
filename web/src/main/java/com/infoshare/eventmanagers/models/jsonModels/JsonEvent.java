@@ -2,11 +2,12 @@ package com.infoshare.eventmanagers.models.jsonModels;
 
 public class JsonEvent {
     private String id;
+    private String name;
     private JsonPlace place;
     private String startDate;
     private String endDate;
     private JsonAttachments [] attachments;
-    private JsonUrl url;
+    private JsonUrl urls;
     private String descLong;
     private String categoryId;
     private JsonOrganizer organizer;
@@ -20,6 +21,14 @@ public class JsonEvent {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public JsonPlace getPlace() {
@@ -54,12 +63,12 @@ public class JsonEvent {
         this.attachments = attachments;
     }
 
-    public JsonUrl getUrl() {
-        return url;
+    public JsonUrl getUrls() {
+        return urls;
     }
 
-    public void setUrl(JsonUrl url) {
-        this.url = url;
+    public void setUrls(JsonUrl urls) {
+        this.urls = urls;
     }
 
     public String getDescLong() {

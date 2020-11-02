@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dto;
 
 import com.infoshare.eventmanagers.models.Event;
-import com.infoshare.eventmanagers.models.Place;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +8,7 @@ public class EventDto {
 
 
     private Integer id;
+    private String name;
     private PlaceDto place;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -30,6 +30,14 @@ public class EventDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public PlaceDto getPlace() {
@@ -137,9 +145,9 @@ public class EventDto {
                 ", ticket=" + ticket +
                 '}';
     }
-
-    public static Event toEvent(EventDto eventDto){
+    public static Event toEvent(EventDto eventDto) {
         Event event = new Event();
+        event.setName(eventDto.getName());
         event.setId(eventDto.getId());
         event.setPlace(PlaceDto.toPlace(eventDto.getPlace()));
         event.setStartDate(eventDto.getStartDate());
@@ -150,13 +158,15 @@ public class EventDto {
         event.setDescLong(eventDto.getDescLong());
         event.setCategoryId(eventDto.getCategoryId());
         event.setOrganizer(OrganizerDto.toOrganizer(eventDto.getOrganizer()));
+        event.setActive(eventDto.getActive());
         event.setTicket(TicketDto.toTicket(eventDto.getTicket()));
         return event;
     }
 
-    public static EventDto toEventDto(Event event){
+    public static EventDto toEventDto(Event event) {
         EventDto eventDto = new EventDto();
         eventDto.setId(event.getId());
+        eventDto.setName(event.getName());
         eventDto.setPlace(PlaceDto.toPlaceDto(event.getPlace()));
         eventDto.setStartDate(event.getStartDate());
         eventDto.setEndDate(event.getEndDate());
@@ -166,6 +176,7 @@ public class EventDto {
         eventDto.setDescLong(event.getDescLong());
         eventDto.setCategoryId(event.getCategoryId());
         eventDto.setOrganizer(OrganizerDto.toOrganizerDto(event.getOrganizer()));
+        eventDto.setActive(event.getActive());
         eventDto.setTicket(TicketDto.toTicketDto(event.getTicket()));
         return eventDto;
     }

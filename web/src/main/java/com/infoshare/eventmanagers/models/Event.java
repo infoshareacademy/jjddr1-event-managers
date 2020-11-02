@@ -3,16 +3,17 @@ package com.infoshare.eventmanagers.models;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
-@Table
+
 @Entity
 public class Event {
     @Id
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column
+    private String name;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Place_id", referencedColumnName = "id")
     private Place place;
     @Column
@@ -25,23 +26,23 @@ public class Event {
     private String attachments;
     @Column
     private String descShort;
-    @Column(length=1000000)
+    @Column(length = 1000000)
     private String descLong;
     @Column
     private String categoryId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Organizer_id")
     private Organizer organizer;
     @Column
     private String active;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Ticket_id", referencedColumnName = "id")
     private Ticket ticket;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "Users_Event",
-            joinColumns = { @JoinColumn(name = "Event_id") },
-            inverseJoinColumns = { @JoinColumn(name = "User_id") }
+            joinColumns = {@JoinColumn(name = "Event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "User_id")}
     )
     private List<User> userList = new ArrayList<>();
 
@@ -54,6 +55,14 @@ public class Event {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getStartDate() {
@@ -150,5 +159,17 @@ public class Event {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

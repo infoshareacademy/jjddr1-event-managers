@@ -4,7 +4,6 @@ import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.models.Event;
 import com.infoshare.eventmanagers.models.Organizer;
 import com.infoshare.eventmanagers.models.Place;
-import com.infoshare.eventmanagers.utils.Utils;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,12 +21,10 @@ public class EventDao {
 
 
     @Transactional
-    public void saveAll() {
-        List<EventDto> eventDtos = Utils.saveJsonAsArray("/home/sebastian/Pulpit/kurs/Projekt/jjddr1-event-managers/web/src/main/resources/events.json");
+    public void saveAll(List<Event> events) {
+        for (Event event : events) {
 
-        for (EventDto eventDto : eventDtos) {
 
-            Event event = EventDto.toEvent(eventDto);
             Organizer organizer = entityManager.find(Organizer.class, event.getOrganizer().getId());
             if (organizer != null) {
                 event.setOrganizer(organizer);
@@ -39,6 +36,8 @@ public class EventDao {
             entityManager.persist(event);
 
         }
+
+
 
     }
 

@@ -12,7 +12,7 @@ public class Ticket {
     private Integer id;
     @Column
     private String type;
-    @OneToOne(mappedBy = "ticket")
+    @OneToOne(mappedBy = "ticket", fetch = FetchType.LAZY)
     private Event event;
 
     public Integer getId() {

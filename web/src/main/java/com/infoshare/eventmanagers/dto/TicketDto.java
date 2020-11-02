@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dto;
 
 import com.infoshare.eventmanagers.models.Ticket;
-import com.infoshare.eventmanagers.models.jsonModels.JsonTicket;
 
 public class TicketDto {
 
@@ -29,8 +28,7 @@ public class TicketDto {
         ticket.setType(ticketDto.getType());
         return ticket;
     }
-
-    public static TicketDto toTicketDto(Ticket ticket) {
+    public static TicketDto toTicketDto(Ticket ticket){
         TicketDto ticketDto = new TicketDto();
         ticketDto.setType(ticket.getType());
         return ticketDto;

@@ -3,17 +3,17 @@ package com.infoshare.eventmanagers.models;
 
 import javax.persistence.*;
 import java.util.List;
-
+import java.util.Set;
 
 @Entity
 @Table
-public class Organizer  {
+public class Organizer {
     @Id
     private Integer id;
     @Column
     private String designation;
 
-    @OneToMany(mappedBy = "organizer")
+    @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY)
     private List<Event> events;
 
     public Integer getId() {

@@ -20,6 +20,9 @@ public class EventDao {
     @PersistenceContext
     EntityManager entityManager;
 
+    public Event getById(Integer id) {
+        return entityManager.find(Event.class, id);
+    }
 
     @Transactional
     public void saveAll(List<Event> events) {

@@ -20,4 +20,8 @@ public class EventService {
     public List<EventDto> getAll(){
         return eventDao.getAll();
     }
+
+    public  List<EventDto> getRange(Integer start, Integer range){
+        return eventDao.getRange(start, range);
+    }
 }

@@ -57,4 +57,12 @@ public class EventDao {
         return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
     }
 
+    public List<EventDto> getRange(Integer start, Integer range) {
+        TypedQuery<Event> select_e_from_event_e = entityManager.createQuery("SELECT e from Event e", Event.class);
+        select_e_from_event_e.setFirstResult(start);
+        select_e_from_event_e.setMaxResults(range);
+        return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
+
+    }
+
 }

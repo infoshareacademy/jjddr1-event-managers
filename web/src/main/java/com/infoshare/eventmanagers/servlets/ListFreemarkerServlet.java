@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
+import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -47,7 +48,6 @@ public class ListFreemarkerServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         List<EventDto> events = eventService.getAll();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);

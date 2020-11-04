@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("/viewOne")
-public class OneEventViewFreemarkerServlet extends HttpServlet {
+public class OneEventViewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String TEMPLATE_DIR = "WEB-INF/templates";
     private Configuration cfg;
@@ -29,7 +29,7 @@ public class OneEventViewFreemarkerServlet extends HttpServlet {
     /**
      * Default constructor.
      */
-    public OneEventViewFreemarkerServlet() {
+    public OneEventViewServlet() {
         // TODO Auto-generated constructor stub
     }
 

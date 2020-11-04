@@ -16,20 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet("/viewOne")
-public class OneEventViewFreemarkerServlet extends HttpServlet {
+@WebServlet("/list")
+public class ListFreemarkerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String TEMPLATE_DIR = "WEB-INF/templates";
-    private Configuration cfg;
     @Inject
     EventService eventService;
+    private Configuration cfg;
 
     /**
      * Default constructor.
      */
-    public OneEventViewFreemarkerServlet() {
+    public ListFreemarkerServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -46,21 +47,16 @@ public class OneEventViewFreemarkerServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String requestParameter = request.getParameter("id");
 
-        if (requestParameter != null) {
-            Integer id = Integer.parseInt(requestParameter);
-            EventDto eventDto = eventService.get(id);
-            Map<String, Object> root = new HashMap<String, Object>();
-            root.put("title", "OneEventView");
-            root.put("eventDto", eventDto);
-            Template template = cfg.getTemplate("oneEventView.ftlh");
-            Writer out = response.getWriter();
-            try {
-                template.process(root, out);
-            } catch (TemplateException e) {
-                e.printStackTrace();
-            }
+        List<EventDto> events = eventService.getAll();
+        Map<String, Object> root = new HashMap<String, Object>();
+        root.put("events", events);
+        Template template = cfg.getTemplate("listOfEvents.ftlh");
+        Writer out = response.getWriter();
+        try {
+            template.process(root, out);
+        } catch (TemplateException e) {
+            e.printStackTrace();
         }
     }
 

@@ -13,11 +13,11 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>ServiceCreate</finalName>
+                    <finalName>Event-Manager</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>com.svt.optimoo.App</mainClass>
+                            <mainClass>com.infoshare.eventmanagers.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

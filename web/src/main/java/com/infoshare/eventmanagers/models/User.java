@@ -9,9 +9,21 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue
     private Integer id;
     @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
     private List<Event> favoriteList = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @JoinColumn(name = "Properties_id", referencedColumnName = "id")
+    private Properties properties;
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
 
     public Integer getId() {
         return id;

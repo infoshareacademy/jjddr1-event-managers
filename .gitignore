@@ -26,3 +26,6 @@ hs_err_pid*
 .idea/
 out/
 target/
+
+# IntelliJ IDEA files
+*.iml

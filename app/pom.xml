@@ -60,6 +60,7 @@
             <version>5.7.0-RC1</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

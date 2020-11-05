@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
+import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -47,10 +48,24 @@ public class ListFreemarkerServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String startParam = request.getParameter("start");
+        String rangeParam = request.getParameter("range");
+        Integer start;
+        Integer range;
+        if (startParam==null) {
+            start = 0;
+        } else start = Integer.valueOf(startParam);
+        if (rangeParam==null) {
+            range = 10;
+        } else range = Integer.valueOf(rangeParam);
 
-        List<EventDto> events = eventService.getAll();
+        List<EventDto> events = eventService.getRange(start, range);
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
+        root.put("start", start);
+        root.put("next", start+range);
+        root.put("previous", start-range);
+        root.put("range", range);
         Template template = cfg.getTemplate("listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {

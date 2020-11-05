@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.servlets;
+package com.infoshare.eventmanagers.services;
 
 import com.infoshare.eventmanagers.dao.EventDao;
 import com.infoshare.eventmanagers.dto.EventDto;
@@ -19,5 +19,9 @@ public class EventService {
 
     public List<EventDto> getAll(){
         return eventDao.getAll();
+    }
+
+    public  List<EventDto> getRange(Integer start, Integer range){
+        return eventDao.getRange(start, range);
     }
 }

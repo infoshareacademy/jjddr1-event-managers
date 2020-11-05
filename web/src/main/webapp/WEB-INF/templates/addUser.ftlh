@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<#import "common.ftlh" as common>
+<#import "head.ftlh" as common>
 <html>
 <head>
-    <@common.defaultHead title = "Home"/>
+    <@common.defaultHead title = "Add user form"/>
 </head>
 <body>
-<H1>${eventDto.getDescShort()}</H1>
-<p>Data: ${eventDto.getStartDate().toString()}. Organizator: ${eventDto.getOrganizer().getDesignation()}</p>
-<p>Miejsce: ${eventDto.getPlace().getName()}</p>
-<p>${eventDto.getDescLong()}</p>
-
+<form method="post" action="/user" enctype="form-data">
+    <input type="submit" name="save" value="save"/><br/>
+</form>
 </body>
+<#import "footer.ftlh" as common>
 </html>

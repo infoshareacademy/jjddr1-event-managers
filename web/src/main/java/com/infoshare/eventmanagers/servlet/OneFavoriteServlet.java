@@ -1,4 +1,4 @@
-package com.infoshare.eventmanagers.servlets;
+package com.infoshare.eventmanagers.servlet;
 
 import com.infoshare.eventmanagers.service.FavoriteService;
 import freemarker.template.Configuration;
@@ -13,16 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/favorite")
-public class FavoriteServlet extends HttpServlet {
-
-    public FavoriteServlet() {
-    }
+@WebServlet("/oneFavorite")
+public class OneFavoriteServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     public static final String TEMPLATE_DIR = "WEB-INF/templates";
@@ -43,10 +38,11 @@ public class FavoriteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, Object> root = FavoriteService.getMappedFavorite(123);
-        root.put("title","-Favorite-");
+        int id = Integer.parseInt(req.getParameter("id"));
+        Map<String, Object> root = FavoriteService.getMappedFavorite(id);
+        root.put("title","Favorite "+id);
 
-        Template template = cfg.getTemplate("favorite.ftlh");
+        Template template = cfg.getTemplate("oneFavorite.ftlh");
 
         Writer out = resp.getWriter();
         try {

@@ -1,62 +1,59 @@
 package com.infoshare.eventmanagers.service;
 
+import com.infoshare.eventmanagers.dao.Dao;
+import com.infoshare.eventmanagers.dao.EventDao;
 import com.infoshare.eventmanagers.dto.EventDto;
-import com.infoshare.eventmanagers.dto.OrganizerDto;
-import com.infoshare.eventmanagers.dto.PlaceDto;
+import com.infoshare.eventmanagers.dto.UserDto;
+import com.infoshare.eventmanagers.models.User;
 
 import javax.enterprise.context.RequestScoped;
-import java.time.LocalDateTime;
+import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //To consider scope!!
 @RequestScoped
 public class FavoriteService {
 
-    public static EventDto getFavorite(Integer id){
+    @Inject
+    Dao<User> userDao;
+    @Inject
+    EventDao eventDao;
 
-        EventDto eventDto = new EventDto();
-        //Tu powinno być zapytanie do bazy danych o Event o podanym ID.
-        //Na potrzeby testów jest to co poniżej:
+    public EventDto getFavorite(Integer userId, Integer favoriteId){
 
-        //Id:
-        eventDto.setId(id);
+        UserDto userDto = UserDto.toUserDto(userDao.getById(userId));
 
-        //Nazwa:
-        //eventDto.setName("testName")
+        List<EventDto> favoriteList = userDto.getFavoriteList();
+        EventDto favorite = favoriteList.stream()
+                .filter(eventDto -> eventDto.getId().equals(favoriteId))
+                .findFirst()
+                .orElse(null);
 
-        //Miejsce:
-        PlaceDto placeDto = new PlaceDto();
-        placeDto.setName("testPlaceName");
-        eventDto.setPlace(placeDto);
-
-        //Organizator:
-        OrganizerDto organizerDto = new OrganizerDto();
-        organizerDto.setDesignation("testDesignation");
-        eventDto.setOrganizer(organizerDto);
-
-        //Data rozpoczęcia:
-        LocalDateTime testStartDate = LocalDateTime.of(2020,02,02,02,02);
-        eventDto.setStartDate(testStartDate);
-
-        //Krótki opis:
-        eventDto.setDescShort("testDescShort");
-
-        return eventDto;
+        return favorite;
     }
 
-    public static Map<String,Object> getMappedFavorite(Integer id){
+    public Map<String,Object> getMappedFavorite(Integer userId, Integer favoriteId){
         Map<String,Object> mappedFavorite = new HashMap<>();
-        EventDto favorite = getFavorite(id);
-
-        mappedFavorite.put("id",favorite.getId());
-        //Hardcoded, bo Event nie ma pola Name.
-        mappedFavorite.put("name","testName");
-        mappedFavorite.put("place",favorite.getPlace().getName());
-        mappedFavorite.put("organizer",favorite.getOrganizer().getDesignation());
-        mappedFavorite.put("startDate",favorite.getStartDate());
-        mappedFavorite.put("descShort",favorite.getDescShort());
-
+        //EventDto favorite = getFavorite(userId,favoriteId);
+        EventDto favorite = eventDao.getEvent(48268);
+        if(favorite != null) {
+            mappedFavorite.put("id", favorite.getId());
+            mappedFavorite.put("name", favorite.getName());
+            mappedFavorite.put("place", favorite.getPlace().getName());
+            mappedFavorite.put("organizer", favorite.getOrganizer().getDesignation());
+            mappedFavorite.put("startDate", favorite.getStartDate());
+            mappedFavorite.put("descShort", favorite.getDescShort());
+        } else {
+            mappedFavorite.put("id","null");
+            mappedFavorite.put("name", "null");
+            mappedFavorite.put("place", "null");
+            mappedFavorite.put("organizer", "null");
+            mappedFavorite.put("startDate", "null");
+            mappedFavorite.put("descShort", "null");
+        }
         return mappedFavorite;
     }
 

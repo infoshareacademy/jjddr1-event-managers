@@ -8,7 +8,7 @@
         <servlet-name>FavoriteServlet</servlet-name>
         <display-name>FavoriteServlet</display-name>
         <description></description>
-        <servlet-class>com.infoshare.eventmanagers.servlet.FavoriteServlet</servlet-class>
+        <servlet-class>com.infoshare.eventmanagers.servlet.OneFavoriteServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>

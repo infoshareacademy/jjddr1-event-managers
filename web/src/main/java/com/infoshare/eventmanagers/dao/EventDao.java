@@ -51,8 +51,6 @@ public class EventDao {
         return EventDto.toEventDto(entityManager.find(Event.class, id));
     }
 
-    //TODO: eventService.getAll zwraca błąd: More than one row with the given identifier was found
-
     public List<EventDto> getAll() {
         TypedQuery<Event> select_e_from_event_e = entityManager.createQuery("SELECT e from Event e", Event.class);
         return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
@@ -64,6 +62,12 @@ public class EventDao {
         select_e_from_event_e.setMaxResults(range);
         return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
 
+    }
+
+    public Long getNumberOfEvents(){
+        Query query = entityManager.createQuery("Select Count(e) from Event e");
+        Object singleResult = query.getSingleResult();
+        return (Long) singleResult;
     }
 
 }

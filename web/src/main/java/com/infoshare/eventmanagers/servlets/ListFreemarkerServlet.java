@@ -60,12 +60,14 @@ public class ListFreemarkerServlet extends HttpServlet {
         } else range = Integer.valueOf(rangeParam);
 
         List<EventDto> events = eventService.getRange(start, range);
+        Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
         root.put("start", start);
         root.put("next", start+range);
         root.put("previous", start-range);
         root.put("range", range);
+        root.put("numberOfEvents", numberOfEvents);
         Template template = cfg.getTemplate("listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {

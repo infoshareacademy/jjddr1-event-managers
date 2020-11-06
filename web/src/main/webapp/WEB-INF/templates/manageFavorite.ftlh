@@ -5,8 +5,10 @@
 <body>
 <p>Wyszukaj ulubione wydarzenie po ID</p>
 <form action="oneFavorite" method="get">
-    <label for="id">Id:</label>
-    <input type="text" id="id" name="id"><br><br>
+    <label for="userId">User Id:</label>
+    <input type="text" id="userId" name="userId"><br><br>
+    <label for="favoriteId">Id:</label>
+    <input type="text" id="favoriteId" name="favoriteId"><br><br>
     <input type="submit" value="Submit">
 </form>
 </body>

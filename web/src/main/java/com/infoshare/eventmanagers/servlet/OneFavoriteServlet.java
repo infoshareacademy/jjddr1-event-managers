@@ -1,12 +1,12 @@
 package com.infoshare.eventmanagers.servlet;
 
+import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.service.FavoriteService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
-import javax.servlet.ServletConfig;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,28 +21,20 @@ public class OneFavoriteServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     public static final String TEMPLATE_DIR = "WEB-INF/templates";
-    private Configuration cfg;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        cfg = new Configuration(Configuration.VERSION_2_3_30);
-        cfg.setServletContextForTemplateLoading(getServletContext(), TEMPLATE_DIR);
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        cfg.setLogTemplateExceptions(false);
-        cfg.setWrapUncheckedExceptions(true);
-        cfg.setFallbackOnNullLoopVariable(false);
-    }
+    @Inject
+    FavoriteService favoriteService;
+    @Inject
+    TemplateProvider templateProvider;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        Map<String, Object> root = FavoriteService.getMappedFavorite(id);
-        root.put("title","Favorite "+id);
+        int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        Map<String, Object> root = favoriteService.getMappedFavorite(userId,favoriteId);
+        root.put("title","Favorite "+favoriteId);
 
-        Template template = cfg.getTemplate("oneFavorite.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "oneFavorite.ftlh");
 
         Writer out = resp.getWriter();
         try {

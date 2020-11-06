@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet("/list")
-public class ListFreemarkerServlet extends HttpServlet {
+public class ListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String TEMPLATE_DIR = "WEB-INF/templates";
     @Inject
@@ -31,7 +31,7 @@ public class ListFreemarkerServlet extends HttpServlet {
     /**
      * Default constructor.
      */
-    public ListFreemarkerServlet() {
+    public ListServlet() {
         // TODO Auto-generated constructor stub
     }
 

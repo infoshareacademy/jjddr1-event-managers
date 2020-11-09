@@ -3,6 +3,7 @@ package com.infoshare.eventmanagers.dto;
 import com.infoshare.eventmanagers.models.Properties;
 import com.infoshare.eventmanagers.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class UserDto {
         User user = new User();
         user.setId(userDto.getId());
         user.setProperties(PropertiesDto.toProperties(userDto.getPropertiesDto()));
-//        user.setFavoriteList(userDto.getFavoriteList().stream().map(eventDto -> EventDto.toEvent(eventDto)).collect(Collectors.toList()));
+        user.setFavoriteList(new ArrayList<>());
         return user;
     }
 

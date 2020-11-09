@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dao;
 
 
-import com.infoshare.eventmanagers.models.Properties;
 import com.infoshare.eventmanagers.models.User;
 
 import javax.ejb.Stateless;

@@ -22,9 +22,10 @@
             <#list events as eventDto>
                 <li>
                     <#include "shortEventView.ftlh">
-<#--                    <form method="delete" action="/favoriteManager/userId=${userId}&favoriteId=${eventDto.getId()?c}" enctype="form-data">-->
-<#--                        <input type="submit"/><br/>-->
-<#--                    </form>-->
+                    <form method="post" action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">
+                        <input type="submit" value="Usuń z ulubionych" />
+                    </form>
+<#--                    <button type="submit" onclick="" formmethod="post" formaction="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">Usuń z ulubionych</button>-->
                 </li>
             </#list>
         </ul>

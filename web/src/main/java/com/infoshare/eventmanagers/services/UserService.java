@@ -19,12 +19,13 @@ public class UserService {
     @Transactional
     public void createUser(UserDto userDto) {
 
-        PropertiesDto propertiesDto = new PropertiesDto();
-        propertiesDto.setSortingOrder("organizator");
-        propertiesDto.setDateFormat("dd-MM-yyyy");
-        propertiesDto.setAscending(true);
-
-        userDto.setPropertiesDto(propertiesDto);
+        if(userDto.getPropertiesDto() == null) {
+            PropertiesDto propertiesDto = new PropertiesDto();
+            propertiesDto.setSortingOrder("organizator");
+            propertiesDto.setDateFormat("dd-MM-yyyy");
+            propertiesDto.setAscending(true);
+            userDto.setPropertiesDto(propertiesDto);
+        }
         User user = UserDto.toUser(userDto);
         userDao.save(user);
     }

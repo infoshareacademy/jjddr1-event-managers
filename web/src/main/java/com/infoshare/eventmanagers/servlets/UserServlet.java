@@ -45,7 +45,6 @@ public class UserServlet extends HttpServlet {
         } catch (TemplateException e) {
             response.setStatus(418);
         }
-
     }
 
 

@@ -38,7 +38,6 @@ public class FavoriteListViewServlet extends HttpServlet {
         int range = Integer.parseInt(req.getParameter("range"));
 
         List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
-        //List<EventDto> eventDtoList = eventService.getRange(start,range);
 
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);

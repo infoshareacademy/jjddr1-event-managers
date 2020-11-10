@@ -36,7 +36,6 @@ public class FavoriteOneViewServlet extends HttpServlet {
         int userId = Integer.parseInt(req.getParameter("userId"));
 
         EventDto eventDto = favoriteService.getFavorite(userId,favoriteId);
-        //EventDto eventDto = eventService.get(favoriteId);
 
         Map<String, Object> root = new HashMap<>();
         root.put("title","Favorite "+favoriteId);

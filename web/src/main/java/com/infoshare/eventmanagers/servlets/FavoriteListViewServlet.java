@@ -1,8 +1,8 @@
-package com.infoshare.eventmanagers.servlet;
+package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
-import com.infoshare.eventmanagers.service.FavoriteService;
+import com.infoshare.eventmanagers.services.FavoriteService;
 import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet("/FavoriteOne")
-public class FavoriteOneViewServlet extends HttpServlet {
+@WebServlet("/favoriteList")
+public class FavoriteListViewServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     public static final String TEMPLATE_DIR = "WEB-INF/templates";
@@ -32,17 +33,22 @@ public class FavoriteOneViewServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
         int userId = Integer.parseInt(req.getParameter("userId"));
+        int start = Integer.parseInt(req.getParameter("start"));
+        int range = Integer.parseInt(req.getParameter("range"));
 
-        //EventDto eventDto = favoriteService.getFavorite(userId,favoriteId);
-        EventDto eventDto = eventService.get(favoriteId);
+        List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
+        //List<EventDto> eventDtoList = eventService.getRange(start,range);
 
         Map<String, Object> root = new HashMap<>();
-        root.put("title","Favorite "+favoriteId);
-        root.put("eventDto", eventDto);
+        root.put("events", eventDtoList);
+        root.put("start", start);
+        root.put("next", start+range);
+        root.put("previous", start-range);
+        root.put("range", range);
+        root.put("userId",userId);
 
-        Template template = templateProvider.getTemplate(getServletContext(), "oneEventView.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "favoriteListView.ftlh");
 
         try {
             template.process(root, resp.getWriter());

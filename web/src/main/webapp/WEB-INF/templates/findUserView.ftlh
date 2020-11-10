@@ -6,9 +6,11 @@
 </head>
 <body>
 
-<form method="post" action="/user" enctype="form-data">
-    <input type="submit" name="save" value="save"/><br/>
-</form>
+<div class="w3-content" style="max-width:1200px;margin-top:46px">
+
+    <H1>${user}</H1>
+
+</div>
 </body>
 <#import "footer.ftlh" as common>
 </html>

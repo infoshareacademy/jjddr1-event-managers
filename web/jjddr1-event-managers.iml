@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="jjddr1-event-managers" />
+          <factory-entry name="jjddr1-event-managers" value="1ab956ea-149e-449b-bda2-0caf6de4c989" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

@@ -34,6 +34,19 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDto userDto = new UserDto();
         userService.createUser(userDto);
+        //Template template = templateProvider.getTemplate(getServletContext(), "findUserView.ftlh");
+        Map<String, Object> model = new HashMap<>();
+        UserDto byId = userService.getById(103);
+        model.put("User", byId);
+        model.put("FavoritsList",byId.getFavoriteList());
+        System.out.println(byId);
+        System.out.println(byId.getFavoriteList());
+//
+//        try {
+//            template.process(model, response.getWriter());
+//        } catch (TemplateException e) {
+//            response.setStatus(418);
+//        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

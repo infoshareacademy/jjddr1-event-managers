@@ -1,7 +1,6 @@
 package com.infoshare.eventmanagers.dao;
 
 
-import com.infoshare.eventmanagers.models.Properties;
 import com.infoshare.eventmanagers.models.User;
 
 import javax.ejb.Stateless;
@@ -22,8 +21,7 @@ public class UserDao implements Dao<User> {
 
     @Override
     public User getById(Integer id) {
-        User user = entityManager.find(User.class, id);
-        return user;
+       return entityManager.find(User.class, id);
     }
 
     @Override

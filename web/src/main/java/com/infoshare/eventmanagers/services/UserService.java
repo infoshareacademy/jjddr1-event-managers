@@ -29,8 +29,13 @@ public class UserService {
     }
 
     @Transactional
+    public UserDto getById(Integer id ){
+       return UserDto.toUserDto(userDao.getById(id));
+    }
+
+    @Transactional
     public void updateUser(Integer id, UserDto userDto){
-        userDao.update(id, userDto.toUser(userDto));
+        userDao.update(id, UserDto.toUser(userDto));
     }
 
     @Transactional

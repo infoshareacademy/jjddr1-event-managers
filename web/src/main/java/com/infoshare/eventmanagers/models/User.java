@@ -12,7 +12,7 @@ public class User {
     @GeneratedValue
     private Integer id;
     @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
-    private List<Event> favoriteList = new ArrayList<>();
+    private List<Event> favoriteList ;
     @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "Properties_id", referencedColumnName = "id")
     private Properties properties;

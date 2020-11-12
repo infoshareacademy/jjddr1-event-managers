@@ -1,6 +1,5 @@
 package com.infoshare.eventmanagers.dao;
 
-import java.util.List;
 
 public interface Dao<T> {
     T getById(Integer id);

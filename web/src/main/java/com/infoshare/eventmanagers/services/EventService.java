@@ -24,4 +24,8 @@ public class EventService {
     public  List<EventDto> getRange(Integer start, Integer range){
         return eventDao.getRange(start, range);
     }
+
+    public Long getNumberOfEvents(){
+        return eventDao.getNumberOfEvents();
+    }
 }

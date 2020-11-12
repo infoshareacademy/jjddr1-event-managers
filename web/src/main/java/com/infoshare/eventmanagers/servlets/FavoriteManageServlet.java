@@ -19,6 +19,8 @@ public class FavoriteManageServlet extends HttpServlet {
 
     @Inject
     FavoriteService favoriteService;
+    @Inject
+    EventService eventService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,6 +32,9 @@ public class FavoriteManageServlet extends HttpServlet {
         }
         else if(action.equals("add")){
             favoriteService.addFavorite(userId,favoriteId);
+        }
+        else if(action.equals("update")){
+            eventService.updateDatabase();
         }
 
     }

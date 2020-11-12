@@ -38,12 +38,13 @@ public class Event {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Ticket_id", referencedColumnName = "id")
     private Ticket ticket;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "Users_Event",
-            joinColumns = {@JoinColumn(name = "Event_id")},
-            inverseJoinColumns = {@JoinColumn(name = "User_id")}
-    )
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "Users_Event",
+//            joinColumns = {@JoinColumn(name = "Event_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "User_id")}
+//    )
+    @ManyToMany(mappedBy = "favoriteList", fetch = FetchType.LAZY)
     private List<User> userList = new ArrayList<>();
 
     public Event() {

@@ -61,6 +61,7 @@ public class FavoriteService {
         userFavoritesDto.setFavoriteList(favoriteList);
         userDao.update(userId, UserFavoritesDto.toUser(userFavoritesDto));
     }
+
 /*
     public Map<String,Object> getMappedFavorite(Integer userId, Integer favoriteId){
         Map<String,Object> mappedFavorite = new HashMap<>();

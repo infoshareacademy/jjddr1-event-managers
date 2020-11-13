@@ -26,16 +26,16 @@ public class FavoriteManageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
         int userId = Integer.parseInt(req.getParameter("userId"));
-        favoriteService.addFavorite(userId,favoriteId);
+        String action = req.getParameter("action");
+        if (action.equals("remove")){
+            favoriteService.removeFavorite(userId,favoriteId);
+        }
+        else if(action.equals("add")){
+            favoriteService.addFavorite(userId,favoriteId);
+        }
+        else if(action.equals("update")){
+            eventService.updateDatabase();
+        }
+
     }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
-        int userId = Integer.parseInt(req.getParameter("userId"));
-        favoriteService.removeFavorite(userId,favoriteId);
-    }
-
-
-
 }

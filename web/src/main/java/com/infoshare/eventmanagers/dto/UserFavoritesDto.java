@@ -1,8 +1,10 @@
 package com.infoshare.eventmanagers.dto;
 
+import com.infoshare.eventmanagers.dao.Dao;
 import com.infoshare.eventmanagers.dao.UserDao;
 import com.infoshare.eventmanagers.models.User;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +19,10 @@ public class UserFavoritesDto {
         return userFavoritesDto;
     }
 
+    ///TO CHANGE!
     public static User toUser(UserFavoritesDto userFavoritesDto){
-        UserDao userDao = new UserDao();
-        User user = userDao.getById(userFavoritesDto.getId());
+        User user = new User();
+        user.setId(userFavoritesDto.getId());
         user.setFavoriteList(userFavoritesDto.getFavoriteList().stream().map(EventDto::toEvent).collect(Collectors.toList()));
         return user;
     }

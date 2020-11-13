@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.dao;
 
 import com.infoshare.eventmanagers.models.Properties;
+import com.infoshare.eventmanagers.models.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,9 +35,13 @@ public class PropertiesDao implements Dao<Properties> {
     }
 
     @Override
-    public void delete(Integer id) {
-        Properties toDelete = entityManager.find(Properties.class, id);
-        entityManager.remove(toDelete);
+    public boolean delete(Integer id) {
+        Properties toRemove = entityManager.find(Properties.class, id);
+        if (toRemove != null){
+            entityManager.remove(toRemove);
+            return true;
+        }
+        return false;
     }
 
 }

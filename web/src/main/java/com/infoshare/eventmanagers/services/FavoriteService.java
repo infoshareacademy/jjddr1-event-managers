@@ -2,16 +2,15 @@ package com.infoshare.eventmanagers.services;
 
 import com.infoshare.eventmanagers.dao.Dao;
 import com.infoshare.eventmanagers.dao.EventDao;
+import com.infoshare.eventmanagers.dao.UserDao;
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.dto.UserFavoritesDto;
 import com.infoshare.eventmanagers.models.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.transaction.Transactional;
+import java.util.*;
 
 //To consider scope!!
 @RequestScoped
@@ -22,6 +21,7 @@ public class FavoriteService {
     @Inject
     EventDao eventDao;
 
+    @Transactional
     public EventDto getFavorite(Integer userId, Integer favoriteId) {
         UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
@@ -31,6 +31,7 @@ public class FavoriteService {
                 .orElse(null);
     }
 
+    @Transactional
     public List<EventDto> getRange(Integer userId, Integer start, Integer range) {
         UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
@@ -38,6 +39,7 @@ public class FavoriteService {
         return favoriteList.subList(start, range);
     }
 
+    @Transactional
     public void addFavorite(Integer userId, Integer eventId) {
         UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
@@ -47,6 +49,7 @@ public class FavoriteService {
         userDao.update(userId, UserFavoritesDto.toUser(userFavoritesDto));
     }
 
+    @Transactional
     public void removeFavorite(Integer userId, Integer favoriteId) {
         UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
@@ -58,6 +61,7 @@ public class FavoriteService {
         userFavoritesDto.setFavoriteList(favoriteList);
         userDao.update(userId, UserFavoritesDto.toUser(userFavoritesDto));
     }
+
 /*
     public Map<String,Object> getMappedFavorite(Integer userId, Integer favoriteId){
         Map<String,Object> mappedFavorite = new HashMap<>();

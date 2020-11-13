@@ -11,7 +11,13 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "Users_Event",
+            joinColumns = {@JoinColumn(name = "User_id")},
+            inverseJoinColumns = {@JoinColumn(name = "Event_id")}
+    )
+    //@ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
     private List<Event> favoriteList ;
     @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "Properties_id", referencedColumnName = "id")

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet("/list")
-public class ListFreemarkerServlet extends HttpServlet {
+public class ListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String TEMPLATE_DIR = "WEB-INF/templates";
     @Inject
@@ -31,7 +31,7 @@ public class ListFreemarkerServlet extends HttpServlet {
     /**
      * Default constructor.
      */
-    public ListFreemarkerServlet() {
+    public ListServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -60,12 +60,14 @@ public class ListFreemarkerServlet extends HttpServlet {
         } else range = Integer.valueOf(rangeParam);
 
         List<EventDto> events = eventService.getRange(start, range);
+        Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
         root.put("start", start);
         root.put("next", start+range);
         root.put("previous", start-range);
         root.put("range", range);
+        root.put("numberOfEvents", numberOfEvents);
         Template template = cfg.getTemplate("listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {

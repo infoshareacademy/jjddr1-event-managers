@@ -26,13 +26,20 @@ public class UserDao implements Dao<User> {
 
     @Override
     public User update(Integer id, User user) {
-        User userUpdated = new User();
+        User userUpdated = entityManager.find(User.class,id);
         userUpdated.setFavoriteList(user.getFavoriteList());
-        return userUpdated;
+        User merge = entityManager.merge(userUpdated);
+        return merge;
+        //return userUpdated;
     }
 
     @Override
-    public void delete(Integer id) {
-
+    public boolean delete(Integer id) {
+        User toRemove = entityManager.find(User.class,id);
+        if (toRemove != null){
+            entityManager.remove(toRemove);
+            return true;
+        }
+        return false;
     }
 }

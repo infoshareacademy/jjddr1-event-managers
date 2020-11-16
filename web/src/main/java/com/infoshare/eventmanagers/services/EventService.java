@@ -2,6 +2,7 @@ package com.infoshare.eventmanagers.services;
 
 import com.infoshare.eventmanagers.dao.EventDao;
 import com.infoshare.eventmanagers.dto.EventDto;
+import com.infoshare.eventmanagers.utils.Utils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,11 +18,19 @@ public class EventService {
         return eventDao.getEvent(id);
     }
 
+    public void updateDatabase(){
+        eventDao.saveAll(Utils.saveJsonAsArray("src/main/resources/events.json)"));
+    }
+
     public List<EventDto> getAll(){
         return eventDao.getAll();
     }
 
     public  List<EventDto> getRange(Integer start, Integer range){
         return eventDao.getRange(start, range);
+    }
+
+    public Long getNumberOfEvents(){
+        return eventDao.getNumberOfEvents();
     }
 }

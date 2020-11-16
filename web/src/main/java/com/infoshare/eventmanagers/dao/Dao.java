@@ -9,6 +9,6 @@ public interface Dao<T> {
 
     T update(Integer id, T t);
 
-    void delete(Integer id);
+    boolean delete(Integer id);
 
 }

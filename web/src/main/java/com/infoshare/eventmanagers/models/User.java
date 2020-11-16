@@ -11,11 +11,35 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @Column
+    private String username;
+
+    @Column
+    private String password;
+
     @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
-    private List<Event> favoriteList ;
-    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    private List<Event> favoriteList;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Properties_id", referencedColumnName = "id")
     private Properties properties;
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Properties getProperties() {
         return properties;

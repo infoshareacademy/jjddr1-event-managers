@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/favoriteList")
 public class FavoriteListViewServlet extends HttpServlet {
@@ -27,9 +28,9 @@ public class FavoriteListViewServlet extends HttpServlet {
     @Inject
     FavoriteService favoriteService;
     @Inject
-    EventService eventService;
-    @Inject
     TemplateProvider templateProvider;
+    @Inject
+    EventService eventService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,8 +38,9 @@ public class FavoriteListViewServlet extends HttpServlet {
         int start = Integer.parseInt(req.getParameter("start"));
         int range = Integer.parseInt(req.getParameter("range"));
 
-        List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
-
+        //List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
+        List<EventDto> eventDtoList = eventService.getRange(start,range);
+        eventDtoList = favoriteService.isFavoriteEventDtoList(eventDtoList,userId);
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);
         root.put("start", start);

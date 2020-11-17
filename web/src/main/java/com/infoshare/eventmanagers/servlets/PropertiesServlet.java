@@ -35,9 +35,12 @@ public class PropertiesServlet extends HttpServlet {
         propertiesDto.setSortingOrder(request.getParameter("sortOrder"));
         propertiesDto.setAscending(Boolean.parseBoolean(request.getParameter("ascending")));
         propertiesDto.setDateFormat(request.getParameter("dateFormat"));
+
         propertiesService.createProperties(propertiesDto);
+
         UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
         userPropertiesDto.setPropertiesDto(propertiesDto);
+
         userService.createUser(UserPropertiesDto.toUserDto(userPropertiesDto));
 
 //        userService.updateUser(userDto.getId(), userDto);

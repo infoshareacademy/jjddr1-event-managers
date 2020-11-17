@@ -22,10 +22,17 @@
             <#list events as eventDto>
                 <li>
                     <#include "shortEventView.ftlh">
-                    <form method="post" action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">
-                        <input type="submit" value="Usuń z ulubionych" />
-                    </form>
-<#--                    <button type="submit" onclick="" formmethod="post" formaction="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">Usuń z ulubionych</button>-->
+                    <#if eventDto.isFavorite == true>
+                        <form method="post"
+                              action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">
+                            <input type="submit" value="Usuń z ulubionych"/>
+                        </form>
+                    <#elseif eventDto.isFavorite == false>
+                        <form method="post"
+                              action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=add">
+                            <input type="submit" value="Dodaj do ulubionych"/>
+                        </form>
+                    </#if>
                 </li>
             </#list>
         </ul>

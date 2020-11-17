@@ -55,7 +55,6 @@ public class ListServlet extends HttpServlet {
         } else range = Integer.valueOf(rangeParam);
 
 
-        //List<EventDto> events = eventService.getRange(start, range);
         List<EventDto> events = eventService.getRangeSorted(start, range, "startDate", true);
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();

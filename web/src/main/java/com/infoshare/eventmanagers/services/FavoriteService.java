@@ -39,7 +39,15 @@ public class FavoriteService {
         UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
         favoriteList.sort(Comparator.comparing(EventDto::getStartDate));
+        range = start+range;
+        if (range>favoriteList.size()) range = favoriteList.size();
         return favoriteList.subList(start, range);
+    }
+
+    @Transactional
+    public Integer getNumberOfFavorites(Integer userId){
+        UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
+        return userFavoritesDto.getFavoriteList().size();
     }
 
     @Transactional

@@ -30,7 +30,12 @@ public class EventService {
         return eventDao.getRange(start, range);
     }
 
+    public List<EventDto> getRangeSorted(Integer start, Integer range, String sortBy, boolean ascending) {
+        return eventDao.getRangeSorted(start, range, sortBy, ascending);
+    }
+
     public Long getNumberOfEvents(){
         return eventDao.getNumberOfEvents();
     }
+
 }

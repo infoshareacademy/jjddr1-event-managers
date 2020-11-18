@@ -17,7 +17,7 @@ import java.util.*;
 public class FavoriteService {
 
     @Inject
-    Dao<User> userDao;
+    UserDao userDao;
     @Inject
     EventDao eventDao;
 

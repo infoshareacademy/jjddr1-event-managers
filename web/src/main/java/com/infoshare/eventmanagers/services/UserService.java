@@ -14,28 +14,41 @@ import javax.transaction.Transactional;
 public class UserService {
 
     @Inject
-    Dao<User> userDao;
+    UserDao userDao;
+
 
     @Transactional
-    public void createUser(UserDto userDto) {
+    public boolean createUser(UserDto userDto) {
+
 
         PropertiesDto propertiesDto = new PropertiesDto();
         propertiesDto.setSortingOrder("organizator");
         propertiesDto.setDateFormat("dd-MM-yyyy");
         propertiesDto.setAscending(true);
-
         userDto.setPropertiesDto(propertiesDto);
-        User user = UserDto.toUser(userDto);
-        userDao.save(user);
+
+        userDao.save(UserDto.toUser(userDto));
+        return true;
+    }
+
+
+    @Transactional
+    public boolean checkEmail(String email) {
+        return userDao.isEmailExists(email);
     }
 
     @Transactional
-    public UserDto getById(Integer id ){
-       return UserDto.toUserDto(userDao.getById(id));
+    public boolean checkUsername(String username) {
+        return userDao.isUsernameExists(username);
     }
 
     @Transactional
-    public void updateUser(Integer id, UserDto userDto){
+    public UserDto getById(Integer id) {
+        return UserDto.toUserDto(userDao.getById(id));
+    }
+
+    @Transactional
+    public void updateUser(Integer id, UserDto userDto) {
         userDao.update(id, UserDto.toUser(userDto));
     }
 
@@ -43,7 +56,6 @@ public class UserService {
     public void deleteUser(Integer id) {
         userDao.delete(id);
     }
-
 
 
 }

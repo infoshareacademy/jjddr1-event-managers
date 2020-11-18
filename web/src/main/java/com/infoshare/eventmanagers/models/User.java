@@ -16,14 +16,29 @@ public class User {
     private String username;
 
     @Column
-    private String password;
+    private String email;
 
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
+    @Column
+    private String password;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "Users_Event",
+            joinColumns = {@JoinColumn(name = "User_id")},
+            inverseJoinColumns = {@JoinColumn(name = "Event_id")}
+    )
     private List<Event> favoriteList;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Properties_id", referencedColumnName = "id")
     private Properties properties;
 
+    public String getEmail() {
+
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;

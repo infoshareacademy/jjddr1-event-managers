@@ -1,29 +1,25 @@
 package com.infoshare.eventmanagers.servlets;
 
-import com.infoshare.eventmanagers.dto.PropertiesDto;
 import com.infoshare.eventmanagers.dto.UserDto;
-import com.infoshare.eventmanagers.providers.ConfigProvider;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.UserService;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
 import javax.inject.Inject;
-import javax.servlet.ServletConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/user")
-public class UserServlet extends HttpServlet {
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
 
     @Inject
     UserService userService;
@@ -32,21 +28,29 @@ public class UserServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDto userDto = new UserDto();
+
+
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+
+
+        if (userService.checkEmail(email)) {
+            request.setAttribute("message", "Podany adres email jest już zajęty");
+            doGet(request, response);
+            return;
+
+        }
+        if (userService.checkUsername(username)) {
+
+            request.setAttribute("message", "Podana nazwa użytkownika jest już zajęta");
+            doGet(request, response);
+            return;
+        }
+        UserDto userDto = new UserDto(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
         userService.createUser(userDto);
-        //Template template = templateProvider.getTemplate(getServletContext(), "findUserView.ftlh");
-        Map<String, Object> model = new HashMap<>();
-        UserDto byId = userService.getById(103);
-        model.put("User", byId);
-        model.put("FavoritsList",byId.getFavoriteList());
-        System.out.println(byId);
-        System.out.println(byId.getFavoriteList());
-//
-//        try {
-//            template.process(model, response.getWriter());
-//        } catch (TemplateException e) {
-//            response.setStatus(418);
-//        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
+        requestDispatcher.forward(request, response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,8 +64,6 @@ public class UserServlet extends HttpServlet {
         }
 
     }
-
-
 
 
 }

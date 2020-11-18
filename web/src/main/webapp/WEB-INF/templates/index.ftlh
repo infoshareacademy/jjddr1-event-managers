@@ -4,7 +4,7 @@
 
     <!-- Automatic Slideshow Images -->
     <div class="mySlides w3-display-container w3-center">
-        <img src="images/pic1.jpg" style="width:100%">
+        <img src="images/newPic_1.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
             <h3>PGE ARENA GDAŃSK</h3>
             <h4>25 grudnień 2020</h4>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-        <img src="images/pic2.jpg" style="width:100%">
+        <img src="images/newPic_4.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
             <h3>Spodek w Katowicach</h3>
             <h4>1 luty 2020</h4>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-        <img src="images/pic4.jpg" style="width:100%">
+        <img src="images/newPic_5.jpg" style="width:100%">
         <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
             <h3>Warszawa Stadion</h3>
             <h4>15 maj 2020</h4>

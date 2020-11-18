@@ -59,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), "addUser.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "register.ftlh");
         Map<String, Object> model = new HashMap<>();
         String username = request.getParameter("username");
         String email = request.getParameter("email");

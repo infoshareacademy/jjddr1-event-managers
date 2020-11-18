@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        Template template = templateProvider.getTemplate(getServletContext(), "loginUser.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "login.ftlh");
 
         Map<String, Object> model = new HashMap<>();
         Object username = req.getAttribute("username");

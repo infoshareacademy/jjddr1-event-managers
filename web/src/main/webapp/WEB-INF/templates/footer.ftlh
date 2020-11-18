@@ -7,5 +7,3 @@
     <i class="fa fa-linkedin w3-hover-opacity"></i>
     <p class="w3-medium">Powered by event.managers 2020</p>
 </footer>
-</body>
-</html>

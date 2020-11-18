@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<#import "head.ftlh" as common>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <Title>Rejestracja użytkownika</Title>

@@ -1,4 +1,4 @@
-<#include "navbar.ftlh">
+<#include "navbarCssStyle.ftlh">
 <!-- Container starts -->
 <div class=w3-content style="max-width: 800px; margin-top: 46px">
     <H2>Wydarzenia:</H2>

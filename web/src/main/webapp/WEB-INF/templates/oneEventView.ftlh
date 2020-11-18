@@ -1,4 +1,4 @@
-<#include "navbar.ftlh">
+<#include "navbarCssStyle.ftlh">
 <div class="w3-content" style="max-width:1200px;margin-top:46px">
 
     <H1>${eventDto.getName()}</H1>

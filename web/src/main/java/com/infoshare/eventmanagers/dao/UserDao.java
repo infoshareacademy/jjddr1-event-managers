@@ -73,8 +73,8 @@ public class UserDao {
         return false;
     }
 
-    public boolean loginUser(LoginUserDto loginUserDto) {
-
+    public int loginUser(LoginUserDto loginUserDto) {
+        int id = 0;
 
         User user = entityManager
                 .createQuery("SELECT U FROM User U WHERE U.username=:username", User.class)
@@ -82,18 +82,12 @@ public class UserDao {
                 .getSingleResult();
 
         if (user.getPassword().equals(loginUserDto.getPassword())) {
-            return true;
+            id = user.getId();
         }
 
-        return false;
+        return id;
 
     }
 
-    public int getId(String username) {
-        return entityManager.createQuery("SELECT U.id FROM User U WHERE U.username=:username").setParameter("username", username).getFirstResult();
-    }
 
-    public boolean checkPassword(String password) {
-        return entityManager.createQuery("SELECT COUNT (u) FROM User u WHERE I")
-    }
 }

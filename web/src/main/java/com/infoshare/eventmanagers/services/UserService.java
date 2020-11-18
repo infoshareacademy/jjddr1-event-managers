@@ -2,6 +2,7 @@ package com.infoshare.eventmanagers.services;
 
 import com.infoshare.eventmanagers.dao.Dao;
 import com.infoshare.eventmanagers.dao.UserDao;
+import com.infoshare.eventmanagers.dto.LoginUserDto;
 import com.infoshare.eventmanagers.dto.PropertiesDto;
 import com.infoshare.eventmanagers.dto.UserDto;
 import com.infoshare.eventmanagers.models.User;
@@ -58,8 +59,8 @@ public class UserService {
     }
 
     @Transactional
-    public boolean loginUser(String username, String password) {
-        userDao.getId(username):
+    public int loginUser(LoginUserDto loginUser) {
+        return userDao.loginUser(loginUser);
     }
 
 

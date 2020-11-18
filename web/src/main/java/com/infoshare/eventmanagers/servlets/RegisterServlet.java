@@ -30,7 +30,7 @@ public class RegisterServlet extends HttpServlet {
 
 
         String username = request.getParameter("username");
-        String email = );
+        String email = request.getParameter("email");
         boolean back = false;
 
         if (userService.checkEmail(email)) {
@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
         if (userService.checkUsername(username)) {
 
             request.setAttribute("usernameIsAlreadyTaken", "1");
-            request.getParameter("email"            back = true;
+            back = true;
         }
         if (back) {
             doGet(request, response);
@@ -50,9 +50,9 @@ public class RegisterServlet extends HttpServlet {
 
         UserDto userDto = new UserDto(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
         if (userService.createUser(userDto)) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
-            response.setStatus(201);
-            requestDispatcher.forward(request, response);
+
+            response.sendRedirect("/login");
+
         } else {
             response.setStatus(500);
         }

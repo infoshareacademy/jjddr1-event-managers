@@ -2,6 +2,7 @@ package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.services.EventService;
+import com.infoshare.eventmanagers.services.FavoriteService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -26,6 +27,8 @@ public class ListServlet extends HttpServlet {
     private static final String TEMPLATE_DIR = "WEB-INF/templates";
     @Inject
     EventService eventService;
+    @Inject
+    FavoriteService favoriteService;
     private Configuration cfg;
 
     /**
@@ -50,6 +53,7 @@ public class ListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String startParam = request.getParameter("start");
         String rangeParam = request.getParameter("range");
+        int mockId = Integer.parseInt("101");
         Integer start;
         Integer range;
         if (startParam==null) {
@@ -60,6 +64,7 @@ public class ListServlet extends HttpServlet {
         } else range = Integer.valueOf(rangeParam);
 
         List<EventDto> events = eventService.getRange(start, range);
+        events = favoriteService.isFavoriteEventDtoList(events,mockId);
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
@@ -68,6 +73,7 @@ public class ListServlet extends HttpServlet {
         root.put("previous", start-range);
         root.put("range", range);
         root.put("numberOfEvents", numberOfEvents);
+        root.put("userId",mockId);
         Template template = cfg.getTemplate("listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {

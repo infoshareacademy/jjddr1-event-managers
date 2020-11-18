@@ -38,9 +38,10 @@ public class FavoriteListViewServlet extends HttpServlet {
         int start = Integer.parseInt(req.getParameter("start"));
         int range = Integer.parseInt(req.getParameter("range"));
 
-        //List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
-        List<EventDto> eventDtoList = eventService.getRange(start,range);
+        int numberOfFavorites = favoriteService.getNumberOfFavorites(userId);
+        List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
         eventDtoList = favoriteService.isFavoriteEventDtoList(eventDtoList,userId);
+
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);
         root.put("start", start);
@@ -48,6 +49,7 @@ public class FavoriteListViewServlet extends HttpServlet {
         root.put("previous", start-range);
         root.put("range", range);
         root.put("userId",userId);
+        root.put("numberOfFavorites", numberOfFavorites);
 
         Template template = templateProvider.getTemplate(getServletContext(), "favoriteListView.ftlh");
 

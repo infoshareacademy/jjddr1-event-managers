@@ -7,7 +7,7 @@
                 <input name="sortOrder" type="text"/>
             </div>
             <div>
-                <label for="ascending">Sortowanie rosnąco (wpisz "true"), malejąco (wpisz "false")</label>
+                <label for="ascending">Sortowanie rosnaco (wpisz "true"), malejaco (wpisz "false")</label>
                 <input name="ascending" type="text"/>
             </div>
             <div>
@@ -15,7 +15,10 @@
                 <input name="dateFormat" type="text"/>
             </div>
             <div>
-                <input type="submit" name="save" value="save"/><br/>
+                <input type="submit" name="save" value="zapisz"/><br/>
+            </div>
+            <div>
+                <input type="submit" name="default" value="domyslne"/><br/>
             </div>
         </form>
     </div>

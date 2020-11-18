@@ -1,6 +1,8 @@
 package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
+import com.infoshare.eventmanagers.providers.ConfigProvider;
+import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -23,10 +25,10 @@ import java.util.Map;
 @WebServlet("/list")
 public class ListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String TEMPLATE_DIR = "WEB-INF/templates";
     @Inject
     EventService eventService;
-    private Configuration cfg;
+    @Inject
+    TemplateProvider templateProvider;
 
     /**
      * Default constructor.
@@ -37,13 +39,6 @@ public class ListServlet extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        cfg = new Configuration(Configuration.VERSION_2_3_30);
-        cfg.setServletContextForTemplateLoading(getServletContext(), "WEB-INF/templates");
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        cfg.setLogTemplateExceptions(false);
-        cfg.setWrapUncheckedExceptions(true);
-        cfg.setFallbackOnNullLoopVariable(false);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +54,8 @@ public class ListServlet extends HttpServlet {
             range = 10;
         } else range = Integer.valueOf(rangeParam);
 
-        List<EventDto> events = eventService.getRange(start, range);
+
+        List<EventDto> events = eventService.getRangeSorted(start, range, "startDate", true);
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
@@ -68,7 +64,7 @@ public class ListServlet extends HttpServlet {
         root.put("previous", start-range);
         root.put("range", range);
         root.put("numberOfEvents", numberOfEvents);
-        Template template = cfg.getTemplate("listOfEvents.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(),"listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {
             template.process(root, out);

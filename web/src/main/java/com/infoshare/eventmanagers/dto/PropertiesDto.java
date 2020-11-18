@@ -26,6 +26,14 @@ public class PropertiesDto {
         return propertiesDto;
     }
 
+    public static PropertiesDto getDefaultPropertiesDto() {
+        PropertiesDto propertiesDto = new PropertiesDto();
+        propertiesDto.setSortingOrder("organizator");
+        propertiesDto.setDateFormat("dd-MM-yyyy");
+        propertiesDto.setAscending(true);
+        return propertiesDto;
+    }
+
     public PropertiesDto() {
     }
 

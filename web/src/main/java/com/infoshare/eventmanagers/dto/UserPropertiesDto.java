@@ -1,11 +1,12 @@
 package com.infoshare.eventmanagers.dto;
 
-import com.infoshare.eventmanagers.models.Properties;
+
+import com.infoshare.eventmanagers.models.User;
 
 public class UserPropertiesDto {
 
     private Integer id;
-    private Properties properties;
+    private PropertiesDto propertiesDto;
 
     public UserPropertiesDto() {
     }
@@ -18,12 +19,19 @@ public class UserPropertiesDto {
         this.id = id;
     }
 
-    public Properties getProperties() {
-        return properties;
+    public PropertiesDto getPropertiesDto() {
+        return propertiesDto;
     }
 
-    public void setProperties(Properties properties) {
-        this.properties = properties;
+    public void setPropertiesDto(PropertiesDto propertiesDto) {
+        this.propertiesDto = propertiesDto;
+    }
+
+    public static UserDto toUserDto(UserPropertiesDto userPropertiesDto) {
+        UserDto userDto = new UserDto();
+        userDto.setId(userDto.getId());
+        userDto.setPropertiesDto(userPropertiesDto.getPropertiesDto());
+        return userDto;
     }
 
 }

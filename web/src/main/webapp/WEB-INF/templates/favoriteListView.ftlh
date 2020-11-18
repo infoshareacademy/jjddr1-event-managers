@@ -1,5 +1,5 @@
 <#include "navbar.ftlh">
-<div class="row">
+<div class="row" xmlns="http://java.sun.com/jsf/facelets">
     <div class="w3-content" style="max-width:800px;margin-top:46px">
         <div class="w3-third">
             <#if start gte range>
@@ -22,17 +22,7 @@
             <#list events as eventDto>
                 <li>
                     <#include "shortEventView.ftlh">
-                    <#if eventDto.isFavorite == true>
-                        <form method="post"
-                              action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=remove">
-                            <input type="submit" value="Usuń z ulubionych"/>
-                        </form>
-                    <#elseif eventDto.isFavorite == false>
-                        <form method="post"
-                              action="/favoriteManager?userId=${userId}&favoriteId=${eventDto.getId()?c}&action=add">
-                            <input type="submit" value="Dodaj do ulubionych"/>
-                        </form>
-                    </#if>
+                    <#include "favoriteButton.ftlh">
                 </li>
             </#list>
         </ul>

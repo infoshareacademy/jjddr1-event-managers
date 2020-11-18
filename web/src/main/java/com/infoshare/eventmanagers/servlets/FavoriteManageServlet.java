@@ -26,8 +26,6 @@ public class FavoriteManageServlet extends HttpServlet {
     FavoriteService favoriteService;
     @Inject
     EventService eventService;
-    @Inject
-    TemplateProvider templateProvider;
 
 
     @Override
@@ -35,7 +33,6 @@ public class FavoriteManageServlet extends HttpServlet {
         int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
         int userId = Integer.parseInt(req.getParameter("userId"));
         String action = req.getParameter("action");
-        Map<String, Object> root = new HashMap<>();
 
         if (action.equals("remove")) {
             favoriteService.removeFavorite(userId, favoriteId);
@@ -44,13 +41,7 @@ public class FavoriteManageServlet extends HttpServlet {
         } else if (action.equals("update")) {
             eventService.updateDatabase();
         }
+        resp.sendRedirect(req.getHeader("referer"));
 
-        Template template = templateProvider.getTemplate(getServletContext(), "messageView.ftlh");
-
-        try {
-            template.process(root, resp.getWriter());
-        } catch (TemplateException | IOException e) {
-            e.printStackTrace();
-        }
     }
 }

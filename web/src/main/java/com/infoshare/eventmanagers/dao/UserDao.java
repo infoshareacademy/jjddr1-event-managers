@@ -30,7 +30,6 @@ public class UserDao implements Dao<User> {
         userUpdated.setFavoriteList(user.getFavoriteList());
         User merge = entityManager.merge(userUpdated);
         return merge;
-        //return userUpdated;
     }
 
     @Override

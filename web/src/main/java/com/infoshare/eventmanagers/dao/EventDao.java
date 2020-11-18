@@ -62,6 +62,16 @@ public class EventDao {
         return select_e_from_event_e.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<EventDto> getRangeSorted(Integer start, Integer range, String sortBy, boolean ascending) {
+        String asc = ascending?"ASC":"DESC";
+        String jpqlQuery = "SELECT e from Event e order by e." + sortBy + " " + asc;
+        TypedQuery<Event> query = entityManager.createQuery(jpqlQuery, Event.class);
+        query.setFirstResult(start);
+        query.setMaxResults(range);
+        return query.getResultList().stream().map(EventDto::toEventDto).collect(Collectors.toList());
+    }
+
     public Long getNumberOfEvents(){
         Query query = entityManager.createQuery("Select Count(e) from Event e");
         Object singleResult = query.getSingleResult();

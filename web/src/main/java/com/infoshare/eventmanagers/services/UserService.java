@@ -20,11 +20,7 @@ public class UserService {
     public void createUser(UserDto userDto) {
 
         if(userDto.getPropertiesDto() == null) {
-            PropertiesDto propertiesDto = new PropertiesDto();
-            propertiesDto.setSortingOrder("organizator");
-            propertiesDto.setDateFormat("dd-MM-yyyy");
-            propertiesDto.setAscending(true);
-            userDto.setPropertiesDto(propertiesDto);
+            userDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
         }
         User user = UserDto.toUser(userDto);
         userDao.save(user);

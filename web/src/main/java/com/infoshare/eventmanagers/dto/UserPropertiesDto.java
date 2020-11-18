@@ -1,6 +1,8 @@
 package com.infoshare.eventmanagers.dto;
 
 
+import com.infoshare.eventmanagers.models.User;
+
 public class UserPropertiesDto {
 
     private Integer id;

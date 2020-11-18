@@ -1,12 +1,14 @@
 package com.infoshare.eventmanagers.dao;
 
 
+import com.infoshare.eventmanagers.dto.LoginUserDto;
 import com.infoshare.eventmanagers.models.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.sql.SQLException;
 
 @Stateless
 public class UserDao {
@@ -69,5 +71,29 @@ public class UserDao {
             return true;
         }
         return false;
+    }
+
+    public boolean loginUser(LoginUserDto loginUserDto) {
+
+
+        User user = entityManager
+                .createQuery("SELECT U FROM User U WHERE U.username=:username", User.class)
+                .setParameter("username", loginUserDto)
+                .getSingleResult();
+
+        if (user.getPassword().equals(loginUserDto.getPassword())) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public int getId(String username) {
+        return entityManager.createQuery("SELECT U.id FROM User U WHERE U.username=:username").setParameter("username", username).getFirstResult();
+    }
+
+    public boolean checkPassword(String password) {
+        return entityManager.createQuery("SELECT COUNT (u) FROM User u WHERE I")
     }
 }

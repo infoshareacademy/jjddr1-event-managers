@@ -21,8 +21,18 @@
     </style>
     <title>Strona Rejestracji</title>
 </head>
-<body>
-<form action="/register" method="post" onsubmit="//return checkAll();">
+<body
+        <#if usernameIsAlreadyTaken?has_content && emailsIsAlreadyTaken?has_content>
+            onload="printUsernameIsAlreadyTaken();printEmailIsAlreadyTaken()"
+        <#elseif usernameIsAlreadyTaken?has_content >
+            onload="printUsernameIsAlreadyTaken()"
+        <#elseif emailsIsAlreadyTaken?has_content>
+            onload="printEmailIsAlreadyTaken()"
+        </#if>
+
+>
+<form action="/register" method="post" onsubmit="return checkAll();">
+
     <fieldset>
         <div id="legend">
             <legend class="">Rejestracja</legend>
@@ -37,8 +47,12 @@
                         <#if username?has_content>
                             value="${username}"
                         </#if>
-                       onkeyup=" validateUsername()">
-                <div id="username-error"></div>
+                       onkeyup="validateUsername()">
+                <div id="username-error">
+
+                </div>
+
+
             </div>
         </div>
 
@@ -49,6 +63,7 @@
                 <input type="text" id="email" name="email" placeholder="E-mail" class="input-xlarge" required
                         <#if email?has_content>
                             value="${email}"
+
                         </#if>
                        onkeyup=" validateEmail()">
                 <div id="email-error"></div>

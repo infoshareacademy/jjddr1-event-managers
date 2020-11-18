@@ -19,26 +19,30 @@
     </style>
     <title>Strona Logowania</title>
 </head>
-<body>
+<body onload="">
+<!-- Podany login i/lub hasło są nieprawidłowe -->
 <form action="/login" method="post">
     <fieldset>
         <div id="legend">
             <legend class="">Logowanie</legend>
         </div>
+        <div id="error-message">
+        </div>
+
         <div class="control-group">
             <!-- Username -->
             <label class="control-label" for="username">Nazwa użytkownika</label>
             <div class="controls">
                 <input type="text" id="username" name="username" placeholder="Nazwa użytkownika" class="input-xlarge">
-             </div>
-         </div>
+            </div>
+        </div>
         <div class="control-group">
             <!-- Password-->
             <label class="control-label" for="password">Hasło</label>
             <div class="controls">
                 <input type="password" id="password" name="password" placeholder="Hasło" class="input-xlarge">
-             </div>
-         </div>
+            </div>
+        </div>
 
         <div class="control-group">
             <!-- Button -->

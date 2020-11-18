@@ -6,6 +6,7 @@ function validateUsername() {
     const errorColor = '#ff6666';
     const illegalChars = /\W/; // allow letters, numbers, and underscores
 
+
     if ((username.value.length < 5) || (username.value.length > 15)) {
         message.style.color = errorColor;
         message.innerText = " Nazwa użytkownika musi się składać z 5-15 znaków";
@@ -94,15 +95,29 @@ function isPasswordsAreTheSame() {
 
 function checkAll() {
 
-     if (!validateUsername()) {
-         return false
-     } else if (!validateEmail()) {
-         return false;
-     } else if (!checkAll()) {
-         return false;
-     } else if (!isPasswordsAreTheSame()) {
-         return false;
-     }
-     return true;
+    if (!validateUsername()) {
+        return false
+    } else if (!validateEmail()) {
+        return false;
+    } else if (!checkAll()) {
+        return false;
+    } else if (!isPasswordsAreTheSame()) {
+        return false;
+    }
+    return true;
 
+}
+
+
+function printEmailIsAlreadyTaken(email) {
+    const message = document.getElementById('email-error');
+    message.innerText = "Podany email jest zajęty"
+    message.style.color = '#ff6666';
+}
+
+
+function printUsernameIsAlreadyTaken() {
+    const message = document.getElementById('username-error');
+    message.style.color = '#ff6666';
+    message.innerText = "Podana nazwa użytkoniwka jest zajęty"
 }

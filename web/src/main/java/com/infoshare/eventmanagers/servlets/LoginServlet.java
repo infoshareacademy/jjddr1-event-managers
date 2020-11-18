@@ -1,5 +1,6 @@
 package com.infoshare.eventmanagers.servlets;
 
+import com.infoshare.eventmanagers.dto.LoginUserDto;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -20,9 +21,11 @@ public class LoginServlet extends HttpServlet {
     @Inject
     TemplateProvider templateProvider;
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        LoginUserDto newUser = new LoginUserDto(req.getParameter("username"), req.getParameter("email"));
 
 
     }

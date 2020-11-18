@@ -57,5 +57,10 @@ public class UserService {
         userDao.delete(id);
     }
 
+    @Transactional
+    public boolean loginUser(String username, String password) {
+        userDao.getId(username):
+    }
+
 
 }

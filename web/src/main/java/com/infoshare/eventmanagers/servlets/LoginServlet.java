@@ -29,19 +29,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        LoginUserDto loginUser = new LoginUserDto(req.getParameter("username"), req.getParameter("email"));
-//        int userId = userService.loginUser(loginUser);
-//        if (userId > 0) {
-        HttpSession session = req.getSession();
-        session.setAttribute("id", 1);
-        resp.sendRedirect("/");
+        String username = req.getParameter("username");
+
+        int userId = userService.loginUser(new LoginUserDto(username, req.getParameter("password")));
+        if (userId > 0) {
+            HttpSession session = req.getSession();
+            session.setAttribute("id", 1);
+            resp.sendRedirect("/index");
+
+        }
+
+        req.setAttribute("username", username);
+        doGet(req, resp);
+
 
     }
-
-//        doGet(req, resp);
-
-
-//}
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,6 +52,10 @@ public class LoginServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "loginUser.ftlh");
 
         Map<String, Object> model = new HashMap<>();
+        Object username = req.getAttribute("username");
+        if (username != null) {
+            model.put("username", username);
+        }
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {

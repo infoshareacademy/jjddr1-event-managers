@@ -7,7 +7,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +24,9 @@ public class RegisterServlet extends HttpServlet {
     @Inject
     TemplateProvider templateProvider;
 
+    static String isEmailsAlreadyTakenMsg = "emailsIsAlreadyTaken";
+    static String isUsernameAlreadyTakenMsg = "usernameIsAlreadyTaken";
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -34,13 +36,12 @@ public class RegisterServlet extends HttpServlet {
         boolean back = false;
 
         if (userService.checkEmail(email)) {
-            request.setAttribute("emailsIsAlreadyTaken", "1");
+            request.setAttribute(isEmailsAlreadyTakenMsg, "1");
             back = true;
 
         }
         if (userService.checkUsername(username)) {
-
-            request.setAttribute("usernameIsAlreadyTaken", "1");
+            request.setAttribute(isUsernameAlreadyTakenMsg, "1");
             back = true;
         }
         if (back) {
@@ -48,11 +49,9 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        UserDto userDto = new UserDto(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
+        UserDto userDto = new UserDto(username, request.getParameter("password"), email);
         if (userService.createUser(userDto)) {
-
             response.sendRedirect("/login");
-
         } else {
             response.setStatus(500);
         }
@@ -66,14 +65,14 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         if (username != null) {
             model.put("username", username);
-            if ("1".equals(request.getAttribute("usernameIsAlreadyTaken"))) {
-                model.put("usernameIsAlreadyTaken", 1);
+            if ("1".equals(request.getAttribute(isUsernameAlreadyTakenMsg))) {
+                model.put(isUsernameAlreadyTakenMsg, 1);
             }
         }
         if (email != null) {
             model.put("email", email);
-            if ("1".equals(request.getAttribute("emailsIsAlreadyTaken"))) {
-                model.put("emailsIsAlreadyTaken", 1);
+            if ("1".equals(request.getAttribute(isEmailsAlreadyTakenMsg))) {
+                model.put(isEmailsAlreadyTakenMsg, 1);
             }
 
 

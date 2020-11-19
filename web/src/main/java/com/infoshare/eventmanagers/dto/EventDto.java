@@ -23,9 +23,9 @@ public class EventDto {
     private TicketDto ticket;
     private boolean isFavorite;
 
-    public LocalDateTime changeDateFormat(LocalDateTime localDateTime, String string) {
+    public String changeDateFormat(LocalDateTime localDateTime, String string) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(string);
-        LocalDateTime formatDateTime = LocalDateTime.parse(localDateTime.toString(), dateTimeFormatter);
+        String formatDateTime = localDateTime.format(dateTimeFormatter);
         return formatDateTime;
     }
 

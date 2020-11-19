@@ -2,7 +2,7 @@
 
     <H3><A href ="viewOne?id=${eventDto.getId()?c}"> ${eventDto.getName()} <#include "favoriteButton.ftlh"></a></H3>
     <p>Opis: ${eventDto.getDescShort()}</p>
-    <p>Data: ${eventDto.getStartDate().toString()}.</p>
+    <p>Data: ${eventDto.changeDateFormat(eventDto.getStartDate(), "yyyy-MM-dd")}.</p>
     <p>Organizator: ${eventDto.getOrganizer().getDesignation()}</p>
     <p>Miejsce: ${eventDto.getPlace().getName()}</p>
 </div>

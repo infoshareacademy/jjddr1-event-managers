@@ -23,10 +23,10 @@ public class EventDto {
     private TicketDto ticket;
     private boolean isFavorite;
 
-    public String changeDateFormat(LocalDateTime localDateTime, String string) {
+    public String formatLocalDateTime(LocalDateTime localDateTime, String string) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(string);
-        String formatDateTime = localDateTime.format(dateTimeFormatter);
-        return formatDateTime;
+        String dateTimeAsFormattedString = localDateTime.format(dateTimeFormatter);
+        return dateTimeAsFormattedString;
     }
 
     public EventDto() {

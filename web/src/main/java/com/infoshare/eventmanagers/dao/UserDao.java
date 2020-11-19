@@ -58,13 +58,13 @@ public class UserDao {
 
     public User updateUserProperties(Integer id, User user) {
 
-        User userUpdated = entityManager.find(User.class,id);
-        Properties properties = userUpdated.getProperties();
+        User userToUpdate = entityManager.find(User.class,id);
+        Properties properties = userToUpdate.getProperties();
         properties.setDateFormat(user.getProperties().getDateFormat());
         properties.setSortingOrder(user.getProperties().getSortingOrder());
         properties.setAscending(user.getProperties().isAscending());
 
-        User merge = entityManager.merge(userUpdated);
+        User merge = entityManager.merge(userToUpdate);
         return merge;
     }
 

@@ -30,10 +30,12 @@ public class PropertiesServlet extends HttpServlet {
     UserService userService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getSession().getAttribute("id").toString();
+
+        //This part updates properties from form in this endpoint after choosing "save button"
         if (request.getParameter("save") != null) {
 
             UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
-            String id = request.getSession().getAttribute("id").toString();
             userPropertiesDto.setId(Integer.parseInt(id));
 
             PropertiesDto propertiesDto = new PropertiesDto();
@@ -43,10 +45,13 @@ public class PropertiesServlet extends HttpServlet {
             userPropertiesDto.setPropertiesDto(propertiesDto);
 
             userService.updateUserProperties(Integer.parseInt(id),UserPropertiesDto.toUserDto(userPropertiesDto));
-        } else if (request.getParameter("default") != null) {
+
+        }
+        //this part set default user's properties by choosing "default button"
+        else if (request.getParameter("default") != null) {
             UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
             userPropertiesDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
-            userService.updateUserProperties(userPropertiesDto.getId(), UserPropertiesDto.toUserDto(userPropertiesDto));
+            userService.updateUserProperties(Integer.parseInt(id), UserPropertiesDto.toUserDto(userPropertiesDto));
         }
 
     }

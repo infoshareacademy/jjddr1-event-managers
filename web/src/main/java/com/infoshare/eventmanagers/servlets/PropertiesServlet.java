@@ -31,18 +31,22 @@ public class PropertiesServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("save") != null) {
-            UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
-            PropertiesDto propertiesDto = new PropertiesDto();
 
+            UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
+            String id = request.getSession().getAttribute("id").toString();
+            userPropertiesDto.setId(Integer.parseInt(id));
+
+            PropertiesDto propertiesDto = new PropertiesDto();
             propertiesDto.setSortingOrder(request.getParameter("sortOrder"));
             propertiesDto.setAscending(Boolean.parseBoolean(request.getParameter("ascending")));
             propertiesDto.setDateFormat(request.getParameter("dateFormat"));
+            userPropertiesDto.setPropertiesDto(propertiesDto);
 
-            propertiesService.updateProperties(userPropertiesDto.getPropertiesDto().getId(), propertiesDto);
+            userService.updateUserProperties(Integer.parseInt(id),UserPropertiesDto.toUserDto(userPropertiesDto));
         } else if (request.getParameter("default") != null) {
             UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
             userPropertiesDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
-            userService.updateUser(userPropertiesDto.getId(), UserPropertiesDto.toUserDto(userPropertiesDto));
+            userService.updateUserProperties(userPropertiesDto.getId(), UserPropertiesDto.toUserDto(userPropertiesDto));
         }
 
     }

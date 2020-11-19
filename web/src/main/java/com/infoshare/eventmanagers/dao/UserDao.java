@@ -2,6 +2,10 @@ package com.infoshare.eventmanagers.dao;
 
 
 import com.infoshare.eventmanagers.dto.LoginUserDto;
+import com.infoshare.eventmanagers.dto.PropertiesDto;
+import com.infoshare.eventmanagers.dto.UserDto;
+import com.infoshare.eventmanagers.dto.UserPropertiesDto;
+import com.infoshare.eventmanagers.models.Properties;
 import com.infoshare.eventmanagers.models.User;
 
 import javax.ejb.Stateless;
@@ -51,6 +55,20 @@ public class UserDao {
         User merge = entityManager.merge(userUpdated);
         return merge;
     }
+
+    public User updateUserProperties(Integer id, User user) {
+
+        User userUpdated = entityManager.find(User.class,id);
+        Properties properties = userUpdated.getProperties();
+        properties.setDateFormat(user.getProperties().getDateFormat());
+        properties.setSortingOrder(user.getProperties().getSortingOrder());
+        properties.setAscending(user.getProperties().isAscending());
+
+        User merge = entityManager.merge(userUpdated);
+        return merge;
+    }
+
+
 
 
     public boolean delete(Integer id) {

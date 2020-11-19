@@ -16,7 +16,6 @@
     }
 </style>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">

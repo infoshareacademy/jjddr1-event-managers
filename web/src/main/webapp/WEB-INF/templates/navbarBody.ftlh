@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>event.managers</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-        font-family: "Lato", sans-serif
-    }
 
-    .mySlides {
-        display: none
-    }
-</style>
-<body>
+
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
@@ -28,9 +12,15 @@
         <a href="/favoriteList?start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>
         <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small">USTAWIENIA</a>
         <a href="#kontakt" class="w3-bar-item w3-button w3-padding-large w3-hide-small">KONTAKT</a>
+        <#if Session?exists>
+
+        <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small"> ${Session.get("id")}</a>
+        </#if>
+        <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small">USTAWIENIA</a>
         <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i
                     class="fa fa-search"></i></a>
-        <a href="#login" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Log in</a>
+        <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Zaloguj</a>
+        <a href="/register" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Zarejestruj</a>
 
     </div>
 </div>

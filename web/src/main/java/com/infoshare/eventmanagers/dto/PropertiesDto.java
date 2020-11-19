@@ -68,4 +68,5 @@ public class PropertiesDto {
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
     }
+
 }

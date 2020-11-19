@@ -1,4 +1,12 @@
-<#include "navbar.ftlh">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <#import "head.ftlh" as title>
+    <@title.defaultHead title="home"/>
+    <#include "navbarCssStyle.ftlh">
+</head>
+<body>
+<#include "navbarBody.ftlh">
 <!-- Page content -->
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
@@ -33,10 +41,13 @@
         <h2 class="w3-wide">event.managers</h2>
         <p class="w3-opacity"><i>We love music</i></p>
         <p class="w3-justify">event.managers to liderzy internetowej bazy eventów oraz sprzedaży biletów w branży
-            kulturalno – rozrywkowej w Polsce. Współpracujemy z największymi krajowymi i międzynarodowymi organizatorami
+            kulturalno – rozrywkowej w Polsce. Współpracujemy z największymi krajowymi i międzynarodowymi
+            organizatorami
             imprez, świadcząc usługi sprzedaży indywidualnej, korporacyjnej, a także promocji i kompleksowej obsługi
-            imprez. Oferujemy systemy sprzedaży biletów i kontroli wejść na wszystkie wydarzenia kulturalne i sportowe.
-            Udostępniamy naszym organizatorom i partnerom kompletne rozwiązania technologiczne do bieżącej edycji oraz
+            imprez. Oferujemy systemy sprzedaży biletów i kontroli wejść na wszystkie wydarzenia kulturalne i
+            sportowe.
+            Udostępniamy naszym organizatorom i partnerom kompletne rozwiązania technologiczne do bieżącej edycji
+            oraz
             śledzenia trendów sprzedaży. Jesteśmy pionierem nowoczesnych technologii dla rynku e – commerce.</p>
         <div class="w3-row w3-padding-32">
             <div class="w3-third">
@@ -92,7 +103,8 @@
                     </div>
                 </div>
                 <div class="w3-third w3-margin-bottom">
-                    <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
+                    <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%"
+                         class="w3-hover-opacity">
                     <div class="w3-container w3-white">
                         <p><b>San Francisco</b></p>
                         <p class="w3-opacity">Sun 29 Nov 2016</p>
@@ -120,10 +132,10 @@
                 <p><label><i class="fa fa-user"></i> Send To</label></p>
                 <input class="w3-input w3-border" type="text" placeholder="Enter email">
                 <button class="w3-button w3-block w3-teal w3-padding-16 w3-section w3-right">PAY <i
-                        class="fa fa-check"></i></button>
+                            class="fa fa-check"></i></button>
                 <button class="w3-button w3-red w3-section"
                         onclick="document.getElementById('ticketModal').style.display='none'">Close <i
-                        class="fa fa-remove"></i></button>
+                            class="fa fa-remove"></i></button>
                 <p class="w3-right">Need <a href="#" class="w3-text-blue">help?</a></p>
             </div>
         </div>
@@ -199,6 +211,6 @@
         }
     }
 </script>
-
+<#include "footer.ftlh">
 </body>
 </html>

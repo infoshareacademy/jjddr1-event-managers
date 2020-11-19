@@ -26,18 +26,18 @@ public class UserDao {
         return entityManager.find(User.class, id);
     }
 
-    public boolean isUsernameExists(String username) {
+    public boolean doUsernameExists(String username) {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(U) FROM User U WHERE U.username= :username", Long.class);
-        Long isExists = query.setParameter("username", username).getSingleResult();
+        Long doExists = query.setParameter("username", username).getSingleResult();
 
-        return isExists > 0;
+        return doExists > 0;
     }
 
-    public boolean isEmailExists(String email) {
+    public boolean doEmailExists(String email) {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(U) FROM User U WHERE U.email= :email", Long.class);
-        Long isExists = query.setParameter("email", email).getSingleResult();
+        Long doExists = query.setParameter("email", email).getSingleResult();
 
-        return isExists > 0;
+        return doExists > 0;
     }
 
 
@@ -59,7 +59,7 @@ public class UserDao {
 //            return entityManager.merge(userToUpdated);
 
 //        }
-        return null;
+//        return null;
 
         User userUpdated = entityManager.find(User.class,id);
         userUpdated.setFavoriteList(user.getFavoriteList());

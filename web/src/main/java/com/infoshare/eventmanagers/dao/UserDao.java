@@ -21,24 +21,24 @@ public class UserDao {
         return entityManager.find(User.class, user.getId());
     }
 
-
-    public User getById(Integer id) {
-        return entityManager.find(User.class, id);
-    }
-
     public boolean isUsernameExists(String username) {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(U) FROM User U WHERE U.username= :username", Long.class);
         Long isExists = query.setParameter("username", username).getSingleResult();
 
         return isExists > 0;
     }
+    public User getById(Integer id) {
+        return entityManager.find(User.class, id);
+    }
 
+    
     public boolean isEmailExists(String email) {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(U) FROM User U WHERE U.email= :email", Long.class);
         Long isExists = query.setParameter("email", email).getSingleResult();
 
         return isExists > 0;
     }
+
 
 
     public User update(Integer id, User user) {
@@ -59,9 +59,9 @@ public class UserDao {
 //            return entityManager.merge(userToUpdated);
 
 //        }
-        return null;
+//        return null;
 
-        User userUpdated = entityManager.find(User.class,id);
+        User userUpdated = entityManager.find(User.class, id);
         userUpdated.setFavoriteList(user.getFavoriteList());
         User merge = entityManager.merge(userUpdated);
         return merge;
@@ -90,7 +90,7 @@ public class UserDao {
                 id = user.getId();
             }
         } catch (Exception ignored) {
-                //Powinno logować do pliku ?
+            //Powinno logować do pliku ?
         }
 
         return id;

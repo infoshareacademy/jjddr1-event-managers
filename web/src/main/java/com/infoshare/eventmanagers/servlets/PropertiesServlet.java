@@ -30,19 +30,28 @@ public class PropertiesServlet extends HttpServlet {
     UserService userService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("save") != null) {
-            UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
-            PropertiesDto propertiesDto = new PropertiesDto();
+        String id = request.getSession().getAttribute("id").toString();
 
+        //This part updates properties from form in this endpoint after choosing "save button"
+        if (request.getParameter("save") != null) {
+
+            UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
+            userPropertiesDto.setId(Integer.parseInt(id));
+
+            PropertiesDto propertiesDto = new PropertiesDto();
             propertiesDto.setSortingOrder(request.getParameter("sortOrder"));
             propertiesDto.setAscending(Boolean.parseBoolean(request.getParameter("ascending")));
             propertiesDto.setDateFormat(request.getParameter("dateFormat"));
+            userPropertiesDto.setPropertiesDto(propertiesDto);
 
-            propertiesService.updateProperties(userPropertiesDto.getPropertiesDto().getId(), propertiesDto);
-        } else if (request.getParameter("default") != null) {
+            userService.updateUserProperties(Integer.parseInt(id),UserPropertiesDto.toUserDto(userPropertiesDto));
+
+        }
+        //this part set default user's properties by choosing "default button"
+        else if (request.getParameter("default") != null) {
             UserPropertiesDto userPropertiesDto = new UserPropertiesDto();
             userPropertiesDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
-            userService.updateUser(userPropertiesDto.getId(), UserPropertiesDto.toUserDto(userPropertiesDto));
+            userService.updateUserProperties(Integer.parseInt(id), UserPropertiesDto.toUserDto(userPropertiesDto));
         }
 
     }

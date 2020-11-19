@@ -52,6 +52,12 @@ public class UserService {
     }
 
     @Transactional
+    public void updateUserProperties(Integer id, UserDto userDto) {
+        userDao.updateUserProperties(id, UserDto.toUser(userDto));
+    }
+
+
+    @Transactional
     public void deleteUser(Integer id) {
         userDao.delete(id);
     }

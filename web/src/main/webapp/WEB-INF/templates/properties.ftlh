@@ -1,4 +1,12 @@
-<#include "navbar.ftlh">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <#import "head.ftlh" as title>
+    <@title.defaultHead title="Ustawienia"/>
+    <#include "navbarCssStyle.ftlh">
+</head>
+<body>
+<#include "navbarBody.ftlh">
 <div class="propertiesForm">
     <div class="w3-content" style="max-width:800px;margin-top:46px">
         <form method="post" action="/properties" enctype="form-data">
@@ -23,4 +31,6 @@
         </form>
     </div>
 </div>
+</body>
+</html>
 <#include "footer.ftlh">

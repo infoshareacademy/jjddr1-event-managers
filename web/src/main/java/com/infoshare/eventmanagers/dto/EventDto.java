@@ -3,6 +3,7 @@ package com.infoshare.eventmanagers.dto;
 import com.infoshare.eventmanagers.models.Event;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EventDto {
 
@@ -21,6 +22,12 @@ public class EventDto {
     private String active;
     private TicketDto ticket;
     private boolean isFavorite;
+
+    public String formatLocalDateTime(LocalDateTime localDateTime, String string) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(string);
+        String dateTimeAsFormattedString = localDateTime.format(dateTimeFormatter);
+        return dateTimeAsFormattedString;
+    }
 
     public EventDto() {
     }

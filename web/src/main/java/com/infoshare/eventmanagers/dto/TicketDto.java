@@ -25,11 +25,13 @@ public class TicketDto {
 
     public static Ticket toTicket(TicketDto ticketDto){
         Ticket ticket = new Ticket();
+        ticket.setId(ticketDto.getId());
         ticket.setType(ticketDto.getType());
         return ticket;
     }
     public static TicketDto toTicketDto(Ticket ticket){
         TicketDto ticketDto = new TicketDto();
+        ticketDto.setId(ticket.getId());
         ticketDto.setType(ticket.getType());
         return ticketDto;
     }

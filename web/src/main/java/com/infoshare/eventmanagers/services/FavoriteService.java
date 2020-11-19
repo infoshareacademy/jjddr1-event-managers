@@ -2,6 +2,7 @@ package com.infoshare.eventmanagers.services;
 
 import com.infoshare.eventmanagers.dao.Dao;
 import com.infoshare.eventmanagers.dao.EventDao;
+import com.infoshare.eventmanagers.dao.UserDao;
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.dto.UserFavoritesDto;
 import com.infoshare.eventmanagers.models.User;

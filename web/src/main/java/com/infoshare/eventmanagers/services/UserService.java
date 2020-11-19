@@ -26,18 +26,18 @@ public class UserService {
             userDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
         }
         userDao.save(UserDto.toUser(userDto));
-       return true;
+        return true;
     }
 
 
     @Transactional
     public boolean checkEmail(String email) {
-        return userDao.isEmailExists(email);
+        return userDao.doEmailExists(email);
     }
 
     @Transactional
     public boolean checkUsername(String username) {
-        return userDao.isUsernameExists(username);
+        return userDao.doUsernameExists(username);
 
     }
 

@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         int userId = userService.loginUser(new LoginUserDto(username, req.getParameter("password")));
         if (userId > 0) {
             HttpSession session = req.getSession();
-            session.setAttribute("id", 1);
+            session.setAttribute("id", userId);
             resp.sendRedirect("/index.html");
 
         }

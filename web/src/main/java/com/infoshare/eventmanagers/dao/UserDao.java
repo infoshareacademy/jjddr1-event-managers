@@ -43,10 +43,10 @@ public class UserDao {
 
     public User update(Integer id, User user) {
         User userToUpdate = entityManager.find(User.class, id);
-       
-// TODO: zrefaktorować metodę by robiła update na wsystkie pola.  Aktualna wersja zapewnia  funkcjonalność 
 
-        User userUpdated = entityManager.find(User.class,id);
+// TODO: zrefaktorować metodę by robiła update na wsystkie pola.  Aktualna wersja zapewnia  funkcjonalność
+
+        User userUpdated = entityManager.find(User.class, id);
         userUpdated.setFavoriteList(user.getFavoriteList());
         User merge = entityManager.merge(userUpdated);
         return merge;
@@ -75,7 +75,7 @@ public class UserDao {
                 id = user.getId();
             }
         } catch (Exception ignored) {
-                //Powinno logować do pliku ?
+            //Powinno logować do pliku ?
         }
 
         return id;

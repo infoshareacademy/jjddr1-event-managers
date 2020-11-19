@@ -21,4 +21,5 @@ public class TemplateProvider {
         configuration.setServletContextForTemplateLoading(servletContext, TEMPLATES_DIRECTORY_PATH);
         return configuration.getTemplate(templateName);
     }
+
 }

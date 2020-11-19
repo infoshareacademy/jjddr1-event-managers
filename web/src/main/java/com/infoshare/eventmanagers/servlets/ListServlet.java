@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
@@ -45,28 +46,35 @@ public class ListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String startParam = request.getParameter("start");
         String rangeParam = request.getParameter("range");
-        int mockId = Integer.parseInt("101");
+        Integer userId = (Integer) (request.getSession().getAttribute("id"));
         Integer start;
         Integer range;
-        if (startParam==null) {
-            start = 0;
-        } else start = Integer.valueOf(startParam);
-        if (rangeParam==null) {
+        boolean loggedIn = false;
+        if (request.getSession(false)!=null&&request.getSession(false).getAttribute("id")!=null) {
+            loggedIn = true;
+        }
+        if (rangeParam == null) {
             range = 10;
         } else range = Integer.valueOf(rangeParam);
+        if (startParam == null) {
+            start = 0;
+        } else start = Integer.valueOf(startParam);
 
         List<EventDto> events = eventService.getRange(start, range);
-        events = favoriteService.setIsFavoriteEventDtoList(events,mockId);
+        if (loggedIn==true){
+            events = favoriteService.setIsFavoriteEventDtoList(events, userId);
+        }
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
         root.put("start", start);
-        root.put("next", start+range);
-        root.put("previous", start-range);
+        root.put("next", start + range);
+        root.put("previous", start - range);
         root.put("range", range);
         root.put("numberOfEvents", numberOfEvents);
-        root.put("userId",mockId);
-        Template template = templateProvider.getTemplate(getServletContext(),"listOfEvents.ftlh");
+        root.put("loggedIn",loggedIn);
+        root.put("userId", userId);
+        Template template = templateProvider.getTemplate(getServletContext(), "listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {
             template.process(root, out);

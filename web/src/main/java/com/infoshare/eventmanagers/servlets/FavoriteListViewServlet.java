@@ -30,13 +30,14 @@ public class FavoriteListViewServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
         int start = Integer.parseInt(req.getParameter("start"));
         int range = Integer.parseInt(req.getParameter("range"));
-        int mockId = Integer.parseInt("101");
+        Integer userId = (Integer)(req.getSession().getAttribute("id"));
 
-        int numberOfFavorites = favoriteService.getNumberOfFavorites(mockId);
-        List<EventDto> eventDtoList = favoriteService.getRange(mockId,start,range);
-        eventDtoList = favoriteService.setIsFavoriteEventDtoList(eventDtoList,mockId);
+        int numberOfFavorites = favoriteService.getNumberOfFavorites(userId);
+        List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
+        eventDtoList = favoriteService.setIsFavoriteEventDtoList(eventDtoList,userId);
 
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);
@@ -44,8 +45,9 @@ public class FavoriteListViewServlet extends HttpServlet {
         root.put("next", start+range);
         root.put("previous", start-range);
         root.put("range", range);
-        root.put("userId",mockId);
+        root.put("userId",userId);
         root.put("numberOfFavorites", numberOfFavorites);
+        root.put("loggedIn", true);
 
         Template template = templateProvider.getTemplate(getServletContext(), "favoriteListView.ftlh");
 

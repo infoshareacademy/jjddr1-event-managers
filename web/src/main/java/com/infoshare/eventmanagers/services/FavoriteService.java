@@ -75,13 +75,14 @@ public class FavoriteService {
 
     @Transactional
     public boolean isFavorite(Integer userId, Integer eventId){
-        UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(userDao.getById(userId));
+        User user = userDao.getById(userId);
+        UserFavoritesDto userFavoritesDto = UserFavoritesDto.toUserFavoritesDto(user);
         List<EventDto> favoriteList = userFavoritesDto.getFavoriteList();
         return favoriteList.stream().anyMatch(eventDto -> eventDto.getId().equals(eventId));
     }
 
     @Transactional
-    public List<EventDto> isFavoriteEventDtoList(List<EventDto> eventDtoList, Integer userId){
+    public List<EventDto> setIsFavoriteEventDtoList(List<EventDto> eventDtoList, Integer userId){
         for (EventDto e : eventDtoList) {
             e.setIsFavorite(isFavorite(userId,e.getId()));
         }

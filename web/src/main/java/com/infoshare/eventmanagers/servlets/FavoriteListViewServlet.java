@@ -3,7 +3,6 @@ package com.infoshare.eventmanagers.servlets;
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.FavoriteService;
-import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @WebServlet("/favoriteList")
 public class FavoriteListViewServlet extends HttpServlet {
@@ -38,7 +36,7 @@ public class FavoriteListViewServlet extends HttpServlet {
 
         int numberOfFavorites = favoriteService.getNumberOfFavorites(mockId);
         List<EventDto> eventDtoList = favoriteService.getRange(mockId,start,range);
-        eventDtoList = favoriteService.isFavoriteEventDtoList(eventDtoList,mockId);
+        eventDtoList = favoriteService.setIsFavoriteEventDtoList(eventDtoList,mockId);
 
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);

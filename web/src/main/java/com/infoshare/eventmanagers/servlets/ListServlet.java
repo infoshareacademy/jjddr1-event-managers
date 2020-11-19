@@ -4,7 +4,6 @@ import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.EventService;
 import com.infoshare.eventmanagers.services.FavoriteService;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -57,7 +56,7 @@ public class ListServlet extends HttpServlet {
         } else range = Integer.valueOf(rangeParam);
 
         List<EventDto> events = eventService.getRange(start, range);
-        events = favoriteService.isFavoriteEventDtoList(events,mockId);
+        events = favoriteService.setIsFavoriteEventDtoList(events,mockId);
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);

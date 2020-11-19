@@ -42,7 +42,7 @@ public class UserDao {
 
 
     public User update(Integer id, User user) {
-        User userToUpdat = entityManager.find(User.class, id);
+        User userToUpdate = entityManager.find(User.class, id);
        
 // TODO: zrefaktorować metodę by robiła update na wsystkie pola.  Aktualna wersja zapewnia  funkcjonalność 
 

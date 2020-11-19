@@ -35,11 +35,11 @@ public class LoginServlet extends HttpServlet {
         if (userId > 0) {
             HttpSession session = req.getSession();
             session.setAttribute("id", 1);
-            resp.sendRedirect("/index");
+            resp.sendRedirect("/index.html");
 
         }
 
-        req.setAttribute("username", username);
+
         doGet(req, resp);
 
 
@@ -52,8 +52,9 @@ public class LoginServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "login.ftlh");
 
         Map<String, Object> model = new HashMap<>();
-        Object username = req.getAttribute("username");
+        String username = req.getParameter("username");
         if (username != null) {
+            model.put("error", 1);
             model.put("username", username);
         }
         try {

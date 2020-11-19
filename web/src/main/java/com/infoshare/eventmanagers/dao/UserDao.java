@@ -76,13 +76,17 @@ public class UserDao {
     public int loginUser(LoginUserDto loginUserDto) {
         int id = 0;
 
-        User user = entityManager
-                .createQuery("SELECT U FROM User U WHERE U.username=:username", User.class)
-                .setParameter("username", loginUserDto)
-                .getSingleResult();
+        try {
+            User user = entityManager
+                    .createQuery("SELECT U FROM User U WHERE U.username=:username", User.class)
+                    .setParameter("username", loginUserDto.getUsername())
+                    .getSingleResult();
 
-        if (user.getPassword().equals(loginUserDto.getPassword())) {
-            id = user.getId();
+            if (user.getPassword().equals(loginUserDto.getPassword())) {
+                id = user.getId();
+            }
+        } catch (Exception ignored) {
+                //Powinno logować do pliku ?
         }
 
         return id;

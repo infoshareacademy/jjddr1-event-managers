@@ -2,24 +2,38 @@
 <html lang="pl">
 
 <head>
-    <meta charset="UTF-8">
-    <Title>Rejestracja użytkownika</Title>
+    <#import "head.ftlh" as title>
+    <@title.defaultHead title="Rejestracja"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/styleLoginRegister.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="/javascript/registerValidators.js"></script>
+    <style>
+        .nav body {
+            font-family: "Lato", sans-serif
+        }
+
+        .nav .mySlides {
+            display: none
+        }
+    </style>
+
     <style>
         body {
-            text-align: center;
+            text-align: center !important;
         }
 
         form {
             display: inline-block;
         }
-
     </style>
     <title>Strona Rejestracji</title>
+    <script src="javascript/registerValidators.js"></script>
 </head>
 <body
         <#if usernameIsAlreadyTaken?has_content && emailsIsAlreadyTaken?has_content>
@@ -31,6 +45,7 @@
         </#if>
 
 >
+<#include "navbarBodyLoginRegister.ftlh">
 <form action="/register" method="post" onsubmit="return checkAll();">
 
     <fieldset>

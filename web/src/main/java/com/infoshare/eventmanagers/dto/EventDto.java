@@ -20,6 +20,7 @@ public class EventDto {
     private OrganizerDto organizer;
     private String active;
     private TicketDto ticket;
+    private boolean isFavorite;
 
     public EventDto() {
     }
@@ -126,6 +127,14 @@ public class EventDto {
 
     public void setTicket(TicketDto ticket) {
         this.ticket = ticket;
+    }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     @Override

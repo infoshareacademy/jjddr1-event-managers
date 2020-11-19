@@ -61,6 +61,10 @@ public class UserDao {
 //        }
         return null;
 
+        User userUpdated = entityManager.find(User.class,id);
+        userUpdated.setFavoriteList(user.getFavoriteList());
+        User merge = entityManager.merge(userUpdated);
+        return merge;
     }
 
 

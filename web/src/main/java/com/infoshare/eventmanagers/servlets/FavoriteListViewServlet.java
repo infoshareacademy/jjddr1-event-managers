@@ -3,7 +3,6 @@ package com.infoshare.eventmanagers.servlets;
 import com.infoshare.eventmanagers.dto.EventDto;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.FavoriteService;
-import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -27,17 +26,17 @@ public class FavoriteListViewServlet extends HttpServlet {
     @Inject
     FavoriteService favoriteService;
     @Inject
-    EventService eventService;
-    @Inject
     TemplateProvider templateProvider;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userId = Integer.parseInt(req.getParameter("userId"));
         int start = Integer.parseInt(req.getParameter("start"));
         int range = Integer.parseInt(req.getParameter("range"));
+        int mockId = Integer.parseInt("101");
 
-        List<EventDto> eventDtoList = favoriteService.getRange(userId,start,range);
+        int numberOfFavorites = favoriteService.getNumberOfFavorites(mockId);
+        List<EventDto> eventDtoList = favoriteService.getRange(mockId,start,range);
+        eventDtoList = favoriteService.setIsFavoriteEventDtoList(eventDtoList,mockId);
 
         Map<String, Object> root = new HashMap<>();
         root.put("events", eventDtoList);
@@ -45,7 +44,8 @@ public class FavoriteListViewServlet extends HttpServlet {
         root.put("next", start+range);
         root.put("previous", start-range);
         root.put("range", range);
-        root.put("userId",userId);
+        root.put("userId",mockId);
+        root.put("numberOfFavorites", numberOfFavorites);
 
         Template template = templateProvider.getTemplate(getServletContext(), "favoriteListView.ftlh");
 

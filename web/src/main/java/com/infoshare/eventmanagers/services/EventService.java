@@ -19,7 +19,7 @@ public class EventService {
     }
 
     public void updateDatabase(){
-        eventDao.saveAll(Utils.saveJsonAsArray("src/main/resources/events.json)"));
+        eventDao.saveAll(Utils.saveJsonAsArray("/src/main/resources/events.json"));
     }
 
     public List<EventDto> getAll(){

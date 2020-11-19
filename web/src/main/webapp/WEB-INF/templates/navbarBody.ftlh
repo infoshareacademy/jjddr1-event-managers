@@ -1,6 +1,5 @@
 
-</style>
-<body>
+
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
@@ -10,8 +9,8 @@
 
         <a href="#home" class="w3-bar-item w3-button w3-padding-large">HOME</a>
         <a href="/list" class="w3-bar-item w3-button w3-padding-large w3-hide-small">WYDARZENIA</a>
-        <a href="/favoriteList?userId=101&start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>
-<#--        <a href="/favoriteList?userId=${userId}&start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>-->
+        <a href="/favoriteList?start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>
+        <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small">USTAWIENIA</a>
         <a href="#kontakt" class="w3-bar-item w3-button w3-padding-large w3-hide-small">KONTAKT</a>
         <#if Session?exists>
 

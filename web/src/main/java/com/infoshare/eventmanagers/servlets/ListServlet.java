@@ -1,13 +1,11 @@
 package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
-import com.infoshare.eventmanagers.providers.ConfigProvider;
 import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.EventService;
-import freemarker.template.Configuration;
+import com.infoshare.eventmanagers.services.FavoriteService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
@@ -28,6 +26,8 @@ public class ListServlet extends HttpServlet {
     @Inject
     EventService eventService;
     @Inject
+    FavoriteService favoriteService;
+    @Inject
     TemplateProvider templateProvider;
 
     /**
@@ -45,6 +45,7 @@ public class ListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String startParam = request.getParameter("start");
         String rangeParam = request.getParameter("range");
+        int mockId = Integer.parseInt("101");
         Integer start;
         Integer range;
         if (startParam==null) {
@@ -54,8 +55,8 @@ public class ListServlet extends HttpServlet {
             range = 10;
         } else range = Integer.valueOf(rangeParam);
 
-
-        List<EventDto> events = eventService.getRangeSorted(start, range, "startDate", true);
+        List<EventDto> events = eventService.getRange(start, range);
+        events = favoriteService.setIsFavoriteEventDtoList(events,mockId);
         Long numberOfEvents = eventService.getNumberOfEvents();
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("events", events);
@@ -64,6 +65,7 @@ public class ListServlet extends HttpServlet {
         root.put("previous", start-range);
         root.put("range", range);
         root.put("numberOfEvents", numberOfEvents);
+        root.put("userId",mockId);
         Template template = templateProvider.getTemplate(getServletContext(),"listOfEvents.ftlh");
         Writer out = response.getWriter();
         try {

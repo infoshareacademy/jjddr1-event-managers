@@ -22,14 +22,11 @@ public class UserService {
     public boolean createUser(UserDto userDto) {
 
 
-        PropertiesDto propertiesDto = new PropertiesDto();
-        propertiesDto.setSortingOrder("organizator");
-        propertiesDto.setDateFormat("dd-MM-yyyy");
-        propertiesDto.setAscending(true);
-        userDto.setPropertiesDto(propertiesDto);
-
+        if (userDto.getPropertiesDto() == null) {
+            userDto.setPropertiesDto(PropertiesDto.getDefaultPropertiesDto());
+        }
         userDao.save(UserDto.toUser(userDto));
-        return true;
+       return true;
     }
 
 
@@ -41,6 +38,7 @@ public class UserService {
     @Transactional
     public boolean checkUsername(String username) {
         return userDao.isUsernameExists(username);
+
     }
 
     @Transactional

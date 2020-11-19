@@ -1,5 +1,6 @@
 
-
+</style>
+<body>
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
@@ -11,11 +12,16 @@
         <a href="/list" class="w3-bar-item w3-button w3-padding-large w3-hide-small">WYDARZENIA</a>
         <a href="/favoriteList?userId=101&start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>
 <#--        <a href="/favoriteList?userId=${userId}&start=0&range=10" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ULUBIONE</a>-->
-
         <a href="#kontakt" class="w3-bar-item w3-button w3-padding-large w3-hide-small">KONTAKT</a>
+        <#if Session?exists>
+
+        <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small"> ${Session.get("id")}</a>
+        </#if>
+        <a href="/properties" class="w3-bar-item w3-button w3-padding-large w3-hide-small">USTAWIENIA</a>
         <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i
                     class="fa fa-search"></i></a>
-        <a href="#login" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Log in</a>
+        <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Zaloguj</a>
+        <a href="/register" class="w3-bar-item w3-button w3-padding-large w3-hover-red w3-hide-small  w3-right">Zarejestruj</a>
 
     </div>
 </div>

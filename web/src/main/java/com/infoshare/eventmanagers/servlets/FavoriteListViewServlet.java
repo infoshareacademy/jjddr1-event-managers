@@ -30,9 +30,10 @@ public class FavoriteListViewServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
         int start = Integer.parseInt(req.getParameter("start"));
         int range = Integer.parseInt(req.getParameter("range"));
-        int mockId = Integer.parseInt("101");
+        int mockId = Integer.parseInt("5");
 
         int numberOfFavorites = favoriteService.getNumberOfFavorites(mockId);
         List<EventDto> eventDtoList = favoriteService.getRange(mockId,start,range);

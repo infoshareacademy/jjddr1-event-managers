@@ -42,24 +42,9 @@ public class UserDao {
 
 
     public User update(Integer id, User user) {
-        User userToUpdated = entityManager.find(User.class, id);
-//        if (userToUpdated != null) {
-//            if (!userToUpdated.getEmail().equals(user.getEmail())) {
-//                userToUpdated.setEmail(user.getEmail());
-//            }
-//            if (!userToUpdated.getFavoriteList().equals(user.getFavoriteList())) {
-//                userToUpdated.setFavoriteList(user.getFavoriteList());
-//            }
-//            if (!userToUpdated.getPassword().equals(user.getPassword())) {
-//                userToUpdated.setPassword(user.getPassword());
-//            }
-//            if (!userToUpdated.getProperties().equals(user.getProperties())) {
-//                userToUpdated.setProperties(user.getProperties());
-//            }
-//            return entityManager.merge(userToUpdated);
-
-//        }
-//        return null;
+        User userToUpdat = entityManager.find(User.class, id);
+       
+// TODO: zrefaktorować metodę by robiła update na wsystkie pola.  Aktualna wersja zapewnia  funkcjonalność 
 
         User userUpdated = entityManager.find(User.class,id);
         userUpdated.setFavoriteList(user.getFavoriteList());

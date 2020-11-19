@@ -22,5 +22,4 @@ public class TemplateProvider {
         return configuration.getTemplate(templateName);
     }
 
-    //T
 }

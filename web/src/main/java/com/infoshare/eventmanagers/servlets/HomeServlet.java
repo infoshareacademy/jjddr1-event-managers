@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/index.html")
 public class HomeServlet extends HttpServlet {
@@ -21,13 +22,11 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "index.ftlh");
-        Map root = new HashMap<>();
-        String user = (String) req.getSession().getAttribute("user");
 
-        if (user != null) {
-            root.put("user", user);
-        }
+
+        Map<String, Object> root = templateProvider.getDefaultModel(Optional.ofNullable(req.getSession(false)));
         try {
             template.process(root, resp.getWriter());
         } catch (TemplateException | IOException e) {

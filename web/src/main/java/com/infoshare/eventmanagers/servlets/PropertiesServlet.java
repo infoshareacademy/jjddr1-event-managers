@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/properties")
 public class PropertiesServlet extends HttpServlet {
@@ -30,6 +31,10 @@ public class PropertiesServlet extends HttpServlet {
     UserService userService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession(false) == null) {
+            response.sendRedirect("/index.html");
+        }
+        response.setContentType("text/html;charset=UTF-8");
         String id = request.getSession().getAttribute("id").toString();
 
         //This part updates properties from form in this endpoint after choosing "save button"
@@ -44,7 +49,7 @@ public class PropertiesServlet extends HttpServlet {
             propertiesDto.setDateFormat(request.getParameter("dateFormat"));
             userPropertiesDto.setPropertiesDto(propertiesDto);
 
-            userService.updateUserProperties(Integer.parseInt(id),UserPropertiesDto.toUserDto(userPropertiesDto));
+            userService.updateUserProperties(Integer.parseInt(id), UserPropertiesDto.toUserDto(userPropertiesDto));
 
         }
         //this part set default user's properties by choosing "default button"
@@ -58,7 +63,7 @@ public class PropertiesServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "properties.ftlh");
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = templateProvider.getDefaultModel(Optional.of(request.getSession(false)));
         try {
             template.process(model, response.getWriter());
         } catch (TemplateException e) {

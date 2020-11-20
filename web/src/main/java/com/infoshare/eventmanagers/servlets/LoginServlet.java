@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -28,6 +29,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
         String username = req.getParameter("username");
 
@@ -48,10 +50,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
+        resp.setContentType("text/html;charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "login.ftlh");
 
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = templateProvider.getDefaultModel(Optional.ofNullable(req.getSession(false)));
         String username = req.getParameter("username");
         if (username != null) {
             model.put("error", 1);

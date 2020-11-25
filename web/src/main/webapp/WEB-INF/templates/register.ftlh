@@ -21,9 +21,14 @@
         .nav .mySlides {
             display: none
         }
-    </style>
 
-    <style>
+        footer {
+            clear: both;
+            position: relative;
+            height: 200px;
+            margin-top: -200px;
+        }
+
         body {
             text-align: center !important;
         }
@@ -119,4 +124,5 @@
     </fieldset>
 </form>
 </body>
+
 </html>

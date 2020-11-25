@@ -4,6 +4,8 @@
     <#import "head.ftlh" as title>
     <@title.defaultHead title="home"/>
     <#include "navbarCssStyle.ftlh">
+
+    </style>
 </head>
 <body>
 <#include "navbarBody.ftlh">
@@ -211,6 +213,6 @@
         }
     }
 </script>
-<#include "footer.ftlh">
 </body>
+<#include "footer.ftlh">
 </html>

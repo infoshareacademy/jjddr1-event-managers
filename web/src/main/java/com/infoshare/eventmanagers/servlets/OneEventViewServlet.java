@@ -1,6 +1,7 @@
 package com.infoshare.eventmanagers.servlets;
 
 import com.infoshare.eventmanagers.dto.EventDto;
+import com.infoshare.eventmanagers.providers.TemplateProvider;
 import com.infoshare.eventmanagers.services.EventService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/viewOne")
 public class OneEventViewServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class OneEventViewServlet extends HttpServlet {
     private Configuration cfg;
     @Inject
     EventService eventService;
+
+    @Inject
+    TemplateProvider templateProvider;
 
     /**
      * Default constructor.
@@ -52,7 +57,7 @@ public class OneEventViewServlet extends HttpServlet {
         if (requestParameter != null) {
             Integer id = Integer.parseInt(requestParameter);
             EventDto eventDto = eventService.get(id);
-            Map<String, Object> root = new HashMap<String, Object>();
+            Map<String, Object> root = templateProvider.getDefaultModel(Optional.ofNullable(request.getSession(false)));
             root.put("title", "OneEventView");
             root.put("eventDto", eventDto);
             Template template = cfg.getTemplate("oneEventView.ftlh");

@@ -30,6 +30,10 @@ public class FavoriteManageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession(false) == null) {
+            resp.sendRedirect("/index.html");
+        }
+        resp.setContentType("text/html;charset=UTF-8");
         int favoriteId = Integer.parseInt(req.getParameter("favoriteId"));
         int userId = Integer.parseInt(req.getParameter("userId"));
         String action = req.getParameter("action");

@@ -20,6 +20,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/list")
 public class ListServlet extends HttpServlet {
@@ -65,14 +66,13 @@ public class ListServlet extends HttpServlet {
             events = favoriteService.setIsFavoriteEventDtoList(events, userId);
         }
         Long numberOfEvents = eventService.getNumberOfEvents();
-        Map<String, Object> root = new HashMap<String, Object>();
+        Map<String, Object> root = templateProvider.getDefaultModel(Optional.of(request.getSession(false)));
         root.put("events", events);
         root.put("start", start);
         root.put("next", start + range);
         root.put("previous", start - range);
         root.put("range", range);
         root.put("numberOfEvents", numberOfEvents);
-        root.put("loggedIn",loggedIn);
         root.put("userId", userId);
         Template template = templateProvider.getTemplate(getServletContext(), "listOfEvents.ftlh");
         Writer out = response.getWriter();

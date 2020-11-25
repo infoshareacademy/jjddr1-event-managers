@@ -20,9 +20,9 @@
         .nav .mySlides {
             display: none
         }
-    </style>
 
-    <style>
+
+
         body {
             text-align: center !important;
         }
@@ -81,4 +81,5 @@
     </fieldset>
 </form>
 </body>
+
 </html>

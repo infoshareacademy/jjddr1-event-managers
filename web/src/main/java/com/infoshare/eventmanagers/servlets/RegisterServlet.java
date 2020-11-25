@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -59,8 +60,9 @@ public class RegisterServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setContentType("text/html;charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "register.ftlh");
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = templateProvider.getDefaultModel(Optional.ofNullable(request.getSession(false)));
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         if (username != null) {
